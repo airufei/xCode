@@ -1,0 +1,117 @@
+ @media only screen and (max-width:800px) {/*列的第一个效果*/
+#container .list:first-child {
+	width: 92%;
+	border-bottom: 1px solid #ececec;
+	padding: 0px 0px;
+	margin: 0 auto;
+}
+/*择属于父元素的第一个子元素的每个 <p> 元素,父字*/
+#container .list:first-child .mecc {
+	width: 100%;
+	padding: 15px 0px;
+}
+#container .list:first-child .mucc {
+	width: 100%;
+	padding: 15px 0px;}
+#container .list:first-child .mecctitle {
+	height: auto;
+	line-height: 35px;
+}
+#container .list:first-child .mecctitle a {
+	font-size: 21px;
+	font-weight: normal;
+	color: #150707;
+}
+#container .list:first-child .meccaddress {
+	color: #a2a2a2;
+	margin-top: 9px;
+	font-style: normal;
+}
+#container .list:first-child .titleimg {
+	width: 100%;
+	display: block;
+}
+#container .list:first-child .titleimg img {
+	float: left;
+	width: 100%;
+}
+#container .list:first-child .zaiyao p {
+	width: 100%;
+	padding: 10px 0px;
+	line-height: 30px;
+	display: block;
+	overflow: hidden;
+	font-size: 14px;
+}
+#container .list:first-child .zuiyao p {
+	width: 100%;
+	padding: 10px 0px;
+	line-height: 30px;
+	display: block;
+	overflow: hidden;
+	font-size: 14px;
+	padding-top:0px;margin-top:-5px;
+}
+}
+@media only screen and (min-width: 800px) {
+#container .list:first-child {
+	width: 875px;
+	margin-left:-50px;
+	border-bottom: none;
+	overflow: hidden;
+	position: relative;
+		padding-bottom:10px;
+}
+#container .list:first-child .mecc {
+	float:left;
+	height:78px;padding:2px 0px;border:1px solid #fff;border-left:none;padding-right:30px;width:100%;background:#FAFAFA;overflow:hidden;
+}
+#container .list:first-child .mucc {
+	float:left;
+	height:78px;padding:2px 0px;border:1px solid #fff;border-left:none;padding-right:30px;width:100%;background:#FAFAFA;
+}
+#container .list:first-child .iu {position: static;
+	float: left;
+	height: 78px;
+	border-radius: 0px;
+	line-height: 80px;
+	color: #ec9573;
+	font-size: 80px;
+	text-align: center;
+	text-indent: 0px;
+	display:block;transition: All 1s ease-in-out;
+	background:none;
+	margin-left:20px;
+	
+}
+#container .list:first-child .iu:hover {
+	background: none;
+	color: #ec9573;
+	transform: rotatey(360deg);
+
+}
+#container .list:first-child .mecctitle {
+	line-height: 30px;
+	height:30px;
+    margin-top:10px;
+
+}
+#container .list:first-child .mecctitle a {
+	font-size: 25px;
+	color: #D6623D;
+}
+#container .list:first-child .meccaddress {
+	margin-top:12px;
+}
+#container .list:first-child .titleimg {
+ display:none;
+}
+#container .list:first-child .zaiyao {width:820px;margin-top:15px;
+}
+#container .list:first-child .zaiyao p{text-indent:30px;
+}
+#container .list:first-child .zuiyao {width:820px;float: right;margin-right: 5px;margin-top:15px;
+}
+#container .list:first-child .zuiyao p{text-indent:30px;
+}
+}

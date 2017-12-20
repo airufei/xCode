@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.code.dao.IGenTableColumnDao">
+    
+    <sql id="genTableColumnColumns">
+		id, 
+			table_id as tableId, 
+			table_name as tableName, 
+			name, 
+			comments, 
+			jdbc_type as jdbcType, 
+			java_type as javaType, 
+			java_field as javaField, 
+			is_pk as isPk, 
+			is_null as isNull, 
+			is_insert as isInsert, 
+			is_edit as isEdit, 
+			is_list as isList, 
+			is_query as isQuery, 
+			is_editPage as isEditPage,
+			query_type as queryType, 
+			show_type as showType, 
+			dict_type as dictType, 
+			sort, 
+			createtime, 
+			updatetime, 
+		    str_to_date(createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	        str_to_date(updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+			remark, 
+			flag
+	</sql>
+	
+    <select id="getGenTableColumnById" resultType="com.cn.cooxin.code.entity.GenTableColumn">
+		SELECT 
+			<include refid="genTableColumnColumns"/>
+		FROM t_code_table_column a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.code.entity.GenTableColumn" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
+		SELECT 
+			<include refid="genTableColumnColumns"/>
+		FROM t_code_table_column a
+		WHERE a.flag = #{flag} 
+		<if test="tableName != null and tableName != ''">
+			AND a.table_name=#{tableName}
+		</if>
+		<if test="tableId != null and tableId != ''">
+			AND a.table_id = #{tableId}
+		</if>
+		
+	</select>
+	<select id="getQueryFieldCount" resultType="Integer" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
+		SELECT 
+			count(0) as count
+		FROM t_code_table_column a
+		WHERE a.flag = #{flag} 
+		<if test="tableName != null and tableName != ''">
+			AND a.table_name=#{tableName}
+		</if>
+		<if test="tableId != null and tableId != ''">
+			AND a.table_id = #{tableId}
+		</if>
+		and a.is_query='1'
+	</select>
+	<select id="getEditFieldCount" resultType="Integer" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
+		SELECT 
+			count(0) as count
+		FROM t_code_table_column a
+		WHERE a.flag = #{flag} 
+		<if test="tableName != null and tableName != ''">
+			AND a.table_name=#{tableName}
+		</if>
+		<if test="tableId != null and tableId != ''">
+			AND a.table_id = #{tableId}
+		</if>
+		and a.is_editPage='1'
+	</select>
+	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenTableColumn">
+		SELECT 
+			<include refid="genTableColumnColumns"/>
+		FROM t_code_table_column a
+		WHERE a.flag = #{flag} 
+	</select>
+	
+	<insert id="add">
+		INSERT INTO t_code_table_column(
+			id, 
+			table_id, 
+			table_name, 
+			name, 
+			comments, 
+			jdbc_type, 
+			java_type, 
+			java_field, 
+			is_pk, 
+			is_null, 
+			is_insert, 
+			is_edit, 
+			is_list, 
+			is_query, 
+			is_editPage,
+			query_type, 
+			show_type, 
+			dict_type, 
+			sort, 
+			createtime, 
+			updatetime, 
+			remark, 
+			flag
+		) VALUES (
+			#{id}, 
+			#{tableId}, 
+			#{tableName}, 
+			#{name}, 
+			#{comments}, 
+			#{jdbcType}, 
+			#{javaType}, 
+			#{javaField}, 
+			#{isPk}, 
+			#{isNull}, 
+			#{isInsert}, 
+			#{isEdit}, 
+			#{isList}, 
+			#{isQuery}, 
+			#{isEditPage},
+			#{queryType}, 
+			#{showType}, 
+			#{dictType}, 
+			#{sort}, 
+			#{createtime}, 
+			#{updatetime}, 
+			#{remark}, 
+			#{flag}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_code_table_column SET 
+			comments = #{comments}, 
+			jdbc_type = #{jdbcType}, 
+			java_type = #{javaType}, 
+			java_field = #{javaField}, 
+			is_pk = #{isPk}, 
+			is_null = #{isNull}, 
+			is_insert = #{isInsert}, 
+			is_edit = #{isEdit}, 
+			is_list = #{isList}, 
+			is_query = #{isEditPage}, 
+			is_editPage = #{isQuery}, 
+			query_type = #{queryType}, 
+			show_type = #{showType}, 
+			dict_type = #{dictType}, 
+			sort = #{sort}, 
+			updatetime = #{updatetime}, 
+			remark = #{remark},
+			flag = #{flag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		delete from t_code_table_column 
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deleteColumnByTableId">
+		delete from t_code_table_column 
+		WHERE table_id = #{tableId}
+	</update>
+	
+</mapper>

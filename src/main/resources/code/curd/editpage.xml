@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>editpage</name>
+	<filePath>src/main/webapp/WEB-INF/jsp/${modulePageName}/${className}</filePath>
+	<fileName>edit.jsp</fileName>
+	<content><![CDATA[
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="/WEB-INF/jsp/admin/common/head.jsp"%>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>${functionNameSimple}管理</title>
+</head>
+<body>
+<center>
+		<div style="background: #fafafa; padding: 10px;">
+			<form id="editForm" name="editForm" method="post">
+				<input  type="hidden"  value="${r'$'}{entity.id}" name="id" maxlength="20" />				
+				<table style=" border-collapse:   separate;   border-spacing:   10px; ">
+				   <#list colList as c>
+				   <#if (c.isEditPage?? && c.isEditPage == "1")> 
+					<tr>
+						<td>${c.comments}:</td>
+						<td style="width:230px;">
+						
+						<#if c.showType == "textarea">
+						<textarea id="${c.javaFieldId}" rows=5 name="${c.javaFieldId}"  style="width:100%;" maxlength="200"  class="textarea easyui-validatebox">${r'$'}{entity.${c.javaFieldId}}</textarea>
+						<#elseif c.showType == "select">
+						<select name="${c.javaFieldId}" class="easyui-combobox" style="width:100%;">
+						  
+						</select>
+						<#elseif c.showType == "dateselect">
+						<input id="${c.javaFieldId}" name="${c.javaFieldId}"  value="${r'$'}{entity.${c.javaFieldId}}" maxlength="${c.dataLength}"  type="text" class="easyui-datebox" required="required"/>
+						<#else>
+						<input  class="easyui-textbox" style="width:100%;height:32px"  value="${r'$'}{entity.${c.javaFieldId}}" name="${c.javaFieldId}" maxlength="${c.dataLength}" />
+						</#if>
+				        <span></span>
+				          </td>
+				       	<td></td>
+					</tr>
+					</#if>
+			        </#list>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><a href="javascript:void(0)"  onclick="save()" class="easyui-linkbutton">保存</a></td>
+						<td><a href="javascript:void(0)"  onclick="closeDialogAndreload()" class="easyui-linkbutton">关闭</a></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</center>
+
+	<script type="text/javascript">
+
+	   function save()
+	   {
+		   var parms= $("#editForm").serializeJson();		   
+		   $.ajax({  
+		        type: "POST",  
+		        contentType : 'application/json;charset=utf-8', //设置请求头信息
+		        url: "<%=request.getContextPath()%>/${subModuleName}/save",  
+		        async: false,  
+		        data: parms,  
+		        dataType: "json",  
+		        success: function (data) {  
+		        	if(data!=null&&data!=undefined&&data!="undefined")
+					{
+						var res=data.result;
+						var msg=data.msg;
+						$.messager.alert("操作提示", msg);
+						if(res)
+						{
+						  closeDialogAndreload();
+						}   
+						
+					}
+		  
+		        }  
+		    });  
+	   }
+	</script>
+</body>
+</html>]]>
+	</content>
+</template>

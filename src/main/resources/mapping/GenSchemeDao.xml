@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.code.dao.IGenSchemeDao">
+    
+    <sql id="genSchemeColumns">
+		    id, 
+			name, 
+			category, 
+			package_name as packageName, 
+			module_name as moduleName, 
+			module_page_name as modulePageName,
+			sub_module_name as subModuleName, 
+			function_name as functionName, 
+			function_name_simple as functionNameSimple, 
+			function_author as functionAuthor, 
+			table_id as tableId, 
+			table_name as tableName, 
+			createtime, 
+			updatetime, 
+		    str_to_date(createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	        str_to_date(updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+			remark, 
+			flag
+	</sql>
+	
+	<sql id="genSchemeJoins">
+		
+    </sql>
+    
+    <select id="getSchemeById" resultType="com.cn.cooxin.code.entity.GenScheme">
+		SELECT 
+			<include refid="genSchemeColumns"/>
+		FROM t_code_scheme a
+		<include refid="genSchemeJoins"/>
+		WHERE  a.flag =0 and a.id = #{id}
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.code.entity.GenScheme" parameterType="Map">
+		SELECT 
+			<include refid="genSchemeColumns"/>
+		FROM t_code_scheme a
+		<include refid="genSchemeJoins"/>
+		WHERE a.flag =0
+		<if test="name != null and name != ''">
+			AND a.name LIKE 
+				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+		</if>
+		<choose>
+			<otherwise>
+				ORDER BY a.updatetime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="Map">
+		SELECT 
+			count(0) as count
+		FROM t_code_scheme a
+		WHERE a.flag = 0
+		<if test="name != null and name != ''">
+			AND a.name LIKE 
+				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+		</if>
+	</select>
+	
+	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenScheme">
+		SELECT 
+			<include refid="genSchemeColumns"/>
+		FROM t_code_scheme a
+		<include refid="genSchemeJoins"/>
+		WHERE a.flag = 0
+	</select>
+	
+	<insert id="add">
+		INSERT INTO t_code_scheme(
+			id, 
+			name, 
+			category, 
+			package_name, 
+			module_name, 
+			module_page_name,
+			sub_module_name, 
+			function_name, 
+			function_name_simple, 
+			function_author, 
+			table_id, 
+			table_name, 
+			createtime, 
+			updatetime, 
+			remark, 
+			flag
+		) VALUES (
+			#{id}, 
+			#{name}, 
+			#{category},  
+			#{packageName},  
+			#{moduleName},  
+			#{modulePageName},
+			#{subModuleName},  
+			#{functionName},  
+			#{functionNameSimple},  
+			#{functionAuthor},  
+			#{tableId},
+			#{tableName},    
+			#{createtime}, 
+			#{updatetime}, 
+			#{remark}, 
+			#{flag}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_code_scheme SET 
+			name = #{name}, 
+			category = #{category},  
+			package_name = #{packageName},  
+			module_name = #{moduleName},  
+			module_page_name=#{modulePageName},
+			sub_module_name = #{subModuleName},  
+			function_name = #{functionName},  
+			function_name_simple = #{functionNameSimple},  
+			function_author = #{functionAuthor},  
+			table_id = #{tableId},  
+			table_name=#{tableName},  
+			updatetime = #{updatetime}, 
+			remark = #{remark}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deleteById">
+		delete from  t_code_scheme 
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

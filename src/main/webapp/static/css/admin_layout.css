@@ -1,0 +1,101 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.header1 {
+    /*'Lucida Grande' , Verdana, Tahoma, Arial, sans-serif,HelveticaNeue-Light, 'Helvetica Neue Light' , 'Helvetica Neue' , Helvetica, Arial, sans-serif;*/
+    overflow: hidden;
+    height: 70px;
+    background-repeat: repeat-x;
+}
+
+.header2 {
+    height: 70px;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    /*background: #666;
+    direction: ltr;*/
+}
+
+.logo {
+    padding: 15px;
+    font-size: 32px;
+    float: left;
+    color: #0e2d5f;
+}
+
+.contact {
+    text-align: right;
+    height: 65px;
+    padding: 10px;
+}
+
+.prompt {
+    color: #666;
+    margin: 0 15px;
+}
+
+
+.headerMenu ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.headerMenu a:link, .headerMenu a:visited {
+    text-decoration: none;
+}
+
+.headerMenu a:hover {
+    text-decoration: underline;
+}
+
+.headerMenu ul li {
+    margin: 0 10px;
+    float: right;
+    display: block;
+}
+
+    .headerMenu ul li a:link, .headerMenu ul li a:visited {
+        color: #666;
+    }
+
+.headerMenuDiv {
+    width: 1px;
+    height: 13px;
+    background: #999;
+}
+
+.footer {
+    height: 25px;
+    color: #707070;
+    text-align: center;
+    font-size: 10px;
+    padding-top: 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-border-box: border-box;
+   
+    background-repeat: repeat-x;
+    background-position: 0 -182px;
+}
+
+/* 主页面-菜单栏、导航栏、内容栏的宽度和高度设置 */
+#divMenuBar {
+    width: 200px;
+}
+
+#divHeader {
+    height: 70px;
+    overflow: hidden;
+}
+
+#divFooter {
+    height: 25px;
+}
+
+#divTitleBar {
+    padding: 10px;
+}
+

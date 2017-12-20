@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>controller</name>
+	<filePath>src/${packageName}/${javaModuleName}/api/controller</filePath>
+	<fileName>${ClassName}Controller.java</fileName>
+	<content><![CDATA[
+package ${packageName}.${javaModuleName}.controller;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
+import com.alibaba.fastjson.JSONObject;
+import ${packageName}.model.*;
+import ${packageName}.${javaModuleName}.service.*;
+/**
+ * ${ClassName}Controller(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@RestController
+@RequestMapping("/${subModuleName}")
+@SuppressWarnings("all")
+public class ${ClassName}Controller {
+
+    private static Logger logger = Logger.getLogger(${ClassName}Controller.class);
+	@Autowired
+	private ${ClassName}Service ${className}Service;
+	
+	/**
+	 * getList:(获取${functionName}分页查询接口)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param parms
+	 * @return
+	 */
+	@RequestMapping("/getlist")
+	public DataReturn getList(HttpServletRequest request, String parms){
+		DataReturn dataReturn = new DataReturn();
+        dataReturn.setCode(ResultCode.FAILURE);
+	   try {
+	        logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
+            if (StringUtil.isBlank(parms)) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            JSONObject json = JSONObject.parseObject(parms);
+            if (json == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            int pageNo = json.getIntValue("pageNo");
+            int pageSize = json.getIntValue("pageSize");
+            Map param = StringUtil.getPageMap(pageNo, pageSize);
+            param.putAll(json);
+            Partion pt = ${className}Service.list(param);
+            List<${ClassName}> list = null;
+            int totalCount = 0;
+            if (pt != null) {
+                list = (List<${ClassName}>) pt.getList();
+                totalCount = pt.getPageCount();
+            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("list", list);
+            jsonObject.put("totalCount", totalCount);
+            dataReturn.setData(jsonObject);
+            dataReturn.setCode(ResultCode.SUCCESS);
+        } catch (Exception e) {
+            dataReturn.setMessage("服务繁忙，请稍后再试");
+            logger.error("getList:(获取${functionName}分页查询接口) 异常===>e={}", e);
+            e.printStackTrace();
+        }
+        logger.info("getList:(获取${functionName}分页查询接口) 结束  parms={}", parms);
+        return dataReturn;
+	}
+
+     /**
+     * get${ClassName}List:(获取${functionName}不分页查询接口)
+     * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+     */
+    @RequestMapping("get${className}list")
+    public DataReturn get${ClassName}List(HttpServletRequest request, String parms) {
+        DataReturn dataReturn = new DataReturn();
+        dataReturn.setCode(ResultCode.FAILURE);
+        try {
+            logger.info("get${ClassName}List:(获取${functionName}不分页查询接口) 开始  parms={}", parms);
+            if (StringUtil.isBlank(parms)) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            JSONObject json = JSONObject.parseObject(parms);
+            if (json == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            if (${className} == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            List<${ClassName}> list= ${className}Service.get${ClassName}List(${className});
+            dataReturn.setData(list);
+            dataReturn.setCode(ResultCode.SUCCESS);
+        } catch (Exception e) {
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            logger.error("get${ClassName}List:(获取${functionName}不分页查询接口)===>e={}", e);
+            e.printStackTrace();
+        }
+        logger.info("get${ClassName}List:(获取${functionName}不分页查询接口) 结束  parms={},", parms);
+        return dataReturn;
+    }
+
+
+     /**
+     * get${ClassName}:(查询${functionName}单条数据接口)
+     * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+     */
+    @RequestMapping("get${className}")
+    public DataReturn get${ClassName}(HttpServletRequest request, String parms) {
+        DataReturn dataReturn = new DataReturn();
+        dataReturn.setCode(ResultCode.FAILURE);
+        try {
+            logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  parms={}", parms);
+            if (StringUtil.isBlank(parms)) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            JSONObject json = JSONObject.parseObject(parms);
+            if (json == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            if (${className} == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            ${ClassName}> ret${className}= ${className}Service.get${ClassName}>(${className});
+            dataReturn.setData(ret${className});
+            dataReturn.setCode(ResultCode.SUCCESS);
+        } catch (Exception e) {
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            logger.error("get${ClassName}:(查询${functionName}单条数据接口) 异常===>e={}", e);
+            e.printStackTrace();
+        }
+        logger.info("get${ClassName}:(查询${functionName}单条数据接口) 结束  parms={},", parms);
+        return dataReturn;
+    }
+
+	/**
+	 * delete:(逻辑删除${functionName}数据接口)
+	 * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+	 */
+	@RequestMapping("delete")
+	public DataReturn delete(HttpServletRequest request, String parms){
+	  DataReturn dataReturn = new DataReturn();
+        dataReturn.setCode(ResultCode.FAILURE);
+        try {
+            logger.info("delete:(逻辑删除${functionName}数据接口) 开始  parms={}", parms);
+            if (StringUtil.isBlank(parms)) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            JSONObject json = JSONObject.parseObject(parms);
+            if (json == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            Long id = json.getLong("id");
+            if (id != null && id > 0) {
+                ${className}Service.delete(id);
+                dataReturn.setMessage("删除成功");
+                dataReturn.setCode(ResultCode.SUCCESS);
+            } else {
+                dataReturn.setMessage("请选择需要删除的数据");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(" delete:(逻辑删除${functionName}数据接口) error===>" + e);
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+        }
+        logger.info("delete:(逻辑删除${functionName}数据接口) 结束  parms={}", parms);
+        return dataReturn;
+	}
+	
+	/**
+	 * save:(保存${functionName}数据接口)
+	 * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+	 */
+	@RequestMapping(value = "save")
+    public DataReturn save(HttpServletRequest request, String parms) {
+		DataReturn dataReturn = new DataReturn();
+        dataReturn.setCode(ResultCode.FAILURE);
+        try {
+            logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
+            if (StringUtil.isBlank(parms)) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            JSONObject json = JSONObject.parseObject(parms);
+            if (json == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            // 无保存内容
+            if (${className} == null) {
+                dataReturn.setMessage("无保存内容");
+                return dataReturn;
+            }
+            ${className}.setCreateTime(new Date());
+            ${className}.setUpdateTime(new Date());
+            // 保存数据库
+            ${className}Service.save(${className});
+            dataReturn.setCode(ResultCode.SUCCESS);
+            dataReturn.setMessage("保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("save:(保存${functionName}数据接口) :error===>" + e);
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            return dataReturn;
+        }
+        logger.info("save:(保存${functionName}数据接口) 结束  parms={}", parms);
+        return dataReturn;
+	}
+
+}]]>
+	</content>
+</template>

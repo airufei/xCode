@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/${javaModuleName}/service</filePath>
+	<fileName>${ClassName}Service.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.${javaModuleName}.service;
+
+
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ${packageName}.${javaModuleName}.model.*;
+import ${packageName}.${javaModuleName}.dao.${ClassName}Dao;
+
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@RestController
+@RequestMapping(value = "/server/${subModuleName}/")
+@SuppressWarnings("all")
+public class ${ClassName}Service  {
+
+	@Resource
+	private ${ClassName}Dao ${className}Dao;
+
+      /**
+	   * getList(获取${functionName}带分页数据-服务)
+	   * @param map
+	   * @return
+	   */
+	   @RequestMapping("list")
+	   public Partion  getList(Map map)
+	   {
+	      String parms = JSON.toJSONString(map);
+          logger.info("getList(获取${functionName}带分页数据-服务) 开始 parms={}", parms);
+          if(map==null||map.size()<1)
+          {
+             return null;
+          }
+	      List<${ClassName}> list= ${className}Dao.getList(map);
+	      int totalcount = getTotalCount(map);
+		  Partion pt = new Partion(map, list, totalcount);
+		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 parms={}", parms);
+		  return pt;
+	   }
+
+	   /**
+	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
+	   * @param map
+	   * @return
+	   */
+	   @RequestMapping("get${className}list")
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
+	   {
+	      String parms = JSON.toJSONString(${className});
+	      List<${ClassName}> list=null;
+          logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", parms);
+          if(${className}==null)
+          {
+             return list;
+          }
+	      list=${className}Dao.get${ClassName}List(${className});
+	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", parms);
+	      return list;
+	   }
+
+
+    /**
+	 * save (保存${functionName} 数据-服务)
+	 * @param ${className}
+	 * @return
+	 */
+    @RequestMapping("save")
+	public ${ClassName} save(${ClassName} ${className})
+	{
+	    String parms = JSON.toJSONString(${className});
+        logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
+        if (${className} == null) {
+            return ${className};
+        }
+	    if(${className}.getId()!=null&&${className}.getId()>0)
+	    {
+	       ${className}Dao.updateById(${className});
+	    }else
+	    {
+	       ${className}Dao.add(${className});
+	    }
+	    parms = JSON.toJSONString(dict);
+	    logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
+	    return  ${className};
+	}
+
+
+	   /**
+	   * get${ClassName}(获取${functionName}单条数据-服务)
+	   * @param map
+	   * @return
+	   */
+	   @RequestMapping("get${className}")
+	   public ${ClassName}  get${ClassName}(${ClassName} ${className})
+	   {
+	      ${ClassName} ret=null;
+	      String parms = JSON.toJSONString(${className});
+	      List<${ClassName}> list=null;
+          logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", parms);
+          if(${className}==null)
+          {
+             return ret;
+          }
+	       List<${ClassName}> list=get${ClassName}List(${className});
+	       if(list!=null&&list.size()>0)
+	       {
+	          ret=list.get(0);
+	       }
+	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 parms={}", parms);
+	      return ret;
+	   }
+
+    /**
+	 * delete(逻辑删除${functionName}数据-服务)
+	 * @param question
+	 * @return
+	 */
+     @RequestMapping("delete")
+	 public boolean delete(long id)
+	 {
+	    logger.info("delete(逻辑删除${functionName}数据-服务) 开始 id={}", id);
+        boolean isSuccess = false;
+        if (id < 1) {
+            return isSuccess;
+        }
+        ${ClassName} dt = get${ClassName}ById(id);
+        if (dt == null) {
+            return isSuccess;
+        }
+	    ${className}Dao.delete(id);
+	    isSuccess = true;
+        logger.info("delete(逻辑删除${functionName}数据-服务)结束 id={},isSuccess={}", id, isSuccess);
+        return isSuccess;
+	 }
+	  /**
+	   * 获取分页总记录数
+	   * @param map
+	   * @return
+	   */
+	   private int  getTotalCount(Map map)
+	   {
+	      return ${className}Dao.getTotalCount(map);
+	   }
+
+
+     /**
+	 * 获取单条数据
+	 * @param id
+	 * @return
+	 */
+	 private ${ClassName} get${ClassName}ById (long id)
+	 {
+	      return ${className}Dao.get${ClassName}ById(id);
+	 }
+
+	 /**
+	 * 修改单条数据
+	 * @param id
+	 * @return
+	 */
+	  private void updateById(${ClassName} ${className})
+	  {
+	     ${className}Dao.updateById(${className});
+	  }
+	
+}]]>
+	</content>
+</template>

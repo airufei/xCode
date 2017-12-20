@@ -1,0 +1,37 @@
+﻿
+@charset "utf-8";
+html {
+-webkit-text-size-adjust: none;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+ol, ul {
+	list-style: none;
+}
+img {
+	border: 0;
+	height: auto;
+	width: auto;
+}
+
+body {
+	font-size: 16px;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#b8c4cb), to(#f6f6f8));
+	color: #555555;
+	letter-spacing: 0.5px;
+}
+a {
+	color: #555555;
+	font-size: 14px;
+	text-decoration: none;
+}
+a:hover {
+	color: #d6623d;
+}
+::selection{background:#d6623d;color:#fff;}
+
+.clear {
+	clear: both;
+}

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.admin.dao.IDictDao">
+    
+	<sql id="dictColumns">
+	   str_to_date(a.createTime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	   str_to_date(a.updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.id AS "id",
+		a.dictKey AS "dictKey",
+		a.dictValue AS "dictValue",
+		a.fid AS "fid",
+		a.createtime AS "createtime",
+		a.updatetime AS "updatetime",
+		a.flag AS "flag",
+		a.remark AS "remark",
+		a.sort AS "sort",
+        b.dictValue as 'fname',
+		a.fvalue AS "fvalue",
+		a.type AS "type",
+		a.keyWords as "keyWords"
+	</sql>
+	
+	<sql id="dictJoins">
+	 left join t_base_dict b on a.fid=b.id 
+	</sql>
+    
+	<select id="getDictById" resultType="com.cn.cooxin.code.entity.Dict">
+		SELECT 
+			<include refid="dictColumns"/>
+		FROM t_base_dict a
+		<include refid="dictJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT 
+			count(0) as count
+		FROM t_base_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="dictKey != null and dictKey != ''">
+				AND a.dictKey = #{dictKey}
+			</if>
+			<if test="dictValue != null and dictValue != ''">
+				AND a.dictValue = #{dictValue}
+			</if>
+			<if test="fid != null and fid != ''">
+				AND a.fid = #{fid}
+			</if>
+			<if test="fvalue != null and fvalue != ''">
+				AND a.fvalue = #{fvalue}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.code.entity.Dict" parameterType="java.util.Map">
+		SELECT 
+			<include refid="dictColumns"/>
+		FROM t_base_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="dictKey != null and dictKey != ''">
+				AND a.dictKey = #{dictKey}
+			</if>
+			<if test="dictValue != null and dictValue != ''">
+				AND a.dictValue = #{dictValue}
+			</if>
+			<if test="fid != null and fid != ''">
+				AND a.fid = #{fid}
+			</if>
+			<if test="fvalue != null and fvalue != ''">
+				AND a.fvalue = #{fvalue}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+
+    <select id="getDictList" resultType="com.cn.cooxin.code.entity.Dict" parameterType="com.cn.cooxin.code.entity.Dict">
+		SELECT 
+			<include refid="dictColumns"/>
+		FROM t_base_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="dictKey != null and dictKey != ''">
+				AND a.dictKey = #{dictKey}
+			</if>
+			<if test="dictValue != null and dictValue != ''">
+				AND a.dictValue = #{dictValue}
+			</if>
+			<if test="fid != null and fid != ''">
+				AND a.fid = #{fid}
+			</if>
+			<if test="fvalue != null and fvalue != ''">
+				AND a.fvalue = #{fvalue}
+			</if>
+			<if test="keyWords != null and keyWords != ''">
+				AND a.keyWords  like concat('%',#{keyWords},'%')
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_base_dict(
+			id,
+			dictKey,
+			dictValue,
+			fid,
+			createtime,
+			updatetime,
+			flag,
+			remark,
+			sort,
+			fvalue,
+			type,
+			keyWords
+		) VALUES (
+			#{id},
+			#{dictKey},
+			#{dictValue},
+			#{fid},
+			#{createtime},
+			#{updatetime},
+			#{flag},
+			#{remark},
+			#{sort},
+			#{fvalue},
+			#{type},
+			#{keyWords}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_base_dict SET 	
+			dictKey = #{dictKey},
+			keyWords = #{keyWords},
+			dictValue = #{dictValue},
+			fid = #{fid},
+			updatetime = #{updatetime},
+			remark = #{remark},
+			sort = #{sort},
+			type = #{type},
+			fvalue = #{fvalue}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+	UPDATE t_base_dict SET 
+	flag = 1
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

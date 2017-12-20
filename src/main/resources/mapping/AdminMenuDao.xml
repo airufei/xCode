@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.admin.dao.IAdminMenuDao">
+
+	<sql id="adminMenuColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.url AS "url",
+		a.isbutton AS "isbutton",
+		a.createtime AS "createtime",
+		a.updatetime AS "updatetime",
+		str_to_date(a.createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	    str_to_date(a.updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.flag AS "flag",
+		a.remark AS "remark",
+		a.level AS "level",
+		a.isadmin as "isadmin",
+		a.fid AS "fid"
+	</sql>
+
+	<sql id="adminMenuJoins">
+	</sql>
+
+	<select id="getAdminMenuById" resultType="com.cn.cooxin.admin.entity.AdminMenu">
+		SELECT
+		<include refid="adminMenuColumns" />
+		FROM t_admin_menu a
+		<include refid="adminMenuJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT
+		count(0) as count
+		FROM t_admin_menu a
+		<include refid="adminMenuJoins" />
+		<where>
+		    a.isbutton=0
+			and a.flag = #{flag}
+			<if test="name != null and name != ''">
+				AND a.name like concat('%',#{name} ,'%') 
+			</if>
+			<if test="remark != null and remark != ''">
+				AND a.remark = #{remark}
+			</if>
+			<if test="isadmin != null and isadmin != ''">
+				AND a.isadmin = #{isadmin}
+			</if>
+			
+		</where>
+	</select>
+
+	<select id="getList" resultType="com.cn.cooxin.admin.entity.AdminMenu"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="adminMenuColumns" />
+		FROM t_admin_menu a
+		<include refid="adminMenuJoins" />
+		<where>
+		    a.isbutton=0
+		    
+			and a.flag = #{flag}
+			<if test="name != null and name != ''">
+				AND a.name like concat('%',#{name} ,'%') 
+			</if>
+			<if test="remark != null and remark != ''">
+				AND a.remark = #{remark}
+			</if>
+			<if test="isadmin != null and isadmin != ''">
+				AND a.isadmin = #{isadmin}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.createtime asc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize}
+	</select>
+
+	<select id="getAdminMenuList" resultType="com.cn.cooxin.admin.entity.AdminMenu"
+		parameterType="com.cn.cooxin.admin.entity.AdminMenu">
+		SELECT
+		<include refid="adminMenuColumns" />
+		FROM t_admin_menu a
+		left join t_admin_role_menu r on r.menuid=a.id 
+		<where>
+			a.flag = #{flag}
+			<if test="name != null and name != ''">
+				AND a.name like concat('%',#{name} ,'%') 
+			</if>
+			<if test="remark != null and remark != ''">
+				AND a.remark = #{remark}
+			</if>
+			<if test="fid != null and fid>0">
+				AND a.fid = #{fid}
+			</if>
+			<if test="id != null and id>0">
+				AND a.id = #{id}
+			</if>
+			<if test="level != null and level>0">
+				AND a.level = #{level}
+			</if>
+			<if test="roleId != null and roleId>0">
+				AND r.roleid = #{roleId}
+			</if>
+			<if test="isadmin != null and isadmin != ''">
+				AND a.isadmin = #{isadmin}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add"  useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_admin_menu(
+		id,
+		name,
+		url,
+		isbutton,
+		createtime,
+		updatetime,
+		flag,
+		remark,
+		level,
+		isadmin,
+		fid
+		) VALUES (
+		#{id},
+		#{name},
+		#{url},
+		#{isbutton},
+		#{createtime},
+		#{updatetime},
+		#{flag},
+		#{remark},
+		#{level},
+		#{isadmin},
+		#{fid}
+		)
+	</insert>
+
+	<update id="updateById">
+		UPDATE t_admin_menu SET
+		name = #{name},
+		url = #{url},
+		level=#{level},
+		isbutton = #{isbutton},
+		updatetime = #{updatetime},
+		flag = #{flag},
+		remark = #{remark},
+		fid = #{fid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateByFId">
+		UPDATE t_admin_menu SET
+		level=#{level},
+		updatetime = #{updatetime}
+		WHERE fid = #{fid}
+	</update>
+
+	<update id="delete">
+		UPDATE t_admin_menu SET
+		flag = 1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deleteByFid">
+		UPDATE t_admin_menu SET
+		flag = 1
+		WHERE fid = #{fid}
+	</update>
+
+</mapper>

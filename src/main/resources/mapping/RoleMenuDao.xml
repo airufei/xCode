@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.admin.dao.IRoleMenuDao">
+    
+	<sql id="roleMenuColumns">
+		a.id AS "id",
+		a.roleId AS "roleid",
+		a.menuId AS "menuid",
+		a.updatetime AS "updatetime",
+		a.flag AS "flag",
+		a.remark AS "remark",
+		a.createtime AS "createtime"
+	</sql>
+	
+	<sql id="roleMenuJoins">
+	</sql>
+    
+	<select id="getRoleMenuById" resultType="com.cn.cooxin.admin.entity.RoleMenu">
+		SELECT 
+			<include refid="roleMenuColumns"/>
+		FROM t_admin_role_menu a
+		<include refid="roleMenuJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT 
+			count(0) as count
+		FROM t_admin_role_menu a
+		<include refid="roleMenuJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="roleid != null and roleid != ''">
+				AND a.roleId = #{roleid}
+			</if>
+			<if test="menuid != null and menuid != ''">
+				AND a.menuId = #{menuid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.admin.entity.RoleMenu" parameterType="java.util.Map">
+		SELECT 
+			<include refid="roleMenuColumns"/>
+		FROM t_admin_role_menu a
+		<include refid="roleMenuJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="roleid != null and roleid != ''">
+				AND a.roleId = #{roleid}
+			</if>
+			<if test="menuid != null and menuid != ''">
+				AND a.menuId = #{menuid}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+
+    <select id="getRoleMenuList" resultType="com.cn.cooxin.admin.entity.RoleMenu" parameterType="com.cn.cooxin.admin.entity.RoleMenu">
+		SELECT 
+			<include refid="roleMenuColumns"/>
+		FROM t_admin_role_menu a
+		<include refid="roleMenuJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="roleid != null and roleid != ''">
+				AND a.roleId = #{roleid}
+			</if>
+			<if test="menuid != null and menuid != ''">
+				AND a.menuId = #{menuid}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="add">
+		INSERT INTO t_admin_role_menu(
+			id,
+			roleId,
+			menuId,
+			updatetime,
+			flag,
+			remark,
+			createtime
+		) VALUES (
+			#{id},
+			#{roleid},
+			#{menuid},
+			#{updatetime},
+			#{flag},
+			#{remark},
+			#{createtime}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_admin_role_menu SET 	
+			roleId = #{roleid},
+			menuId = #{menuid},
+			flag = #{flag},
+			remark = #{remark}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+	delete from  t_admin_role_menu where 
+	roleId = #{id}
+	</update>
+	
+</mapper>

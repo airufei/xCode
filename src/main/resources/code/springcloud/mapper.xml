@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>mapper</name>
+	<filePath>src/${packageName}/${javaModuleName}/dao</filePath>
+	<fileName>${ClassName}Dao.xml</fileName>
+	<content><![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${packageName}.${javaModuleName}.dao.${ClassName}Dao">
+
+    <#-- 输出字段列 -->
+	<sql id="${className}Columns">
+	   str_to_date(a.CREATE_TIME, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	   str_to_date(a.UPDATE_TIME, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		<#assign columnField>
+			<#list colList as c>
+		a.${c.name} AS "${c.javaFieldId}",
+			</#list>
+			<#list colList as c>
+				<#if c.showType?? && c.showType == "userselect">
+					<#list c.javaFieldAttrs as a>
+		u${c_index + 1}.${a[1]} AS "${c.simpleJavaField}.${a[0]}",
+					</#list>
+				<#elseif c.showType?? && c.showType == "officeselect">
+					<#list c.javaFieldAttrs as a>
+		o${c_index + 1}.${a[1]} AS "${c.simpleJavaField}.${a[0]}",
+					</#list>
+				<#elseif c.showType?? && c.showType == "areaselect">
+					<#list c.javaFieldAttrs as a>
+		a${c_index + 1}.${a[1]} AS "${c.simpleJavaField}.${a[0]}",
+					</#list>
+				</#if>
+			</#list>
+		</#assign>
+${columnField?substring(0, columnField?last_index_of(","))}
+	</sql>
+	
+	<#-- 输出字段关联表 -->
+	<sql id="${className}Joins">
+		<#-- 关联父表 -->
+		<#-- 关联系统表 -->
+		<#list colList as c>
+			<#if c.showType?? && c.showType == "userselect">
+		LEFT JOIN sys_user u${c_index + 1} ON u${c_index + 1}.id = a.${c.name}
+			<#elseif c.showType?? && c.showType == "officeselect">
+		LEFT JOIN sys_office o${c_index + 1} ON o${c_index + 1}.id = a.${c.name}
+			<#elseif c.showType?? && c.showType == "areaselect">
+		LEFT JOIN sys_area a${c_index + 1} ON a${c_index + 1}.id = a.${c.name}
+			</#if>
+		</#list>
+	</sql>
+    
+	<select id="get${ClassName}ById" resultType="${packageName}.${javaModuleName}.model.${ClassName}">
+		SELECT 
+			<include refid="${className}Columns"/>
+		FROM ${table.name} a
+		<include refid="${className}Joins"/>
+		WHERE a.id = ${"#"}{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT 
+			count(*) as count
+		FROM ${table.name} a
+		<include refid="${className}Joins"/>
+		<where>
+			a.flag = ${"#"}{flag}
+			<#list colList as c>
+				<#if (c.isQuery?? && c.isQuery == "1")>
+					<#if c.queryType ?? && c.queryType == 'between'>
+			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
+					<#else>
+			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
+					</#if>
+					<#if c.queryType ?? && c.queryType == 'between'>
+				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+					<#elseif c.queryType ?? && c.queryType == 'like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
+					<#elseif c.queryType ?? && c.queryType == 'left_like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
+					<#elseif c.queryType ?? && c.queryType == 'right_like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
+					<#else>
+				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+					</#if>
+			</if>
+				</#if>
+			</#list>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="${packageName}.${javaModuleName}.model.${ClassName}" parameterType="java.util.Map">
+		SELECT 
+			<include refid="${className}Columns"/>
+		FROM ${table.name} a
+		<include refid="${className}Joins"/>
+		<where>
+			a.flag = ${"#"}{flag}
+			<#list colList as c>
+				<#if (c.isQuery?? && c.isQuery == "1")>
+					<#if c.queryType ?? && c.queryType == 'between'>
+			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
+					<#else>
+			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
+					</#if>
+					<#if c.queryType ?? && c.queryType == 'between'>
+				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+					<#elseif c.queryType ?? && c.queryType == 'like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
+					<#elseif c.queryType ?? && c.queryType == 'left_like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
+					<#elseif c.queryType ?? && c.queryType == 'right_like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
+					<#else>
+				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+					</#if>
+			</if>
+				</#if>
+			</#list>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.UPDATE_TIME desc
+			</otherwise>
+		</choose>
+		limit ${"#"}{startIndex},${"#"}{pageSize} 
+	</select>
+
+    <select id="get${ClassName}List" resultType="${packageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${javaModuleName}.model.${ClassName}">
+		SELECT 
+			<include refid="${className}Columns"/>
+		FROM ${table.name} a
+		<include refid="${className}Joins"/>
+		<where>
+			a.flag = ${"#"}{flag}
+			<#list colList as c>
+				<#if (c.isQuery?? && c.isQuery == "1")>
+					<#if c.queryType ?? && c.queryType == 'between'>
+			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
+					<#else>
+			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
+					</#if>
+					<#if c.queryType ?? && c.queryType == 'between'>
+				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+					<#elseif c.queryType ?? && c.queryType == 'like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
+					<#elseif c.queryType ?? && c.queryType == 'left_like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
+					<#elseif c.queryType ?? && c.queryType == 'right_like'>
+				AND a.${c.name} LIKE 
+					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
+					<#else>
+				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+					</#if>
+			</if>
+				</#if>
+			</#list>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.UPDATE_TIME desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO ${table.name}(
+		<#assign insertField>
+			<#list colList as c>
+				<#if c.isInsert?? && c.isInsert == "1">
+			${c.name},
+				</#if>
+			</#list>
+		</#assign>
+${insertField?substring(0, insertField?last_index_of(","))}
+		) VALUES (
+		<#assign insertJavaField>
+			<#list colList as c>
+				<#if c.isInsert?? && c.isInsert == "1">
+			${"#"}{${c.javaFieldId}},
+				</#if>
+			</#list>
+		</#assign>
+${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
+		)
+	</insert>
+	
+	
+<insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+     <selectKey resultType="long" keyProperty="id" order="AFTER">  
+        SELECT  
+        LAST_INSERT_ID()  
+     </selectKey>  
+		INSERT INTO ${table.name}(
+		<#assign insertField>
+			<#list colList as c>
+				<#if c.isInsert?? && c.isInsert == "1">
+			${c.name},
+				</#if>
+			</#list>
+		</#assign>
+${insertField?substring(0, insertField?last_index_of(","))}
+		) VALUES 
+ ${r'<foreach collection="list" item="item" index="index" separator="," >'}
+		(
+		<#assign insertJavaField>
+			<#list colList as c>
+				<#if c.isInsert?? && c.isInsert == "1">
+			${"#"}{item.${c.javaFieldId}},
+				</#if>
+			</#list>
+		</#assign>
+${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
+		)
+${r"</foreach>"}
+	</insert>
+	
+	<update id="updateById">
+		UPDATE ${table.name} SET 	
+				<#list colList as c>
+					<#if c.isEdit?? && c.isEdit == "1">
+					  <if test="${c.javaFieldId} != null and ${c.javaFieldId} != '' ">
+			            ${c.name} = ${"#"}{${c.javaFieldId}},
+			           </if>
+					</#if>
+				</#list>
+				id= ${"#"}{id}
+				
+		WHERE id = ${"#"}{id}
+	</update>
+	
+	<update id="delete">
+	UPDATE ${table.name} SET 
+	flag = 1
+		WHERE id = ${"#"}{id}
+	</update>
+	
+</mapper>]]>
+	</content>
+</template>

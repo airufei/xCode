@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>eidtpage</name>
+	<filePath>src/main/webapp/WEB-INF/ftl/${modulePageName}</filePath>
+	<fileName>${className}-edit.ftl.html</fileName>
+	<content><![CDATA[
+ ${r'<#import "/spring.ftl" as spring/>'}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>${functionNameSimple}管理</title>
+</head>
+<body>
+
+<form id="edit-form" method="post" action="${r'<@spring.url "'}  /${subModuleName}/save${r'.html "/>'}">
+<input type="hidden" name="id" value="" size="32" />
+	<input type="hidden" name="createTime" value=""  size="32" />
+	<input type="hidden" name="flag"  value=""  size="32" />
+	<table style="border-collapse:separate; border-spacing:10px;width:85%;">
+	
+	<#list colList as c>
+		 <#if (c.isEditPage?? && c.isEditPage == "1")> 
+		 <tr>
+						<td>${c.comments}:</td>
+						<td >
+						
+						<#if c.showType == "textarea">
+						<textarea id="${c.javaFieldId}" rows=5 style="width:80%;" name="${c.javaFieldId}"   >${r'$'}{entity.${c.javaFieldId}}</textarea>
+						<#elseif c.showType == "select">
+						<select name="${c.javaFieldId}"  style="width:80%;" >
+						</select>
+						<#else>
+						<input  style="width:80%;" value="${r'$'}{entity.${c.javaFieldId}}" name="${c.javaFieldId}" maxlength="${c.dataLength}" />
+						</#if>
+				          </td>
+					</tr>		
+		 </#if>		  
+     </#list>
+		
+	</table>
+	</form>
+</body>
+</html>]]>
+	</content>
+</template>

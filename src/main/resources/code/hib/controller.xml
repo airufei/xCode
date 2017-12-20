@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>controller</name>
+	<filePath>src/main/java/${packageName}/${moduleName}/web/</filePath>
+	<fileName>${ClassName}Controller.java</fileName>
+	<content><![CDATA[
+/**
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ */
+package ${packageName}.${moduleName}.web;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.chainfin.cft.common.jqgrid.strategy2.JqGridProvider;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import ${packageName}.${moduleName}.entity.*;
+import ${packageName}.${moduleName}.service.*;
+import ${packageName}.common.model.Pagination;
+import com.chainfin.cft.common.jqgrid.model.JqGridInputVO;
+import com.chainfin.cft.common.jqgrid.model.JqGridOutputVO;
+import com.chainfin.cft.common.jqgrid.strategy2.JqGridProvider;
+import com.chainfin.cft.common.util.StringUtil;
+import com.chainfin.cft.common.util.AbBaseController;
+/**
+ * ${ClassName}Controller(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Controller
+@RequestMapping(value = "/${subModuleName}/")
+@SuppressWarnings("all")
+public class ${ClassName}Controller extends AbBaseController {
+
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Controller.class);
+	@Autowired
+	private I${ClassName}Service ${className}Service;
+	
+	@Autowired
+	JqGridProvider jqGridProvider2;
+	
+	/**
+	 * main:(去往查询首页)
+	 * 
+	 * @Author airufei
+	 * @return
+	 */
+	@RequestMapping("main.html")
+	public String main(ModelMap m, HttpServletRequest request) {
+		// 角色获取
+		HttpSession session = request.getSession();
+		if (null != session) {
+			String roleName = (String) session.getAttribute("roleName");
+			m.put("roleName", roleName);
+		}
+		return "${modulePageName}/${className}-list";
+	}
+	
+	
+	/**
+	 * indexs:(跳转列表页)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("")
+	public String indexs(HttpServletRequest request,Model model){
+		return "${modulePageName}/${className}-list";
+	}
+	
+	/**
+	 * list:(查询列表数据)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "index.html", headers = "Accept=application/json")
+	public JqGridOutputVO list(JqGridInputVO in,HttpServletRequest request,Model model,HttpServletResponse response, HttpSession httpSession){
+		String roleName = null;
+		Object obj = httpSession.getAttribute("roleName");
+		if (obj != null) {
+			roleName = obj.toString();
+		}
+		${ClassName} ch = new ${ClassName}();
+		int pageNo = 1;
+		int pageSize = 10;
+		String search="";
+		
+		if (in != null) {
+			pageNo = in.getPage().intValue();
+			pageSize = in.getRows().intValue();
+			search=in.getSearch();
+		}
+		Map mp=StringUtil.getParms(search);
+		if(mp!=null)//设置查询条件
+		{
+		     <#list colList as c>
+		       <#if (c.isQuery?? && c.isQuery == "1")>
+		        ch.set${c.simpleJavaField?cap_first}(StringUtil.ObjToString(mp.get("${c.javaFieldId}")));
+			 </#if>
+		  </#list>
+			
+		}
+		JqGridOutputVO vo = new JqGridOutputVO();
+		Pagination pt = null;
+		pt = ${className}Service.getList(ch, pageNo, pageSize);
+		if (pt != null) {
+			long currentPage = ((long) pt.getTotalCount() + pageSize - 1)/pageSize;
+			vo.setPage((long) pageNo);
+			List newList = pt.getList();
+			newList = formateDate(newList);
+			vo.setRows(newList);
+			vo.setRecords((long) pt.getTotalCount());
+			vo.setTotal(currentPage);
+		}
+		return vo;
+	}
+	
+	
+	/**
+	 * addIndex:(跳转添加页面)
+	 * 
+	 * @Author airufei
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("add.html")
+	public String addIndex(ModelMap map) {
+		return "${modulePageName}/${className}-add";
+	}
+	/**
+	 * goEdit:(去往编辑页面-查询编辑所需数据)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/edit")
+	public String goEdit(ModelMap map, @RequestParam("id") Integer id){
+		long newid = 0;
+		${ClassName} entity=null;
+		if(id!=null)
+		{
+		    newid=id;
+		}
+		if (newid>0){
+			entity = ${className}Service.get${ClassName}ById(id);
+		}
+		if (entity == null){
+			entity = new ${ClassName}();
+		}
+		map.put("$entity", entity);
+		return "${modulePageName}/${className}-edit";
+	}
+	
+	/**
+	 * delete:(删除数据-逻辑删除)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/delete")
+	public Map delete(@RequestParam("id") Integer id,HttpServletRequest request,ModelMap model){
+	   String msg = "删除成功了";
+		Map result = new HashMap();
+		boolean res = true;
+		try {
+		       if (id>0){
+		          ${className}Service.delete(id);
+		       }else
+		       {
+		         msg = "没有需要删除的数据";
+		         res = false;
+		       }
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error( "${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			 res = false;
+		} catch (Error e) {
+			e.printStackTrace();
+			logger.error("${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			 res = false;
+		}
+		result.put("result", res);
+		result.put("msg", msg);
+		return result;
+	}
+	
+	/**
+	 * save:(保存新增或者编辑的)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/save")
+	public Map save(${ClassName} ${className},HttpServletRequest request, Model model) {
+		String msg = "";
+		Map result = new HashMap();
+		boolean res = true;
+		try {
+			// 无保存内容
+			if (${className} == null) {
+				msg = "无保存内容";
+				res = false;
+			}
+			if (res) {
+				${className}Service.save(${className});
+				res = true;
+				msg = "成功";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error( "${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			 res = false;
+		} catch (Error e) {
+			e.printStackTrace();
+			logger.error("${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			res = false;
+		}
+		result.put("result", res);
+		result.put("msg", msg);
+		return result;
+	}
+	
+	/**
+	 * 格式化列表信息
+	 * 
+	 * @param list
+	 */
+	private List formateDate(List list) {
+		List newList = new ArrayList();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			if (null != list && list.size() > 0) {
+				for (Object object : list) {
+					if (object != null) {
+						${ClassName} mp = (${ClassName}) object;
+						// 格式化支付时间
+						if (mp != null
+								&& !StringUtil.isNull(mp.getCreatetime())) {
+							String str = sdf.format((Date) mp.getCreatetime());
+							mp.setCreatetimestr(str);//需要自行设置
+
+						}
+						if (mp != null
+								&& !StringUtil.isNull(mp.getUpdatetime())) {
+							String str = sdf.format((Date) mp.getUpdatetime());
+							mp.setUpdatetimestr(str);//需要自行设置
+
+						}
+						newList.add(mp);
+					}
+				}
+			}
+		} catch (Exception e) {
+
+			logger.debug("ChannelManagerController------->formateDate(): " + e.getMessage());
+			e.printStackTrace();
+
+		}
+		return newList;
+	}
+
+}]]>
+	</content>
+</template>

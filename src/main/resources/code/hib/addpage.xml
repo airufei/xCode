@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>addpage</name>
+	<filePath>src/main/webapp/WEB-INF/ftl/${modulePageName}</filePath>
+	<fileName>${className}-add.ftl.html</fileName>
+	<content><![CDATA[
+
+ ${r'<#import "/spring.ftl" as spring/>'}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>${functionNameSimple}管理</title>
+</head>
+<body>
+
+<form id="add-form" method="post" action="${r'<@spring.url "'}  /${subModuleName}/save${r'.html "/>'}">
+	<table style="border-collapse:separate; border-spacing:10px;width:85%;text-align:center">
+	<#list colList as c>
+		 <#if (c.isEditPage?? && c.isEditPage == "1")> 
+			<tr>
+						<td>${c.comments}:</td>
+						<td >
+						
+						<#if c.showType == "textarea">
+						<textarea id="${c.javaFieldId}" rows=5 style="width:80%;"  name="${c.javaFieldId}"   ></textarea>
+						<#elseif c.showType == "select">
+						<select name="${c.javaFieldId}"  >
+						</select>
+						<#else>
+						<input  value=""  style="width:80%;" name="${c.javaFieldId}" maxlength="${c.dataLength}" />
+						</#if>
+				         </td>
+					</tr>		
+		 </#if>		  
+     </#list>
+	</table>
+	</form>
+</body>
+</html>]]>
+	</content>
+</template>

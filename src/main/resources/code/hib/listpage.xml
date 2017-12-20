@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>list</name>
+	<filePath>src/main/webapp/WEB-INF/ftl/${modulePageName}</filePath>
+	<fileName>${className}-list.ftl.html</fileName>
+	<content><![CDATA[
+${r'<#import "/spring.ftl" as spring/>'}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>${functionNameSimple}</title>
+	${r'<#include "/common/lib-base.ftl"/>'}
+	
+	<script type="text/javascript" ${r'src="<@spring.url'} '/js/${modulePageName}/${className}.js'/>"></script>'
+	
+    <script type="text/javascript" ${r'src="<@spring.url'} '/js/My97DatePicker/WdatePicker.js'/>"></script>'
+
+	<script type="text/javascript">
+	$(function() {
+	Esn.${className}.navMenu.init();
+	});
+	</script>
+	${r'<#include "/common/lib-end.ftl"/>'}
+
+</head>
+<body>
+	<!-- 页头开始 -->
+
+	${r'<#include "/common/header.ftl.html"/>'}
+		<#--value= 填入下面的value值-->
+	<input type="hidden" id="loginfalg" name="loginfalg" value="${r'${SPRING_SECURITY_CONTEXT.authentication.principal.username?default("未登陆")}'}" />
+	
+	<input type="hidden" name="roleName" id="roleName" value="${r'${roleName}'}" />
+
+	<!-- /页头结束 -->
+	<!-- 内容开始 -->
+	<div class="container" id="container">
+		<!-- 左侧开始 -->
+		${r'<#include "/common/home-left.ftl.html"/>'}
+		<!-- /左侧结束 -->
+		<!-- 右侧开始 -->
+		<div class="right">
+			<div class="right_title">
+	        	<span>${functionNameSimple}查询</span>
+	        </div>
+	        <div class="right_content" >
+				<div id="toolbar"></div>
+				<div id="grid"></div>
+			</div>
+		</div>
+		<!-- /右侧结束 -->
+	</div>
+    <div id="bottomContent" style="display: none;"></div>
+    <div id=add_dlg title="添加" style="display: none;">
+    </div>
+    
+    <div id="infodlg" title="添加" style="display: none;"></div>
+    
+    <div id="edit_dlg" title="修改" style="display: none;"></div>
+    <div id="first-image-selector"></div>
+
+   ${r' <#include "/common/footer.ftl.html"/>'}
+</body>
+</html>]]>
+	</content>
+</template>

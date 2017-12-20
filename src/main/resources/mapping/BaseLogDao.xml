@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.admin.dao.IBaseLogDao">
+    
+	<sql id="baseLogColumns">
+		a.id AS "id",
+		a.content AS "content",
+		a.logtype AS "logtype",
+		a.remark AS "remark",
+		str_to_date(a.createTime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	    str_to_date(a.updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.createTime AS "createtime",
+		a.updateTime AS "updatetime",
+		a.rqurl AS "rqurl",
+		a.flag AS "flag"
+	</sql>
+	
+	<sql id="baseLogJoins">
+	</sql>
+    
+	<select id="getBaseLogById" resultType="com.cn.cooxin.admin.entity.BaseLog">
+		SELECT 
+			<include refid="baseLogColumns"/>
+		FROM t_base_log a
+		<include refid="baseLogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT 
+			count(0) as count
+		FROM t_base_log a
+		<include refid="baseLogJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="content != null and content != ''">
+				AND a.content LIKE 
+					<if test="dbName == 'oracle'">'%'||#{content}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{content}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{content},'%')</if>
+			</if>
+			<if test="logtype != null and logtype != ''">
+				AND a.logtype = #{logtype}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.admin.entity.BaseLog" parameterType="java.util.Map">
+		SELECT 
+			<include refid="baseLogColumns"/>
+		FROM t_base_log a
+		<include refid="baseLogJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="content != null and content != ''">
+				AND a.content LIKE 
+					<if test="dbName == 'oracle'">'%'||#{content}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{content}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{content},'%')</if>
+			</if>
+			<if test="logtype != null and logtype != ''">
+				AND a.logtype = #{logtype}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+
+    <select id="getBaseLogList" resultType="com.cn.cooxin.admin.entity.BaseLog" parameterType="com.cn.cooxin.admin.entity.BaseLog">
+		SELECT 
+			<include refid="baseLogColumns"/>
+		FROM t_base_log a
+		<include refid="baseLogJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="content != null and content != ''">
+				AND a.content LIKE 
+					<if test="dbName == 'oracle'">'%'||#{content}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{content}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{content},'%')</if>
+			</if>
+			<if test="logtype != null and logtype != ''">
+				AND a.logtype = #{logtype}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="add">
+		INSERT INTO t_base_log(
+			id,
+			content,
+			logtype,
+			remark,
+			createTime,
+			updateTime,
+			rqurl,
+			flag
+		) VALUES (
+			#{id},
+			#{content},
+			#{logtype},
+			#{remark},
+			#{createtime},
+			#{updatetime},
+			#{rqurl},
+			#{flag}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_base_log SET 	
+			content = #{content},
+			logtype = #{logtype},
+			remark = #{remark},
+			createTime = #{createtime},
+			updateTime = #{updatetime},
+			flag = #{flag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+	UPDATE t_base_log SET 
+	flag = 1
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

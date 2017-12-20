@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/${javaModuleName}/serviceImpl</filePath>
+	<fileName>${ClassName}ServiceImpl.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.${javaModuleName}.serviceImpl;
+
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.annotation.Resource;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.stereotype.Service;
+import ${packageName}.${javaModuleName}.entity.*;
+import ${packageName}.${javaModuleName}.dao.*;
+import com.chainfin.service.*;
+import com.chainfin.util.*;
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Service
+@SuppressWarnings("all")
+public class ${ClassName}ServiceImpl  implements ${ClassName}Service{
+
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}ServiceImpl.class);
+
+	@Resource
+	private ${ClassName}Dao ${className}Dao;
+	
+	/**
+	 * 删除${functionName}数据（逻辑删除）
+	 * @param question
+	 * @return
+	 */
+	public DataReturn delete(long id)
+	{
+	    DataReturn data = new DataReturn();
+		data.setCode(ResultCode.FAILURE);
+		data.setMessage("${functionName}逻辑删除失败");
+		try 
+		{
+		  logger.info("调用 delete:(${functionName})入参 investApplyToFSO_orderNo============>id:" + id);
+		   if(id<1)
+		   {
+		      data.setCode(ResultCode.FAILURE);
+		      data.setMessage("id不能小于等于0");
+		      return data;
+		   }
+	       ${className}Dao.delete(id);
+	       data.setCode(ResultCode.SUCCESS);
+	       data.setMessage("删除成功");
+	    } catch (Exception e) {
+			data.setCode(ResultCode.FAILURE);
+			data.setMessage("服务器繁忙，请稍后再试");
+			logger.error("调用delete:(${functionName})接口：服务端异常====》" + e + "=====》入参id：" + id);
+			e.printStackTrace();
+		}
+		return data;
+	}
+     /**
+	 * 保存 ${functionName}数据
+	 * @param ${className}
+	 * @return
+	 */
+	public ${ClassName} save(${ClassName} ${className})
+	{
+	    ${ClassName} ret${className}=null;
+		String parms = "";
+		try 
+		{
+		    parms = JSONObject.toJSONString(${className});
+		   logger.info("调用 save:(保存 ${functionName}数据)入参 ============>parms:" + parms);
+		   if(${className}==null)
+		   {
+		      return ret${className};
+		   }
+	       if(${className}.getId()>0)
+	       {
+	           ${className}Dao.updateById(${className});
+	       }else
+	       {
+	          ${className}Dao.add(${className});
+	       }
+	       ret${className}=${className};
+	    } catch (Exception e) {
+			ret${className}=null;
+			logger.error("调用save:( 保存 ${functionName}数据)接口：服务端异常====》" + e + "=====》入参：" + parms);
+			e.printStackTrace();
+		}
+	    return  ret${className};
+	}
+
+    /**
+	 * 批量增加 ${functionName}
+	 * @param ${className}
+	 * @return
+	 */
+	 public void addTrainRecordBatch(List<${ClassName}> list)
+	 {
+	     ${className}Dao.addTrainRecordBatch(list);
+	 }
+
+     /**
+	 * 根据id获取 ${functionName} 数据
+	 * @param id
+	 * @return
+	 */
+	 public ${ClassName} get${ClassName}ById (long id)
+	 {
+	      return ${className}Dao.get${ClassName}ById(id);
+	 }
+	  /**
+	   * 获取 ${functionName}分页数据
+	   * @param map
+	   * @return
+	   */
+	   public Partion  getList(Map map)
+	   {
+	      List<${ClassName}> list=${className}Dao.getList(map);
+	      int totalcount = ${className}Dao.getTotalCount(map);
+		  Partion pt = new Partion(map, list, totalcount);
+		  return pt;
+	   }
+	   
+	    /**
+	   * 获取${functionName}数据，不带分页
+	   * @param map
+	   * @return
+	   */
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
+	   {
+	      return ${className}Dao.get${ClassName}List(${className});
+	   }
+	   
+	     /**
+	   * 获取${functionName}单条数据
+	   * @param map
+	   * @return
+	   */
+	   public ${ClassName}  get${ClassName}(${ClassName} ${className})
+	   {
+	       ${ClassName} ret=null;
+	       List<${ClassName}> list=get${ClassName}List(${className});
+	       if(list!=null&&list.size()>0)
+	       {
+	          ret=list.get(0);
+	       }
+	      return ret;
+	   }
+	
+}]]>
+	</content>
+</template>

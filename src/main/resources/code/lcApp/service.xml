@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/${javaModuleName}/service</filePath>
+	<fileName>${ClassName}Service.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.${javaModuleName}.service;
+
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import ${packageName}.${javaModuleName}.model.*;
+import ${packageName}.${javaModuleName}.dao.${ClassName}Dao;
+
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Service
+@SuppressWarnings("all")
+public class ${ClassName}Service  {
+
+	@Resource
+	private ${ClassName}Dao ${className}Dao;
+	
+	/**
+	 * 删除数据（逻辑删除）
+	 * @param question
+	 * @return
+	 */
+	public void delete(long id)
+	{
+	    ${className}Dao.delete(id);
+	}
+    /**
+	 * 保存数据（增加或者修改 ）
+	 * @param ${className}
+	 * @return
+	 */
+	public ${ClassName} save(${ClassName} ${className})
+	{
+	    if(${className}.getId() != null && ${className}.getId()>0)
+	    {
+	       ${className}Dao.updateById(${className});
+	    }else
+	    {
+	       ${className}Dao.add(${className});
+	    }
+	    return  ${className};
+	}
+
+    /**
+	 * 批量数据增加
+	 * @param ${className}
+	 * @return
+	 */
+	 public void addTrainRecordBatch(List<${ClassName}> list)
+	 {
+	     ${className}Dao.addTrainRecordBatch(list);
+	 }
+
+     /**
+	 * 获取单条数据
+	 * @param id
+	 * @return
+	 */
+	 public ${ClassName} get${ClassName}ById (long id)
+	 {
+	      return ${className}Dao.get${ClassName}ById(id);
+	 }
+      /**
+	 * 修改单条数据
+	 * @param id
+	 * @return
+	 */
+	  public void updateById(${ClassName} ${className})
+	  {
+	     ${className}Dao.updateById(${className});
+	  }
+
+	  /**
+	   * 获取分页数据
+	   * @param map
+	   * @return
+	   */
+	   public Partion  getList(Map map)
+	   {
+	      List<${ClassName}> list= ${className}Dao.getList(map);
+	      int totalcount = getTotalCount(map);
+		  Partion pt = new Partion(map, list, totalcount);
+		  return pt;
+	   }
+	   
+	    /**
+	   * 获取集合数据，不带分页
+	   * @param map
+	   * @return
+	   */
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
+	   {
+	      return ${className}Dao.get${ClassName}List(${className});
+	   }
+	   
+	     /**
+	   * 获取单条数据实体
+	   * @param map
+	   * @return
+	   */
+	   public ${ClassName}  get${ClassName}(${ClassName} ${className})
+	   {
+	       ${ClassName} ret=null;
+	       List<${ClassName}> list=get${ClassName}List(${className});
+	       if(list!=null&&list.size()>0)
+	       {
+	          ret=list.get(0);
+	       }
+	      return ret;
+	   }
+	  /**
+	   * 获取分页总记录数
+	   * @param map
+	   * @return
+	   */
+	   public int  getTotalCount(Map map)
+	   {
+	      return ${className}Dao.getTotalCount(map);
+	   }
+	
+}]]>
+	</content>
+</template>

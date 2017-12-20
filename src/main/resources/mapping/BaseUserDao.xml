@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.admin.dao.IBaseUserDao">
+    
+	<sql id="baseUserColumns">
+		a.id AS "id",
+		a.username AS "username",
+		a.password AS "password",
+		a.age AS "age",
+		a.email AS "email",
+		a.phone AS "phone",
+		str_to_date(a.createTime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	    str_to_date(a.updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.createtime AS "createtime",
+		a.updatetime AS "updatetime",
+		a.flag AS "flag",
+		a.remark AS "remark",
+		a.address AS "address",
+		a.qq AS "qq",
+		a.type AS "type",
+		a.wechart AS "wechart"
+	</sql>
+	
+	<sql id="baseUserJoins">
+	</sql>
+    
+	<select id="getBaseUserById" resultType="com.cn.cooxin.admin.entity.BaseUser">
+		SELECT 
+			<include refid="baseUserColumns"/>
+		FROM t_base_user a
+		<include refid="baseUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT 
+			count(0) as count
+		FROM t_base_user a
+		<include refid="baseUserJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="username != null and username != ''">
+				AND a.username = #{username}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone = #{phone}
+			</if>
+			<if test="wechart != null and wechart != ''">
+				AND a.wechart = #{wechart}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.admin.entity.BaseUser" parameterType="java.util.Map">
+		SELECT 
+			<include refid="baseUserColumns"/>
+		FROM t_base_user a
+		<include refid="baseUserJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="username != null and username != ''">
+				AND a.username = #{username}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone = #{phone}
+			</if>
+			<if test="wechart != null and wechart != ''">
+				AND a.wechart = #{wechart}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+
+    <select id="getBaseUserList" resultType="com.cn.cooxin.admin.entity.BaseUser" parameterType="com.cn.cooxin.admin.entity.BaseUser">
+		SELECT 
+			<include refid="baseUserColumns"/>
+		FROM t_base_user a
+		<include refid="baseUserJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="username != null and username != ''">
+				AND a.username = #{username}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone = #{phone}
+			</if>
+			<if test="wechart != null and wechart != ''">
+				AND a.wechart = #{wechart}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="add">
+		INSERT INTO t_base_user(
+			id,
+			username,
+			password,
+			age,
+			email,
+			phone,
+			createtime,
+			updatetime,
+			flag,
+			remark,
+			address,
+			qq,
+			type,
+			wechart
+		) VALUES (
+			#{id},
+			#{username},
+			#{password},
+			#{age},
+			#{email},
+			#{phone},
+			#{createtime},
+			#{updatetime},
+			#{flag},
+			#{remark},
+			#{address},
+			#{qq},
+			#{type},
+			#{wechart}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_base_user SET 	
+			username = #{username},
+			password = #{password},
+			age = #{age},
+			email = #{email},
+			phone = #{phone},
+			updatetime = #{updatetime},
+			flag = #{flag},
+			remark = #{remark},
+			address = #{address},
+			qq = #{qq},
+			wechart = #{wechart}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updatePwd">
+	UPDATE t_base_user SET 
+	updatetime = #{updatetime},
+	password = #{password}
+    WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+	UPDATE t_base_user SET 
+	flag = 1
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

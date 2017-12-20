@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.code.dao.IGenTemplateDao">
+    
+    <sql id="genTemplateColumns">
+		a.*
+	</sql>
+	
+	<sql id="genTemplateJoins">
+		
+    </sql>
+    
+    <select id="getGenTableById" resultType="com.cn.cooxin.code.entity.GenTemplate">
+		SELECT 
+			<include refid="genTemplateColumns"/>
+		FROM t_code_template a
+		<include refid="genTemplateJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.code.entity.GenTemplate" parameterType="Map">
+		SELECT 
+			<include refid="genTemplateColumns"/>
+		FROM t_code_template a
+		<include refid="genTemplateJoins"/>
+		WHERE a.flag = #{flag} 
+		<if test="name != null and name != ''">
+			AND a.name LIKE 
+				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+		</if>
+		<if test="category != null and category != ''">
+			AND a.category LIKE 
+				<if test="dbName == 'oracle'">'%'||#{category}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{category}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{category},'%')</if>
+		</if>
+		ORDER BY a.name, a.updatetime DESC
+	</select>
+	
+	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenTemplate">
+		SELECT 
+			<include refid="genTemplateColumns"/>
+		FROM t_code_template a
+		<include refid="genTemplateJoins"/>
+		WHERE a.flag = #{flag} 
+		ORDER BY a.name, a.updatetime DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_code_template(
+			id, 
+			name, 
+			category, 
+			file_path, 
+			file_name, 
+			content, 
+			createtime, 
+			updatetime, 
+			remark, 
+			flag
+		) VALUES (
+			#{id}, 
+			#{name}, 
+			#{category},  
+			#{filePath},  
+			#{fileName},  
+			#{content},  
+			#{createtime}, 
+			#{updatetime}, 
+			#{remark}, 
+			#{flag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_code_template SET 
+			name = #{name}, 
+			category = #{category},  
+			file_path = #{filePath},  
+			file_name = #{fileName},  
+			content = #{content},  
+			updatetime = #{updatetime}, 
+			remark = #{remark}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE t_code_template SET 
+			flag = 1
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

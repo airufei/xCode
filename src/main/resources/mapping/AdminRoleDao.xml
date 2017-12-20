@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.admin.dao.IAdminRoleDao">
+    
+	<sql id="adminRoleColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.createtime AS "createtime",
+		a.updatetime AS "updatetime",
+		str_to_date(a.createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	    str_to_date(a.updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.flag AS "flag",
+		a.remark AS "remark"
+	</sql>
+	
+	<sql id="adminRoleJoins">
+	</sql>
+    
+	<select id="getAdminRoleById" resultType="com.cn.cooxin.admin.entity.AdminRole">
+		SELECT 
+			<include refid="adminRoleColumns"/>
+		FROM t_admin_role a
+		<include refid="adminRoleJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT 
+			count(0) as count
+		FROM t_admin_role a
+		<include refid="adminRoleJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.admin.entity.AdminRole" parameterType="java.util.Map">
+		SELECT 
+			<include refid="adminRoleColumns"/>
+		FROM t_admin_role a
+		<include refid="adminRoleJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+
+    <select id="getAdminRoleList" resultType="com.cn.cooxin.admin.entity.AdminRole" parameterType="com.cn.cooxin.admin.entity.AdminRole">
+		SELECT 
+			<include refid="adminRoleColumns"/>
+		FROM t_admin_role a
+		<include refid="adminRoleJoins"/>
+		<where>
+			a.flag = #{flag}
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.updateTime desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="add"   useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_admin_role(
+			id,
+			name,
+			createtime,
+			updatetime,
+			flag,
+			remark
+		) VALUES (
+			#{id},
+			#{name},
+			#{createtime},
+			#{updatetime},
+			#{flag},
+			#{remark}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_admin_role SET 	
+			id = #{id},
+			name = #{name},
+			updatetime = #{updatetime}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+	UPDATE t_admin_role SET 
+			flag = 1
+			WHERE id = #{id}
+	</update>
+</mapper>

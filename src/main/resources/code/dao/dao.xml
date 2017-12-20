@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>dao</name>
+	<filePath>src/main/java/${packageName}/${moduleName}/dao</filePath>
+	<fileName>I${ClassName}Dao.java</fileName>
+	<content><![CDATA[
+package ${packageName}.${moduleName}.dao;
+import ${packageName}.${moduleName}.entity.*;
+import java.util.List;
+import java.util.Map;
+/**
+ * ${functionName}DAO接口
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@SuppressWarnings("all")
+public interface I${ClassName}Dao {
+	
+	/**
+	 * 删除数据（逻辑删除）
+	 * @param question
+	 * @return
+	 */
+	public void delete(long id);
+    /**
+	 * 单条数据增加
+	 * @param ${className}
+	 * @return
+	 */
+	public void add(${ClassName} ${className});
+
+    /**
+	 * 批量数据增加
+	 * @param ${className}
+	 * @return
+	 */
+	 public void addTrainRecordBatch(List<${ClassName}> list);
+
+     /**
+	 * 获取单条数据
+	 * @param id
+	 * @return
+	 */
+	 public ${ClassName} get${ClassName}ById (long id);
+
+      /**
+	 * 修改单条数据
+	 * @param id
+	 * @return
+	 */
+	  public void updateById(${ClassName} ${className});
+
+	  /**
+	   * 获取分页数据
+	   * @param map
+	   * @return
+	   */
+	   public List<${ClassName}>  getList(Map map);
+	   
+	   
+	   /**
+	   * 获取集合数据，不带分页
+	   * @param map
+	   * @return
+	   */
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className});
+	   
+	   /**
+	   * 获取分页记录总数
+	   * @param map
+	   * @return
+	   */
+	   public int  getTotalCount(Map map);
+	   
+}]]>
+	</content>
+</template>

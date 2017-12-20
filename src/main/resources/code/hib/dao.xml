@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>dao</name>
+	<filePath>src/main/java/${packageName}/${moduleName}/dao/impl</filePath>
+	<fileName>${ClassName}Dao.java</fileName>
+	<content><![CDATA[
+/**
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ */
+package ${packageName}.${moduleName}.dao.impl;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+import ${packageName}.common.dao.impl.HibernateBaseDaoImpl;
+import ${packageName}.common.model.Pagination;
+import com.chainfin.cft.common.util.StringUtil;
+import ${packageName}.${moduleName}.entity.*;
+import ${packageName}.${moduleName}.dao.*;
+/**
+ * ${functionName}DAO接口
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@SuppressWarnings("all")
+@Repository("${className}")
+public class  ${ClassName}Dao  extends HibernateBaseDaoImpl<${ClassName}, String> implements I${ClassName}Dao {
+	
+	 private static Logger logger = LoggerFactory.getLogger(${ClassName}Dao.class);
+	/**
+	 * 删除数据（逻辑删除）
+	 * @param question
+	 * @return
+	 */
+	public boolean delete(long id)
+	{
+	   boolean result=true;
+	   Map<String, Object> param=new HashMap<String, Object>();
+		StringBuilder querySql=new StringBuilder();
+		Transaction tx=this.getSession().beginTransaction();
+		try {
+		  querySql.append(" update  ${table.name}  set flag=1 where id=:id ");
+		  param.put("id", id);
+		  this.executeDelOrUpdateHql(querySql.toString(), false, param);
+		  tx.commit();
+	    } catch (Exception e) {
+			tx.rollback();
+			result=false;
+			logger.error( "${ClassName}Dao:error===>" + e);
+		}
+		return result;
+	}
+    
+     /**
+	 * 获取单条数据
+	 * @param id
+	 * @return
+	 */
+	 public ${ClassName} get${ClassName}ById (long id)
+	 {
+	 
+	      ${ClassName} ret${ClassName}=null;
+	      if(id>0)
+	      {
+	         ${ClassName} gt=new ${ClassName}();
+	         gt.setId(id);
+	         List<${ClassName}> list=get${ClassName}List(gt);
+	         if(list!=null)
+	         {
+	            ret${ClassName}=list.get(0);
+	         }
+	      }
+	      return ret${ClassName};
+	 }
+
+      /**
+	 * 修改单条数据
+	 * @param id
+	 * @return
+	 */
+	  public boolean updateById(${ClassName} ${className})
+	  {
+	      boolean result=true;
+	      long id= ${className}.getId();
+	      if(id>0){
+	      Map<String, Object> param=new HashMap<String, Object>();
+		  StringBuilder querySql=new StringBuilder();
+		  Transaction tx=this.getSession().beginTransaction();
+		  try{
+		      querySql.append(" UPDATE ${table.name} SET <#assign updateField>		<#list colList as c><#if c.isEdit?? && c.isEdit == "1">${c.name} = ${":"}${c.javaFieldId},</#if></#list> </#assign> ${updateField?substring(0, updateField?last_index_of(","))} WHERE id = ${":"}id");
+		      
+		      <#list colList as c><#if c.isEdit?? && c.isEdit == "1">
+		       ${c.simpleJavaType}  ${c.javaFieldId} =${className}.get${c.simpleJavaField?cap_first}();
+		        param.put("${c.javaFieldId}", ${c.javaFieldId});
+		      </#if></#list>
+		      param.put("id", id);
+		      this.executeDelOrUpdateHql(querySql.toString(), false, param);
+		      tx.commit();
+	       } catch (Exception e) {
+			 tx.rollback();
+			 result=false;
+		  }
+		  }
+	      return result;
+	  }
+
+	  /**
+	   * 获取分页数据
+	   * @param map
+	   * @return
+	   */
+	   public Pagination getList(${ClassName} ${className},int pageNo, int pageSize)
+	   {
+	       Pagination pt=null;
+	        StringBuilder querySql=new StringBuilder();
+		    String salcolum=" select <#list colList as c>a.${c.name} as ${c.javaFieldId} ,</#list> ";
+	        
+	        if(salcolum!=null&&salcolum.length()>0)
+	        {
+	            int index=salcolum.lastIndexOf(",");
+                salcolum=salcolum.substring(0,index);//主要是为了去掉最后一个逗号，也可以自行处理
+	        }
+	        querySql.append(salcolum).append(" from ${table.name}  a where flag=1  ");
+		    Map<String, Object> param=new HashMap<String, Object>();
+		    <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
+		    ${c.simpleJavaType}  ${c.javaFieldId} =${className}.get${c.simpleJavaField?cap_first}();
+	        if(!StringUtil.isEmptyOrNullStr(${c.javaFieldId}))
+		    {
+			   querySql.append(" AND a.${c.name} ${c.queryType} ${":"}${c.javaFieldId}  ");
+			   <#if (c.queryType?? && c.queryType == "like")>
+			   param.put("${c.javaFieldId}", "${r'%'}"+${c.javaFieldId}.trim()+"${r'%'}"); //实现 like '%keyword%'，也可以自行处理
+			   <#else>
+			    param.put("${c.javaFieldId}", ${c.javaFieldId}.trim());
+			   </#if>
+		    }
+		    </#if>
+			</#list>
+			querySql.append(" order by a.updatetime desc ");
+		    pt= this.getListByDynSql(${ClassName}.class,querySql.toString(), param, pageNo, pageSize);
+		    return pt;
+	   }
+	   
+	   
+	   /**
+	   * 获取集合数据，不带分页
+	   * @param map
+	   * @return
+	   */
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
+	   {
+	        StringBuilder querySql=new StringBuilder();
+	        
+	        String salcolum=" select <#list colList as c>a.${c.name} as ${c.javaFieldId} ,</#list> ";
+	        
+	        if(salcolum!=null&&salcolum.length()>0)
+	        {
+	            int index=salcolum.lastIndexOf(",");
+                salcolum=salcolum.substring(0,index);
+	        }
+	        querySql.append(salcolum).append(" from ${table.name}  a where flag=1 ");
+		    Map<String, Object> param=new HashMap<String, Object>();
+		   <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
+		     ${c.simpleJavaType}  ${c.javaFieldId} =${className}.get${c.simpleJavaField?cap_first}();
+	        if(!StringUtil.isEmptyOrNullStr(${c.javaFieldId}))
+		    {
+			    querySql.append(" AND a.${c.name} ${c.queryType} ${":"}${c.javaFieldId}  ");
+			   <#if (c.queryType?? && c.queryType == "like")>
+			    String startstr="'${r'%'}";
+			    String endstr="${r'%'}'";
+			   param.put("${c.javaFieldId}", startstr+${c.javaFieldId}.trim()+endstr);
+			   <#else>
+			    param.put("${c.javaFieldId}", ${c.javaFieldId}.trim());
+			   </#if>
+		    }
+		    </#if>
+			</#list>
+			querySql.append(" order by a.updatetime desc ");
+		   List<${ClassName}> list= this.FindEntityBySQl(querySql.toString(), false, ${ClassName}.class, param);
+		   return list;
+	   }
+	   
+}]]>
+	</content>
+</template>

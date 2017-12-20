@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>hbm</name>
+	<filePath>src/main/java/com/frontManager/model/</filePath>
+	<fileName>${ClassName}.hbm.xml</fileName>
+	<content><![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="${packageName}.${moduleName}.entity.${ClassName}" table="${table.name}" >
+    
+     <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="identity" />
+      </id>
+      <#list colList as c>
+      <#if (c.javaFieldId?? && c.javaFieldId != "id")>
+       <property name="${c.javaFieldId}" type="${c.javaType}">
+            <column name="${c.name}" length="${c.dataLength}">
+                <comment>${c.comments}</comment>
+            </column>
+        </property>
+        </#if>
+       </#list>
+ </class>
+</hibernate-mapping> ]]>
+	</content>
+</template>

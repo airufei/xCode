@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.cooxin.code.dao.IGenTableDao">
+    
+    <sql id="genTableColumns">
+		a.id, 
+			a.name, 
+			a.comments, 
+			a.class_name as className, 
+			a.createtime, 
+			a.updatetime, 
+		    str_to_date(a.createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	        str_to_date(a.updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+			a.remark, 
+			a.flag
+	</sql>
+	
+	<sql id="genTableJoins">
+		
+    </sql>
+    
+    <select id="getGenTableById" resultType="com.cn.cooxin.code.entity.GenTable">
+		SELECT 
+			<include refid="genTableColumns"/>
+		FROM t_code_table a
+		<include refid="genTableJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	<select id="getTotalCount" resultType="Integer" parameterType="Map">
+		SELECT 
+			count(0) as count
+		FROM t_code_table a
+		WHERE a.flag = #{flag} 
+		<if test="name != null and name != ''">
+			AND a.name LIKE 
+				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+		</if>
+		<if test="comments != null and comments != ''">
+			AND a.comments LIKE 
+				<if test="dbName == 'oracle'">'%'||#{comments}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{comments}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{comments},'%')</if>
+		</if>
+	</select>
+	
+	<select id="getList" resultType="com.cn.cooxin.code.entity.GenTable" parameterType="Map">
+		SELECT 
+			<include refid="genTableColumns"/>
+		FROM t_code_table a
+		<include refid="genTableJoins"/>
+		WHERE a.flag = #{flag} 
+		<if test="name != null and name != ''">
+			AND a.name = #{name}
+		</if>
+		<if test="nameLike != null and nameLike != ''">
+			AND a.name LIKE 
+				<if test="dbName == 'oracle'">'%'||#{nameLike}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{nameLike}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{nameLike},'%')</if>
+		</if>
+		<if test="comments != null and comments != ''">
+			AND a.comments LIKE 
+				<if test="dbName == 'oracle'">'%'||#{comments}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{comments}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{comments},'%')</if>
+		</if>
+		<choose>
+			<otherwise>
+				ORDER BY a.updatetime desc
+			</otherwise>
+		</choose>
+		limit #{startIndex},#{pageSize} 
+	</select>
+	
+	<select id="getTable" resultType="com.cn.cooxin.code.entity.GenTable" parameterType="com.cn.cooxin.code.entity.GenTable">
+		SELECT 
+			<include refid="genTableColumns"/>
+		FROM t_code_table a
+		<include refid="genTableJoins"/>
+		WHERE a.flag = #{flag} 
+		<if test="name != null and name != ''">
+			AND a.name = #{name}
+		</if>
+		<if test="id != null and id != ''">
+			AND a.id = #{id}
+		</if>
+	</select>
+	
+	<select id="getTableList" resultType="com.cn.cooxin.code.entity.GenTable" parameterType="com.cn.cooxin.code.entity.GenTable">
+		SELECT 
+			<include refid="genTableColumns"/>
+		FROM t_code_table a
+		<include refid="genTableJoins"/>
+		WHERE a.flag = #{flag} 
+		<if test="name != null and name != ''">
+			AND a.name = #{name}
+		</if>
+		
+		<if test="comments != null and comments != ''">
+			AND a.comments LIKE 
+				<if test="dbName == 'oracle'">'%'||#{comments}||'%'</if>
+				<if test="dbName == 'mssql'">'%'+#{comments}+'%'</if>
+				<if test="dbName == 'mysql'">concat('%',#{comments},'%')</if>
+		</if>
+
+		<choose>
+			<otherwise>
+				ORDER BY a.name ASC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenTable">
+		SELECT 
+			<include refid="genTableColumns"/>
+		FROM t_code_table a
+		<include refid="genTableJoins"/>
+		WHERE a.flag = #{flag}
+		<choose>
+			<otherwise>
+				ORDER BY a.name ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="add">
+		INSERT INTO t_code_table(
+			id, 
+			name, 
+			comments, 
+			class_name, 
+			createtime, 
+			updatetime, 
+			remark, 
+			flag
+		) VALUES (
+			#{id}, 
+			#{name}, 
+			#{comments}, 
+			#{className}, 
+			#{createtime}, 
+			#{updatetime}, 
+			#{remark}, 
+			#{flag}
+		)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE t_code_table SET <!-- 
+			name = #{name},  -->
+			comments = #{comments}, 
+			class_name = #{className}, 
+			updatetime = #{updatetime}, 
+			remark = #{remark}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="deletedById">
+		delete from t_code_table 
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

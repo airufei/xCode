@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>jspage</name>
+	<filePath>src/main/webapp/js/${modulePageName}</filePath>
+	<fileName>${className}.js</fileName>
+	<content><![CDATA[
+	
+	   Esn.${className} = Esn.${className} || {};
+(function(${r'$'}) {
+	var _navMenu = {}, _grid, _editDlg, _infoDlg, _addDlg, _rootUrl = "/${subModuleName}/", _baseUrl = '/lcAdmin';
+
+	_navMenu.init = function() {
+		initDialog();
+		initToolbar();
+		initGrid();
+		var roleName = $("${r'#roleName"'}).val();//角色
+	    if(!isContains(roleName,'ROLE_ADMIN'))
+		{
+			  $(".supersearch").hide();//没有权限，则隐藏搜索框
+			  $(".esn-toolbar-left").hide();//没有权限，则隐藏添加按钮
+		}
+		
+	};
+
+// 字符串str中是否包含subStr
+	function isContains(str, subStr) {
+		var res = false;
+		var index = str.indexOf(subStr);
+		if (index >= 0) {
+			res = true;
+		}
+		return res;
+	}
+	
+	_navMenu.info = function(id) {
+		initDialog();
+		_infoDlg.open();
+		_infoDlg.load(_rootUrl + "info${r'.html'}", {
+			ids : id
+		}, function() {
+		});
+	}
+
+	
+	function initToolbar() {
+		Esn.toolbar("${r'#'}toolbar", {
+			buttons : [ {
+				text : "添加",
+				icon : "add",
+				click : onTbAddClick
+			} ],
+			supersearch : {
+				search : function(searchParams) {
+				    <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
+					var ${c.javaFieldId} = $("${r'#'}${c.javaFieldId}").val();
+					
+					if (${c.javaFieldId} != "") {
+						_grid.refresh(_rootUrl + 'index.${r'html'}', searchParams);
+					}
+					</#if>
+			       </#list>
+					
+
+				},
+				items : [
+				<#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
+				 {
+					text : '${c.comments}',
+					name : '${c.javaFieldId}',
+					opt : 'like',
+					dataType : 'string',
+					width : 20,
+					type : 'field'
+				},
+				</#if>
+			   </#list>
+				]
+			}
+
+		});
+
+	}
+
+	function onTbAddClick() {
+		_addDlg.open();
+		var url = _rootUrl + "add${r'.html'}";
+		_addDlg.load(url);
+	}
+
+	_navMenu.edit = function(id) {
+		if (!id) {
+			alert("请选择需要编辑的渠道！");
+			return;
+		}
+		_editDlg.open();
+		var url = _rootUrl + "edit${r'.html'}?id=" + id;
+		_editDlg.load(url);
+	}
+
+
+   _navMenu.del = function(id){
+		if(!confirm("确定将删除?")) {
+			return;
+			}
+		Esn.ajax(_rootUrl+"delete${r'.html'}", {id: id},  function(data) {
+			var msg = data.msg;
+			var result = data.result;
+			if(result) {
+				alert('成功');
+				_grid.refresh();
+			}else {
+				alert('失败');
+			}
+		});
+	};
+	function initGrid() {
+		_grid = Esn.grid("#grid", {
+			url : _rootUrl + "index${r'.html'}",
+			rowId : 'id',
+			cols : [
+			<#list colList as c>
+			<#if (c.isList?? && c.isList == "1")>
+			{
+				text : "${c.comments}",
+				name : "${c.javaFieldId}",
+				width : 180
+			},
+			</#if>
+			 </#list>
+			 {
+				text : "操作",
+				name : "id",
+				width : 150,
+				formatter : OperFormatter
+			},
+
+			]
+		});
+	}
+	
+	function OperFormatter(cell, opts, row) {
+		var str='';
+		var ret="";
+		var roleName = $("${r'#roleName'}").val();
+		str = 'onClick="Esn.${className}.navMenu.delete('+ opts.rowId + ')">删除';
+		var editStr='<a href="javascript: void(0);" class="edittxt" onClick="Esn.${className}.navMenu.edit('+ opts.rowId+ ')">编辑</a> &nbsp;&nbsp;';
+		var delt=' <a href="javascript: void(0);" class="edittxt" '+ str + '</a>';
+		if(isContains(roleName,'ROLE_ADMIN'))
+		{
+			ret = editStr+delt;
+		}
+		return ret;
+	}
+	function initDialog() {
+		_infoDlg = Esn.dialog("${r'#'}infodlg", {
+			width : 800,
+			height : 400,
+			title : "详情",
+			buttons : {
+				"取消" : function() {
+					_infoDlg.close();
+				}
+			}
+		});
+
+		_addDlg = Esn.dialog("${r'#'}add_dlg", {
+			width : 800,
+			height : 400,
+			title : "添加",
+			buttons : {
+				"保存" : function() {
+					
+					Esn.ajaxSubmit('${r'#add-form'}', _rootUrl + "save${r'.html'}",
+							function(data) {
+								if (data != null) {
+									var msg = data.msg;
+									var result = data.result;
+									if (result) {
+										_grid.refresh();
+										_addDlg.close();
+									} else {
+										alert(msg);
+									}
+								}
+							});
+				},
+				"取消" : function() {
+					_addDlg.close();
+				}
+			}
+		});
+
+		_editDlg = Esn.dialog("${r'#edit_dlg'}", {
+			width : 800,
+			height : 400,
+			title : "编辑",
+			buttons : {
+				"保存" : function() {
+					Esn.ajaxSubmit('#edit-form', _rootUrl + "save${r'.html'}",
+							function(data) {
+								if (data != null) {
+									var msg = data.msg;
+									var result = data.result;
+									if (result) {
+										_grid.refresh();
+										_editDlg.close();
+									} else {
+										alert(msg);
+									}
+								}
+							});
+				},
+				"取消" : function() {
+					_editDlg.close();
+				}
+			}
+		});
+	}
+	Esn.${className}.navMenu = _navMenu;
+})(jQuery);
+
+     ]]>
+	</content>
+</template>

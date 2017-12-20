@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>controller</name>
+	<filePath>src/main/java/${packageName}/${moduleName}/web</filePath>
+	<fileName>${ClassName}Controller.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.${moduleName}.web;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ${packageName}.util.SpringMvcUtil;
+import ${packageName}.util.StringUtil;
+import ${packageName}.${moduleName}.entity.*;
+import ${packageName}.${moduleName}.service.*;
+import ${packageName}.internet.entity.Partion;
+/**
+ * ${ClassName}Controller(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Controller
+@RequestMapping(value = "/${subModuleName}")
+@SuppressWarnings("all")
+public class ${ClassName}Controller {
+
+    private static Logger logger = Logger.getLogger(${ClassName}Controller.class);
+	@Autowired
+	private I${ClassName}Service ${className}Service;
+	
+	/**
+	 * index:(跳转列表页)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+   	@RequestMapping("/index")
+	public String index(HttpServletRequest request,Model model){
+		return "/${modulePageName}/${className}/list";
+	}
+	/**
+	 * indexs:(跳转列表页)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("")
+	public String indexs(HttpServletRequest request,Model model){
+		return "/${modulePageName}/${className}/list";
+	}
+	
+	/**
+	 * list:(查询列表数据----后台管理)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/list")
+	public JSONObject list(HttpServletRequest request,Model model){
+		JSONObject result=new JSONObject();
+		<#list colList as c>
+		 <#if (c.isQuery?? && c.isQuery == "1")>
+		   String ${c.javaFieldId}=request.getParameter("${c.javaFieldId}");
+		 </#if>
+	   </#list>
+		String page = request.getParameter("page");//当前页数
+		String pageSizeStr = request.getParameter("rows");//每页记录是
+		Map parms = SpringMvcUtil.getPageMap(page,pageSizeStr);// 设置分页参数
+		<#list colList as c>
+		 <#if (c.isQuery?? && c.isQuery == "1")>
+		  parms.put("${c.javaFieldId}", ${c.javaFieldId});
+		 </#if>
+	   </#list>
+		Partion pt= ${className}Service.getList(parms);
+		Object list=null;
+		int totalCount=0;
+		if(pt!=null)
+		{
+		   list=pt.getList();
+		   totalCount=pt.getPageCount();
+		}
+		result.put("rows", list);
+		result.put("total", totalCount);
+		return result;
+	}
+	
+	/**
+	 * toIndex:(查询列表数据---互联网端)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/list/{page}")
+	public String toIndex(@PathVariable Integer page,HttpServletRequest request,Model model){
+		Map parms=new HashMap();
+		String str=request.getParameter("page");
+		parms=SpringMvcUtil.getPageMap(page);//设置分页参数
+		Partion pt= ${className}Service.getList(parms);
+		SpringMvcUtil.setdataModel(model, pt);
+		return "/${modulePageName}/${className}/list";
+	}
+	
+	/**
+	 * goEdit:(去往编辑页面-查询编辑所需数据)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/edit")
+	public String goEdit(Long id,HttpServletRequest request,Model model){
+	    ${ClassName} entity = null;
+	    try {
+		  if (id!=null&&id>0){
+			entity = ${className}Service.get${ClassName}ById(id);
+		  }
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error( "${ClassName}Controller:error===>" + e);
+
+		} catch (Error e) {
+			e.printStackTrace();
+			logger.error("${ClassName}Controller:error===>" + e);
+		}
+		if (entity == null){
+			entity = new ${ClassName}();
+		}
+		model.addAttribute("entity", entity);
+		return "/${modulePageName}/${className}/edit";
+	}
+	
+	/**
+	 * delete:(删除数据-逻辑删除)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/delete")
+	public Map delete(Long id,HttpServletRequest request,Model model){
+	   String msg = "删除成功";
+		Map result = new HashMap();
+		boolean res = true;
+		try {
+		       if (id!=null&&id>0){
+		          ${className}Service.delete(id);
+		       }else
+		       {
+		         msg = "请选择需要删除的数据";
+			     res = false;
+		       }
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error( "${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			res = false;
+		} catch (Error e) {
+			e.printStackTrace();
+			logger.error("${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			res = false;
+		}
+		result.put("result", res);
+		result.put("msg", msg);
+		return result;
+	}
+	
+	/**
+	 * save:(保存新增或者编辑的)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/save")
+	public Map save(@RequestBody List<${ClassName}> list,
+			HttpServletRequest request, Model model) {
+		String msg = "保存成功";
+		Map result = new HashMap();
+		boolean res = true;
+		try {
+			if (list == null || (list != null && list.size() < 1)) {
+				msg = "无保存内容";
+				res = false;
+			}
+			${ClassName} ${className} = list.get(0);
+			// 无保存内容
+			if (${className} == null) {
+				msg = "无保存内容";
+				res = false;
+			}
+			if (res) {
+				${className}Service.add(${className});
+				res = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error( "${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			res = false;
+		} catch (Error e) {
+			e.printStackTrace();
+			logger.error("${ClassName}Controller:error===>" + e);
+			msg = "服务器繁忙，请稍后再试";
+			res = false;
+		}
+		result.put("result", res);
+		result.put("msg", msg);
+		return result;
+	}
+	
+
+}]]>
+	</content>
+</template>

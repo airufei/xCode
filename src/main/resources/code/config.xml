@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<!-- 生成分类 -->
+	<category>
+		<category dictKey="curd" dictValue="增删改查（单表）">
+			<template>curd/controller.xml</template>
+			<template>curd/service.xml</template>
+			<template>curd/iservice.xml</template>
+			<template>category-ref:dao</template>
+			<template>curd/editpage.xml</template>
+			<template>curd/listpage.xml</template>
+		</category>
+		
+		<category dictKey="404_detail" dictValue="404_detail">
+			<template>html/404.xml</template>
+		</category>
+		<category dictKey="news_list" dictValue="news_list">
+			<template>html/listpage.xml</template>
+		</category>
+		<category dictKey="news_detail" dictValue="news_detail">
+			<template>html/detailpage.xml</template>
+		</category>
+		<category dictKey="moive_list" dictValue="moive_list">
+			<template>html/moive_listpage.xml</template>
+		</category>
+		<category dictKey="moive_detail" dictValue="moive_detail">
+			<template>html/moive_detailpage.xml</template>
+		</category>
+		<category dictKey="tv_list" dictValue="tv_list">
+			<template>html/tv_listpage.xml</template>
+		</category>
+		<category dictKey="tv_detail" dictValue="tv_detail">
+			<template>html/tv_detailpage.xml</template>
+		</category>
+		<category dictKey="website_index" dictValue="website_index">
+			<template>website/indexpage.xml</template>
+		</category>
+		<category dictKey="website_detail" dictValue="website_detail">
+			<template>website/detailpage.xml</template>
+		</category>
+		<category dictKey="lcApp" dictValue="lcApp(增删改)">
+			<template>lcApp/controller.xml</template>
+			<template>lcApp/dao.xml</template>
+			<template>lcApp/entity.xml</template>
+			<template>lcApp/mapper.xml</template>
+			<template>lcApp/service.xml</template>
+		</category>
+		
+		<category dictKey="dubbo" dictValue="dubbo(增删改)">
+			<template>dubbo/iservice.xml</template>
+			<template>dubbo/dao.xml</template>
+			<template>dubbo/entity.xml</template>
+			<template>dubbo/mapper.xml</template>
+			<template>dubbo/service.xml</template>
+		</category>
+		
+		<category dictKey="Hibernate" dictValue="Hibernate增删改查（单表）">
+			<template>hib/controller.xml</template>
+			<template>hib/service.xml</template>
+			<template>hib/iservice.xml</template>
+			<template>hib/idao.xml</template>
+			<template>hib/dao.xml</template>
+			<template>hib/entity.xml</template>
+			<template>hib/hbm.xml</template>
+			<template>hib/editpage.xml</template>
+			<template>hib/addpage.xml</template>
+			<template>hib/listpage.xml</template>
+			<template>hib/pagejs.xml</template>
+		</category>
+		
+	</category>
+	<!-- java类型 -->
+	<javaType>
+		<dict dictKey="java.lang.String" dictValue="String"/>
+		<dict dictKey="java.lang.Long" dictValue="Long"/>
+		<dict dictKey="java.lang.Integer" dictValue="Integer"/>
+		<dict dictKey="java.lang.Double" dictValue="Double"/>
+		<dict dictKey="java.util.Date" dictValue="Date"/>
+	</javaType>
+	<!-- 查询类型 -->
+	<queryType>
+		<dict dictKey="=" dictValue="="/>
+		<dict dictKey="!=" dictValue="!="/>
+		<dict dictKey="between" dictValue="Between"/>
+		<dict dictKey="like" dictValue="Like"/>
+		<dict dictKey="left_like" dictValue="Left Like"/>
+		<dict dictKey="right_like" dictValue="Right Like"/>
+	</queryType>
+	<!-- 字段显示类型 -->
+	<showType>
+		<dict dictKey="input" dictValue="单行文本"/>
+		<dict dictKey="textarea" dictValue="多行文本"/>
+		<dict dictKey="select" dictValue="下拉选项"/>
+		<dict dictKey="radiobox" dictValue="单选按钮"/>
+		<dict dictKey="checkbox" dictValue="复选框"/>
+		<dict dictKey="dateselect" dictValue="日期选择"/>
+	</showType>
+</config>
