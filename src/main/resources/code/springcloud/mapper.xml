@@ -50,7 +50,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</#list>
 	</sql>
     
-	<select id="get${ClassName}ById" resultType="${packageName}.${javaModuleName}.model.${ClassName}">
+	<select id="get${ClassName}ById" resultType="${packageName}.model.${ClassName}">
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -98,7 +98,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 	
-	<select id="getList" resultType="${packageName}.${javaModuleName}.model.${ClassName}" parameterType="java.util.Map">
+	<select id="getList" resultType="${packageName}.model.${ClassName}" parameterType="java.util.Map">
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -144,7 +144,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		limit ${"#"}{startIndex},${"#"}{pageSize} 
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${javaModuleName}.model.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.model.${ClassName}" parameterType="${packageName}.${javaModuleName}.model.${ClassName}">
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a

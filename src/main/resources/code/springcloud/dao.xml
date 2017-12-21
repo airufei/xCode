@@ -5,7 +5,8 @@
 	<fileName>${ClassName}Dao.java</fileName>
 	<content><![CDATA[
 package ${packageName}.${javaModuleName}.dao;
-import ${packageName}.${javaModuleName}.model.*;
+
+import ${packageName}.model.*;
 import java.util.List;
 import java.util.Map;
 /**

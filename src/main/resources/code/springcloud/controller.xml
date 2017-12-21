@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>controller</name>
-	<filePath>src/${packageName}/${javaModuleName}/api/controller</filePath>
+	<filePath>src/${packageName}/${javaModuleName}/controller</filePath>
 	<fileName>${ClassName}Controller.java</fileName>
 	<content><![CDATA[
 package ${packageName}.${javaModuleName}.controller;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import ${packageName}.model.*;
+import ${packageName}.base.model.*;
+import ${packageName}.utils.*;
 import ${packageName}.${javaModuleName}.service.*;
 /**
  * ${ClassName}Controller(${functionName})
@@ -28,7 +30,7 @@ import ${packageName}.${javaModuleName}.service.*;
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
-    private static Logger logger = Logger.getLogger(${ClassName}Controller.class);
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
 	@Autowired
 	private ${ClassName}Service ${className}Service;
 	
@@ -146,7 +148,7 @@ public class ${ClassName}Controller {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ${ClassName}> ret${className}= ${className}Service.get${ClassName}>(${className});
+            ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
             dataReturn.setData(ret${className});
             dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {

@@ -12,11 +12,14 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ${packageName}.model.*;
+import ${packageName}.base.model.*;
+import ${packageName}.utils.*;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ${packageName}.${javaModuleName}.model.*;
 import ${packageName}.${javaModuleName}.dao.${ClassName}Dao;
 
 /**
@@ -29,9 +32,9 @@ import ${packageName}.${javaModuleName}.dao.${ClassName}Dao;
 @SuppressWarnings("all")
 public class ${ClassName}Service  {
 
-	@Resource
+	@Autowired
 	private ${ClassName}Dao ${className}Dao;
-
+     private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
       /**
 	   * getList(获取${functionName}带分页数据-服务)
 	   * @param map
@@ -46,7 +49,7 @@ public class ${ClassName}Service  {
           {
              return null;
           }
-	      List<${ClassName}> list= ${className}Dao.getList(map);
+	       List<${ClassName}> list= ${className}Dao.getList(map);
 	      int totalcount = getTotalCount(map);
 		  Partion pt = new Partion(map, list, totalcount);
 		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 parms={}", parms);
@@ -94,7 +97,7 @@ public class ${ClassName}Service  {
 	    {
 	       ${className}Dao.add(${className});
 	    }
-	    parms = JSON.toJSONString(dict);
+	    parms = JSON.toJSONString(${className});
 	    logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
 	    return  ${className};
 	}
@@ -112,11 +115,11 @@ public class ${ClassName}Service  {
 	      String parms = JSON.toJSONString(${className});
 	      List<${ClassName}> list=null;
           logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", parms);
-          if(${className}==null)
-          {
+           if(${className}==null)
+           {
              return ret;
-          }
-	       List<${ClassName}> list=get${ClassName}List(${className});
+           }
+	       list=get${ClassName}List(${className});
 	       if(list!=null&&list.size()>0)
 	       {
 	          ret=list.get(0);
