@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>service</name>
-	<filePath>src/${packageName}/${javaModuleName}/api/service</filePath>
+	<filePath>src/${packageName}/${javaModuleName}/api_service</filePath>
 	<fileName>${ClassName}Service.java</fileName>
 	<content><![CDATA[
 
 package ${packageName}.${javaModuleName}.service;
-
 import java.util.List;
 import java.util.Map;
-import {packageName}.${javaModuleName}.config.HttpBasicAuthConfig;
+import ${packageName}.config.HttpBasicAuthConfig;
+import ${packageName}.base.model.*;
 import ${packageName}.model.*;
+import ${packageName}.utils.*;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +45,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "get${className}list", consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<${ClassName}> get${ClassName}List(@RequestBody {ClassName} {className});
+    List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className});
 
 
      /**
@@ -53,7 +54,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping("get${className}")
-    public ${ClassName} get${ClassName}(@RequestBody {ClassName} {className});
+    public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className});
 
     /**
      * save:(保存${functionName}数据)
@@ -61,7 +62,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    DataReturn save(@RequestBody {ClassName} {className});
+    DataReturn save(@RequestBody ${ClassName} ${className});
 
 
     /**

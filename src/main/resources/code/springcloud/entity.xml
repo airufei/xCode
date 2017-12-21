@@ -7,7 +7,7 @@
 
 package ${packageName}.model;
 
-import com.chainfin.business.base.model.BaseEntitys;
+import ${packageName}.base.model.BaseEntitys;
 import java.util.Date;
 
  /**
