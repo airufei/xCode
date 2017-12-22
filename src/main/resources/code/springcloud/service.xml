@@ -41,7 +41,7 @@ public class ${ClassName}Service  {
 	   * @return
 	   */
 	   @RequestMapping("list")
-	   public Partion  getList(Map map)
+	   public Partion  getList(@RequestBody Map map)
 	   {
 	      String parms = JSON.toJSONString(map);
           logger.info("getList(获取${functionName}带分页数据-服务) 开始 parms={}", parms);
@@ -62,7 +62,7 @@ public class ${ClassName}Service  {
 	   * @return
 	   */
 	   @RequestMapping("get${className}list")
-	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
+	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName} ${className})
 	   {
 	      String parms = JSON.toJSONString(${className});
 	      List<${ClassName}> list=null;
@@ -83,7 +83,7 @@ public class ${ClassName}Service  {
 	 * @return
 	 */
     @RequestMapping("save")
-	public ${ClassName} save(${ClassName} ${className})
+	public ${ClassName} save(@RequestBody ${ClassName} ${className})
 	{
 	    String parms = JSON.toJSONString(${className});
         logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
@@ -109,7 +109,7 @@ public class ${ClassName}Service  {
 	   * @return
 	   */
 	   @RequestMapping("get${className}")
-	   public ${ClassName}  get${ClassName}(${ClassName} ${className})
+	   public ${ClassName}  get${ClassName}(@RequestBody ${ClassName} ${className})
 	   {
 	      ${ClassName} ret=null;
 	      String parms = JSON.toJSONString(${className});
