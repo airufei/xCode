@@ -35,9 +35,14 @@
 						<td>建议模块包：com.cn.cooxin</td>
 					</tr>
 					<tr>
+						<td>子包路径:</td>
+						<td><input class="easyui-textbox" style="width:100%;height:32px"  value="${genScheme.subPackageName}" name="subPackageName" maxlength="200" /></td>
+						<td>API层子包(如lcapi,pcapi)</td>
+					</tr>
+					<tr>
 						<td>java模块名:</td>
 						<td><input class="easyui-textbox" style="width:100%;height:32px" value="${genScheme.moduleName}"  name="moduleName" maxlength="200" /></td>
-						<td>java端系统名，例如 admin</td>
+						<td>java模块，例如 admin、mipay、order</td>
 					</tr>
 					<tr>
 						<td>页面模块名:</td>

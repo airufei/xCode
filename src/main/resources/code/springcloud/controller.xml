@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>controller</name>
-	<filePath>src/${packageName}/${javaModuleName}/controller</filePath>
+	<filePath>src/${packageName}/${subPackageName}/${javaModuleName}/controller</filePath>
 	<fileName>${ClassName}Controller.java</fileName>
 	<content><![CDATA[
-package ${packageName}.${javaModuleName}.controller;
+package ${packageName}.${subPackageName}.${javaModuleName}.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import ${packageName}.model.*;
 import ${packageName}.base.model.*;
 import ${packageName}.utils.*;
-import ${packageName}.${javaModuleName}.service.*;
+import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
 /**
  * ${ClassName}Controller(${functionName})
  * @author ${functionAuthor}

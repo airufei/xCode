@@ -15,8 +15,9 @@ public class GenScheme extends BaseEntitys {
 	private String name; 	// 名称
 	private String category;		// 分类
 	private String packageName;		// 生成包路径
+	private String subPackageName;		//子包路径
 	private String moduleName;		// 生成模块名
-	private String modulePageName;		// 页面模块
+	private String modulePageName;	// 页面模块
 	private String subModuleName;		// 访问路径
 	private String functionName;		// 生成功能名
 	private String functionNameSimple;		// 生成功能名（简写）
@@ -24,8 +25,16 @@ public class GenScheme extends BaseEntitys {
 	private long tableId;		// 业务Id
 	private String tableName;		// 业务名称
 	private Boolean replaceFile;	// 是否替换现有文件    0：不替换；1：替换文件
-	
+
 	public GenScheme() {
+	}
+
+	public String getSubPackageName() {
+		return subPackageName;
+	}
+
+	public void setSubPackageName(String subPackageName) {
+		this.subPackageName = subPackageName;
 	}
 
 	public String getName() {

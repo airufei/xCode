@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>service</name>
-	<filePath>src/${packageName}/${javaModuleName}/api_service</filePath>
+	<filePath>src/${packageName}/${subPackageName}/${javaModuleName}/service</filePath>
 	<fileName>${ClassName}Service.java</fileName>
 	<content><![CDATA[
 
-package ${packageName}.${javaModuleName}.service;
+package ${packageName}.${subPackageName}.${javaModuleName}.service;
 import java.util.List;
 import java.util.Map;
-import ${packageName}.config.HttpBasicAuthConfig;
+import ${packageName}.${subPackageName}.config.HttpBasicAuthConfig;
 import ${packageName}.base.model.*;
 import ${packageName}.model.*;
 import ${packageName}.utils.*;

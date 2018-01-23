@@ -262,6 +262,7 @@ public class GenUtils {
 		model.put("lastPackageName", StringUtil.substringAfterLast((String)model.get("packageName"),"."));
 		model.put("javaModuleName", moduleName);
 		model.put("modulePageName", StringUtil.lowerCase(genScheme.getModulePageName()));
+		model.put("subPackageName", StringUtil.lowerCase(genScheme.getSubPackageName()));
 		model.put("subModuleName", StringUtil.lowerCase(genScheme.getSubModuleName()));
 		model.put("className", StringUtil.uncapitalize(GenTable.getClassName()));
 		model.put("ClassName", StringUtil.capitalize(GenTable.getClassName()));
