@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/base/${javaModuleName}/service</filePath>
+	<fileName>${ClassName}HelperService.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.base.${javaModuleName}.service;
+
+
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ${packageName}.model.*;
+import ${packageName}.base.model.*;
+import ${packageName}.utils.*;
+import com.alibaba.fastjson.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ${packageName}.base.${javaModuleName}.dao.${ClassName}Dao;
+
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Service
+@SuppressWarnings("all")
+public class ${ClassName}HelperService  {
+
+	@Autowired
+	private ${ClassName}Dao ${className}Dao;
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+	  /**
+	   * 获取分页总记录数
+	   * @param map
+	   * @return
+	   */
+	   public int  getTotalCount(Map map)
+	   {
+	      return ${className}Dao.getTotalCount(map);
+	   }
+
+
+     /**
+	 * 获取单条数据
+	 * @param id
+	 * @return
+	 */
+	 public ${ClassName} get${ClassName}ById (long id)
+	 {
+	      return ${className}Dao.get${ClassName}ById(id);
+	 }
+
+	 /**
+	 * 修改单条数据
+	 * @param id
+	 * @return
+	 */
+	  public void updateById(${ClassName} ${className})
+	  {
+	     ${className}Dao.updateById(${className});
+	  }
+	
+}]]>
+	</content>
+</template>
