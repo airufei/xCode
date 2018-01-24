@@ -18,6 +18,7 @@
 			<template>springcloud/mapper.xml</template>
 			<template>springcloud/service.xml</template>
 			<template>springcloud/iservice.xml</template>
+			<template>springcloud/helperservice.xml</template>
 		</category>
 
 		<category dictKey="lcApp" dictValue="lcApp(增删改)">
