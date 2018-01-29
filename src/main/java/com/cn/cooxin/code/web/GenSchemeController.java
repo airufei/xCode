@@ -76,8 +76,19 @@ public class GenSchemeController {
 
 	@RequestMapping(value = "edit")
 	public String getEditDat(GenScheme genScheme, Model model) {
-		if (StringUtil.isBlank(genScheme.getPackageName())) {
+		String packageName = genScheme.getPackageName();
+		String subPackageName = genScheme.getSubPackageName();
+		String moduleName = genScheme.getModuleName();
+		if (StringUtil.isBlank(packageName)) {
 			genScheme.setPackageName("com.cn.cooxin");
+		}
+		if(StringUtil.isNoneBlank(subPackageName))
+		{
+			genScheme.setSubPackageName(subPackageName.trim());
+		}
+		if(StringUtil.isNoneBlank(moduleName))
+		{
+			genScheme.setModuleName(moduleName.trim());
 		}
 		long id = genScheme.getId();
 		genScheme = genSchemeService.getSchemeById(id);
@@ -98,7 +109,6 @@ public class GenSchemeController {
 		Map result = new HashMap();
 		boolean res = true;
 		try {
-
 			if (list == null) {
 				res = false;
 				msg = "无保存内容";
@@ -113,6 +123,20 @@ public class GenSchemeController {
 				result.put("result", res);
 				result.put("msg", msg);
 				return result;
+			}
+			String packageName = genScheme.getPackageName();
+			String subPackageName = genScheme.getSubPackageName();
+			String moduleName = genScheme.getModuleName();
+			if (StringUtil.isBlank(packageName)) {
+				genScheme.setPackageName("com.cn.cooxin");
+			}
+			if(StringUtil.isNoneBlank(subPackageName))
+			{
+				genScheme.setSubPackageName(subPackageName.trim());
+			}
+			if(StringUtil.isNoneBlank(moduleName))
+			{
+				genScheme.setModuleName(moduleName.trim());
 			}
 			String subName = genScheme.getSubModuleName();
 			if (subName != null && subName.length() > 0) {
