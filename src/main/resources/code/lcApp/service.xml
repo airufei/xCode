@@ -88,8 +88,12 @@ public class ${ClassName}Service  {
 	   */
 	   public Partion  getList(Map map)
 	   {
-	      List<${ClassName}> list= ${className}Dao.getList(map);
-	      int totalcount = getTotalCount(map);
+	      int totalcount =getTotalCount(map);
+          List<${ClassName}> list= null;
+          if(totalcount>0)
+          {
+              list= ${className}Dao.getList(map);
+          }
 		  Partion pt = new Partion(map, list, totalcount);
 		  return pt;
 	   }

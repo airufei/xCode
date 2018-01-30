@@ -52,8 +52,12 @@ public class ${ClassName}Service  {
           {
              return null;
           }
-	      List<${ClassName}> list= ${className}Dao.getList(map);
-	      int totalcount =${className}HelperService.getTotalCount(map);
+          int totalcount =${className}HelperService.getTotalCount(map);
+          List<${ClassName}> list= null;
+          if(totalcount>0)
+          {
+            list= ${className}Dao.getList(map);
+          }
 		  Partion pt = new Partion(map, list, totalcount);
 		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 parms={}", parms);
 		  return pt;

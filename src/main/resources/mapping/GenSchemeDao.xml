@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.cooxin.code.dao.IGenSchemeDao">
-    
+
     <sql id="genSchemeColumns">
-		    id, 
-			name, 
-			category, 
+		    a.id,
+			a.name,
+			a.category,
 			package_name as packageName, 
 			module_name as moduleName, 
 			module_page_name as modulePageName,
@@ -23,27 +23,32 @@
 			remark, 
 			flag
 	</sql>
-	
-	<sql id="genSchemeJoins">
-		
+
+	<sql id="genSchemeJoins" >
+
     </sql>
-    
+
     <select id="getSchemeById" resultType="com.cn.cooxin.code.entity.GenScheme">
-		SELECT 
+		SELECT
 			<include refid="genSchemeColumns"/>
 		FROM t_code_scheme a
 		<include refid="genSchemeJoins"/>
 		WHERE  a.flag =0 and a.id = #{id}
 	</select>
-	
+
 	<select id="getList" resultType="com.cn.cooxin.code.entity.GenScheme" parameterType="Map">
-		SELECT 
+		SELECT
 			<include refid="genSchemeColumns"/>
-		FROM t_code_scheme a
+		FROM t_code_scheme a inner join
+		(SELECT id from  t_code_scheme d
+		<if test="flag != null and flag != ''">
+			WHERE a.flag =0
+		</if>
+		limit #{startIndex},#{pageSize}) b on b.id=a.id
 		<include refid="genSchemeJoins"/>
 		WHERE a.flag =0
 		<if test="name != null and name != ''">
-			AND a.name LIKE 
+			AND a.name LIKE
 				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
 				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
 				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
@@ -53,30 +58,29 @@
 				ORDER BY a.updatetime desc
 			</otherwise>
 		</choose>
-		limit #{startIndex},#{pageSize} 
 	</select>
-	
+
 	<select id="getTotalCount" resultType="Integer" parameterType="Map">
-		SELECT 
+		SELECT
 			count(0) as count
 		FROM t_code_scheme a
 		WHERE a.flag = 0
 		<if test="name != null and name != ''">
-			AND a.name LIKE 
+			AND a.name LIKE
 				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
 				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
 				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
 		</if>
 	</select>
-	
+
 	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenScheme">
-		SELECT 
+		SELECT
 			<include refid="genSchemeColumns"/>
 		FROM t_code_scheme a
 		<include refid="genSchemeJoins"/>
 		WHERE a.flag = 0
 	</select>
-	
+
 	<insert id="add">
 		INSERT INTO t_code_scheme(
 			id, 
@@ -116,7 +120,7 @@
 			#{flag}
 		)
 	</insert>
-	
+
 	<update id="updateById">
 		UPDATE t_code_scheme SET 
 			name = #{name}, 
@@ -135,10 +139,10 @@
 			remark = #{remark}
 		WHERE id = #{id}
 	</update>
-	
+
 	<update id="deleteById">
 		delete from  t_code_scheme 
 		WHERE id = #{id}
 	</update>
-	
+
 </mapper>

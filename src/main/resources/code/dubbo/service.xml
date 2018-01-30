@@ -121,8 +121,12 @@ public class ${ClassName}ServiceImpl  implements ${ClassName}Service{
 	   */
 	   public Partion  getList(Map map)
 	   {
-	      List<${ClassName}> list=${className}Dao.getList(map);
-	      int totalcount = ${className}Dao.getTotalCount(map);
+	      int totalcount ={className}Dao.getTotalCount(map);
+          List<${ClassName}> list= null;
+          if(totalcount>0)
+          {
+              list= ${className}Dao.getList(map);
+          }
 		  Partion pt = new Partion(map, list, totalcount);
 		  return pt;
 	   }

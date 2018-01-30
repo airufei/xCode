@@ -102,7 +102,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
-		<include refid="${className}Joins"/>
+				(SELECT id from  ${table.name} t
 		<where>
 			a.flag = ${"#"}{flag}
 			<#list colList as c>
@@ -115,17 +115,17 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 					<#if c.queryType ?? && c.queryType == 'between'>
 				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
 					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND a.${c.name} LIKE 
+				AND a.${c.name} LIKE
 					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
 					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND a.${c.name} LIKE 
+				AND a.${c.name} LIKE
 					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
 					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
 					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
 					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND a.${c.name} LIKE 
+				AND a.${c.name} LIKE
 					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
 					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
 					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
@@ -133,15 +133,16 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
 					</#if>
 			</if>
-				</#if>
+			</#if>
 			</#list>
 		</where>
+		limit ${"#"}{startIndex},${"#"}{pageSize} ) b on b.id=a.id
+		<include refid="${className}Joins"/>
 		<choose>
 			<otherwise>
-				ORDER BY a.updateTime desc
+				ORDER BY a.UPDATE_TIME desc
 			</otherwise>
 		</choose>
-		limit ${"#"}{startIndex},${"#"}{pageSize} 
 	</select>
 
     <select id="get${ClassName}List" resultType="${packageName}.${moduleName}.entity.${ClassName}" parameterType="${packageName}.${moduleName}.entity.${ClassName}">
