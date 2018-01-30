@@ -38,7 +38,13 @@ public class ${ClassName}HelperService  {
 	   */
 	   public int  getTotalCount(Map map)
 	   {
-	      return ${className}Dao.getTotalCount(map);
+	      int resCount=0;
+	      Integer totalCount =${className}Dao.getTotalCount(map);
+	      if(totalCount!=null)
+	      {
+	       resCount=totalCount;
+	      }
+	      return resCount;
 	   }
 
 

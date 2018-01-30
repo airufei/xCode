@@ -71,7 +71,7 @@ public interface ${ClassName}Dao {
 	   * @param map
 	   * @return
 	   */
-	   public int  getTotalCount(Map map);
+	   public Integer  getTotalCount(Map map);
 	   
 }]]>
 	</content>
