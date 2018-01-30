@@ -50,7 +50,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</#list>
 	</sql>
     
-	<select id="get${ClassName}ById" resultType="${packageName}.model.${ClassName}">
+	<select id="get${ClassName}ById" resultType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -98,13 +98,13 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 	
-	<select id="getList" resultType="${packageName}.model.${ClassName}" parameterType="java.util.Map">
+	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="java.util.Map">
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
 		(SELECT id from  ${table.name} t
 		<where>
-			a.flag = ${"#"}{flag}
+			t.flag = ${"#"}{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -113,39 +113,39 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
 					</#if>
 					<#if c.queryType ?? && c.queryType == 'between'>
-				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+				AND t.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
 					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND a.${c.name} LIKE
+				AND t.${c.name} LIKE
 					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
 					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND a.${c.name} LIKE
+				AND t.${c.name} LIKE
 					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
 					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
 					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
 					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND a.${c.name} LIKE
+				AND t.${c.name} LIKE
 					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
 					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
 					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
 					<#else>
-				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+				AND t.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
 					</#if>
 			</if>
 			</#if>
 			</#list>
 		</where>
-		limit ${"#"}{startIndex},${"#"}{pageSize} ) b on b.id=a.id
-		<include refid="${className}Joins"/>
 		<choose>
 			<otherwise>
-				ORDER BY a.UPDATE_TIME desc
+				ORDER BY t.UPDATE_TIME desc
 			</otherwise>
 		</choose>
+		limit ${"#"}{startIndex},${"#"}{pageSize} ) b on b.id=a.id
+		<include refid="${className}Joins"/>
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.model.${ClassName}" parameterType="${packageName}.model.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT 
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a

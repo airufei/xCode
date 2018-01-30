@@ -6,7 +6,7 @@
 	<content><![CDATA[
 package ${packageName}.base.${javaModuleName}.dao;
 
-import ${packageName}.model.*;
+import ${packageName}.model.${javaModuleName}.*;
 import java.util.List;
 import java.util.Map;
 /**

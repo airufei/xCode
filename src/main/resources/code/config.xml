@@ -59,6 +59,7 @@
 		<dict dictKey="java.lang.Integer" dictValue="Integer"/>
 		<dict dictKey="java.lang.Double" dictValue="Double"/>
 		<dict dictKey="java.util.Date" dictValue="Date"/>
+		<dict dictKey="java.math.BigDecimal" dictValue="BigDecimal"/>
 	</javaType>
 	<!-- 查询类型 -->
 	<queryType>

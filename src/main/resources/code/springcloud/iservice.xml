@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import ${packageName}.${subPackageName}.config.HttpBasicAuthConfig;
 import ${packageName}.base.model.*;
-import ${packageName}.model.*;
+import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.utils.*;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
