@@ -48,6 +48,24 @@ public class ${ClassName}HelperService  {
 	   }
 
 
+    /*
+     * save(保存${functionName})
+     * @param ${className}
+     * @author airufei
+     * @date 2018/1/30 14:59
+     */
+    public ${ClassName} save(${ClassName} ${className}) {
+        if (${className} == null) {
+            return ${className};
+        }
+        if (${className}.getId() != null && ${className}.getId() > 0) {
+            updateById(${className});
+        } else {
+            ${className}Dao.add(applyTransferCredit);
+        }
+        return applyTransferCredit;
+    }
+
      /**
 	 * 获取单条数据
 	 * @param id

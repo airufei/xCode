@@ -90,6 +90,7 @@ public class ${ClassName}Service  {
 	 * @return
 	 */
     @RequestMapping("save")
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
 	public ${ClassName} save(@RequestBody ${ClassName} ${className})
 	{
 	    String parms = JSON.toJSONString(${className});
@@ -97,14 +98,7 @@ public class ${ClassName}Service  {
         if (${className} == null) {
             return ${className};
         }
-	    if(${className}.getId()!=null&&${className}.getId()>0)
-	    {
-	       ${className}HelperService.updateById(${className});
-	    }else
-	    {
-	       ${className}Dao.add(${className});
-	    }
-	    parms = JSON.toJSONString(${className});
+	    ${className}=${className}HelperService.save(${className});
 	    logger.info("save (保存${functionName} 数据-服务) 结束");
 	    return  ${className};
 	}
