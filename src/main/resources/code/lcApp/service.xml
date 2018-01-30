@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-	<name>service</name>
-	<filePath>src/${packageName}/${javaModuleName}/service</filePath>
-	<fileName>${ClassName}Service.java</fileName>
-	<content><![CDATA[
+    <name>service</name>
+    <filePath>src/${packageName}/${javaModuleName}/service</filePath>
+    <fileName>${ClassName}Service.java</fileName>
+    <content><![CDATA[
 
 package ${packageName}.${javaModuleName}.service;
 
@@ -134,5 +134,5 @@ public class ${ClassName}Service  {
 	   }
 	
 }]]>
-	</content>
+    </content>
 </template>

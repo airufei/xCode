@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-	<name>dao</name>
-	<filePath>src/${packageName}/${javaModuleName}/dao</filePath>
-	<fileName>${ClassName}Dao.java</fileName>
-	<content><![CDATA[
+    <name>dao</name>
+    <filePath>src/${packageName}/${javaModuleName}/dao</filePath>
+    <fileName>${ClassName}Dao.java</fileName>
+    <content><![CDATA[
 package ${packageName}.${javaModuleName}.dao;
 import ${packageName}.${javaModuleName}.model.*;
 import java.util.List;
@@ -73,5 +73,5 @@ public interface ${ClassName}Dao {
 	   public int  getTotalCount(Map map);
 	   
 }]]>
-	</content>
+    </content>
 </template>

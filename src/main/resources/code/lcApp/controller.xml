@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-	<name>controller</name>
-	<filePath>src/${packageName}/${javaModuleName}/controller</filePath>
-	<fileName>${ClassName}Controller.java</fileName>
-	<content><![CDATA[
+    <name>controller</name>
+    <filePath>src/${packageName}/${javaModuleName}/controller</filePath>
+    <fileName>${ClassName}Controller.java</fileName>
+    <content><![CDATA[
 package ${packageName}.${javaModuleName}.controller;
 
 import java.util.HashMap;
@@ -213,5 +213,5 @@ public class ${ClassName}Controller {
 	
 
 }]]>
-	</content>
+    </content>
 </template>

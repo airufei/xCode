@@ -258,7 +258,7 @@ ${r"</foreach>"}
 	
 	<update id="delete">
 	UPDATE ${table.name} SET 
-	flag = 1
+	flag = -1
 		WHERE id = ${"#"}{id}
 	</update>
 	
