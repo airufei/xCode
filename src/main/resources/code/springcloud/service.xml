@@ -59,7 +59,7 @@ public class ${ClassName}Service  {
             list= ${className}Dao.getList(map);
           }
 		  Partion pt = new Partion(map, list, totalcount);
-		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 parms={}", parms);
+		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 ");
 		  return pt;
 	   }
 
@@ -79,7 +79,7 @@ public class ${ClassName}Service  {
              return list;
           }
 	      list=${className}Dao.get${ClassName}List(${className});
-	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", parms);
+	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
 	      return list;
 	   }
 
@@ -105,7 +105,7 @@ public class ${ClassName}Service  {
 	       ${className}Dao.add(${className});
 	    }
 	    parms = JSON.toJSONString(${className});
-	    logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
+	    logger.info("save (保存${functionName} 数据-服务) 结束");
 	    return  ${className};
 	}
 
@@ -131,7 +131,7 @@ public class ${ClassName}Service  {
 	       {
 	          ret=list.get(0);
 	       }
-	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 parms={}", parms);
+	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	      return ret;
 	   }
 
