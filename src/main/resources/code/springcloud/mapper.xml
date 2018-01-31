@@ -241,7 +241,7 @@ ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 		)
 ${r"</foreach>"}
 	</insert>
-	
+
 	<update id="updateById">
 		UPDATE ${table.name} SET 	
 				<#list colList as c>
@@ -260,7 +260,6 @@ ${r"</foreach>"}
 	flag = -1
 		WHERE id = ${"#"}{id}
 	</update>
-	
 </mapper>]]>
     </content>
 </template>
