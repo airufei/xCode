@@ -90,7 +90,6 @@ public class ${ClassName}Service  {
 	 * @return
 	 */
     @RequestMapping("save")
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
 	public ${ClassName} save(@RequestBody ${ClassName} ${className})
 	{
 	    String parms = JSON.toJSONString(${className});

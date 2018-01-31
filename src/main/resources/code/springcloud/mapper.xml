@@ -251,8 +251,7 @@ ${r"</foreach>"}
 			           </if>
 					</#if>
 				</#list>
-				id= ${"#"}{id}
-				
+				UPDATE_TIME= ${"#"}{updateTime}
 		WHERE id = ${"#"}{id}
 	</update>
 	
