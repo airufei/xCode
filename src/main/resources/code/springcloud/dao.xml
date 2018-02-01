@@ -38,7 +38,7 @@ public interface ${ClassName}Dao {
 	 public void addTrainRecordBatch(List<${ClassName}> list);
 
      /**
-	 * 获取单条数据
+	 * 根据ID获取单条数据
 	 * @param id
 	 * @return
 	 */
@@ -65,7 +65,14 @@ public interface ${ClassName}Dao {
 	   * @return
 	   */
 	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className});
-	   
+
+	   /**
+	   * 获取单条数据
+	   * @param map
+	   * @return
+	   */
+	   public ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
+
 	  /**
 	   * 获取分页记录总数
 	   * @param map

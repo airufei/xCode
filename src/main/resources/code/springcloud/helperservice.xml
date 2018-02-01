@@ -79,6 +79,15 @@ public class ${ClassName}HelperService  {
 	      return ${className}Dao.get${ClassName}ById(id);
 	 }
 
+    /**
+	 * 获取单条数据
+	 * @param id
+	 * @return
+	 */
+	 public ${ClassName} getSignle${ClassName}(${ClassName} ${className})
+	 {
+	      return ${className}Dao.getSignle${ClassName}(${className});
+	 }
 	 /**
 	 * 修改单条数据
 	 * @param id

@@ -119,11 +119,7 @@ public class ${ClassName}Service  {
            {
              return ret;
            }
-	       list=get${ClassName}List(${className});
-	       if(list!=null&&list.size()>0)
-	       {
-	          ret=list.get(0);
-	       }
+	       ret=${className}HelperService.getSignle${ClassName}(${className});
 	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	      return ret;
 	   }
