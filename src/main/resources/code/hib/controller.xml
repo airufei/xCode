@@ -169,7 +169,7 @@ public class ${ClassName}Controller extends AbBaseController {
 		if (entity == null){
 			entity = new ${ClassName}();
 		}
-		map.put("$entity", entity);
+		map.put("entity", entity);
 		return "${modulePageName}/${className}-edit";
 	}
 	

@@ -118,12 +118,14 @@ public class  ${ClassName}Dao  extends HibernateBaseDaoImpl<${ClassName}, String
 	   {
 	       Pagination pt=null;
 	        StringBuilder querySql=new StringBuilder();
-		    String salcolum=" select <#list colList as c>a.${c.name} as ${c.javaFieldId} ,</#list> ";
+		    String salcolum=" select <#list colList as c>a.${c.name} ,</#list> ";
 	        
 	        if(salcolum!=null&&salcolum.length()>0)
 	        {
 	            int index=salcolum.lastIndexOf(",");
-                salcolum=salcolum.substring(0,index);//主要是为了去掉最后一个逗号，也可以自行处理
+	            if(index>0){
+                   salcolum=salcolum.substring(0,index);//主要是为了去掉最后一个逗号，也可以自行处理
+                }
 	        }
 	        querySql.append(salcolum).append(" from ${table.name}  a where flag=1  ");
 		    Map<String, Object> param=new HashMap<String, Object>();
@@ -155,12 +157,14 @@ public class  ${ClassName}Dao  extends HibernateBaseDaoImpl<${ClassName}, String
 	   {
 	        StringBuilder querySql=new StringBuilder();
 	        
-	        String salcolum=" select <#list colList as c>a.${c.name} as ${c.javaFieldId} ,</#list> ";
+	        String salcolum=" select <#list colList as c>a.${c.name} ,</#list> ";
 	        
 	        if(salcolum!=null&&salcolum.length()>0)
 	        {
 	            int index=salcolum.lastIndexOf(",");
-                salcolum=salcolum.substring(0,index);
+                if(index>0){
+                   salcolum=salcolum.substring(0,index);//主要是为了去掉最后一个逗号，也可以自行处理
+                }
 	        }
 	        querySql.append(salcolum).append(" from ${table.name}  a where flag=1 ");
 		    Map<String, Object> param=new HashMap<String, Object>();

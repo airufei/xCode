@@ -37,7 +37,7 @@
 			<template>dubbo/service.xml</template>
 		</category>
 
-		<category dictKey="Hibernate" dictValue="Hibernate增删改查（单表）">
+		<category dictKey="Hibernate" dictValue="lcAdmin增删改查（单表）">
 			<template>hib/controller.xml</template>
 			<template>hib/service.xml</template>
 			<template>hib/iservice.xml</template>
