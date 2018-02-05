@@ -34,7 +34,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver  {
         // 根据不同错误转向不同页面  
 		ModelAndView model=new ModelAndView();
 		log.error("MyExceptionHandler====>错误信息："+ ex);
-		String newsUrl = NetworkUtil.getSystemUrl(request);// 获取iP端口
+		String newsUrl = NetworkUtil.getSystemUrl(request)+"/admin";// 获取iP端口
 		try {
 			String requestStr=NetworkUtil.getRqLog(request);
 			log.info("MyExceptionHandler====>错误以后跳转的新地址："+newsUrl+" =========》requestStr："+requestStr);
