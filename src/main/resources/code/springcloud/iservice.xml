@@ -62,7 +62,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    DataReturn save(@RequestBody ${ClassName} ${className});
+    ${ClassName} save(@RequestBody ${ClassName} ${className});
 
 
     /**
