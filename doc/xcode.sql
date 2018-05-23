@@ -171,9 +171,11 @@ CREATE TABLE `t_code_scheme` (
   `remark` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
   `flag` int(1) unsigned zerofill NOT NULL DEFAULT '0' COMMENT '删除标记（0：正常；1：删除）',
   `module_page_name` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '页面模块',
+  `sub_page_name` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '子模块',
   PRIMARY KEY (`id`),
   KEY `gen_scheme_del_flag` (`flag`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='生成方案';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='生成方案';
+
 
 -- ----------------------------
 -- Records of t_code_scheme
