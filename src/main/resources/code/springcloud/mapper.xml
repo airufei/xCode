@@ -58,7 +58,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		WHERE a.id = ${"#"}{id}
 	</select>
 	
-	<select id="getTotalCount" resultType="Integer" parameterType="java.util.Map">
+	<select id="getTotalCount" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT 
 			count(*) as count
 		FROM ${table.name} a
@@ -98,10 +98,10 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 	
-	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="java.util.Map">
+	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT 
 			<include refid="${className}Columns"/>
-		FROM ${table.name} a inner join
+		FROM
 		(SELECT id from  ${table.name} t
 		<where>
 			1=1
@@ -141,14 +141,13 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 				ORDER BY t.UPDATE_TIME desc
 			</otherwise>
 		</choose>
-		limit ${"#"}{startIndex},${"#"}{pageSize} ) b on b.id=a.id
-		<include refid="${className}Joins"/>
+		 limit ${"#"}{startIndex},${"#"}{pageSize}) b inner join
+		${table.name} a  on b.id=a.id
 	</select>
 
     <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
-		FROM ${table.name} a inner join
 		(SELECT id from  ${table.name} t
 		<where>
 			1=1
@@ -188,14 +187,14 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 				ORDER BY t.UPDATE_TIME desc
 			</otherwise>
 		</choose>
-		) b on b.id=a.id
+		) b  inner join ${table.name} a  on b.id=a.id
 		<include refid="${className}Joins"/>
 	</select>
 
        <select id="getSignle${ClassName}" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
-		FROM ${table.name} a inner join
+		FROM
 		(SELECT id from  ${table.name} t
 		<where>
 			1=1
@@ -235,7 +234,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 				ORDER BY t.UPDATE_TIME desc
 			</otherwise>
 		</choose>
-		limit 0,1) b on b.id=a.id
+		limit 1)b inner join  ${table.name} a on b.id=a.id
 		<include refid="${className}Joins"/>
 	</select>
 

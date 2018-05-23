@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.alibaba.fastjson.JSONObject;
 /**
  * Service(${functionName})
  * @author ${functionAuthor}
@@ -36,7 +36,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "getList", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Partion list(@RequestBody Map map);
+    Partion list(@RequestBody JSONObject map);
 
 
     /**

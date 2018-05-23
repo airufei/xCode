@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.utils.*;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class ${ClassName}HelperService  {
 	   * @param map
 	   * @return
 	   */
-	   public int  getTotalCount(Map map)
+	   public int  getTotalCount(JSONObject map)
 	   {
 	      int resCount=0;
 	      Integer totalCount =${className}Dao.getTotalCount(map);

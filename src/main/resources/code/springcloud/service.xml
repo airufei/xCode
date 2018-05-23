@@ -16,6 +16,7 @@ import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.base.model.*;
 import ${packageName}.utils.*;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +45,7 @@ public class ${ClassName}Service  {
 	   * @return
 	   */
 	   @RequestMapping("getList")
-	   public Partion  getList(@RequestBody Map map)
+	   public Partion  getList(@RequestBody JSONObject map)
 	   {
 	      String parms = JSON.toJSONString(map);
           logger.info("getList(获取${functionName}带分页数据-服务) 开始 parms={}", parms);
