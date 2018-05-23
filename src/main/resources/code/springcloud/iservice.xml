@@ -8,7 +8,7 @@
 package ${packageName}.${subPackageName}.${javaModuleName}.service;
 import java.util.List;
 import java.util.Map;
-import ${packageName}.${subPackageName}.config.HttpBasicAuthConfig;
+import ${packageName}.config.HttpBasicAuthConfig;
 import ${packageName}.base.model.*;
 import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.utils.*;
