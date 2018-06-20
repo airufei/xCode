@@ -34,7 +34,6 @@
 					</tr>		
 		 </#if>		  
      </#list>
-		
 	</table>
 	</form>
 </body>
