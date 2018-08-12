@@ -36,7 +36,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "getList", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Partion list(@RequestBody JSONObject map);
+    Partion getList(@RequestBody JSONObject map);
 
 
     /**
@@ -44,7 +44,7 @@ public interface ${ClassName}Service  {
      * @Author ${functionAuthor}
      * @return
      */
-    @RequestMapping(value = "get${className}list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "get${className}List", consumes = MediaType.APPLICATION_JSON_VALUE)
     List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className});
 
 
@@ -55,6 +55,15 @@ public interface ${ClassName}Service  {
      */
     @RequestMapping(value = "get${className}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className});
+
+    /**
+	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
+	   * @param ${ClassName}No
+	   * @param isCache
+	   * @return
+	 */
+	@RequestMapping(value = "get${className}ByNo", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public get${ClassName}ByNo(@RequestParam("${ClassName}No") String ${ClassName}No,@RequestParam("isCache") boolean isCache);
 
     /**
      * save:(保存${functionName}数据)

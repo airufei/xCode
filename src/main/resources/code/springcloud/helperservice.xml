@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-	<name>service</name>
-	<filePath>src/${packageName}/base/${javaModuleName}/service</filePath>
-	<fileName>${ClassName}HelperService.java</fileName>
-	<content><![CDATA[
+    <name>service</name>
+    <filePath>src/${packageName}/base/${javaModuleName}/service</filePath>
+    <fileName>${ClassName}HelperService.java</fileName>
+    <content><![CDATA[
 
 package ${packageName}.base.${javaModuleName}.service;
 
@@ -16,6 +16,7 @@ import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.utils.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,7 @@ public class ${ClassName}HelperService  {
 	      Integer totalCount =${className}Dao.getTotalCount(map);
 	      if(totalCount!=null)
 	      {
-	       resCount=totalCount;
+	        resCount=totalCount;
 	      }
 	      return resCount;
 	   }
@@ -89,6 +90,38 @@ public class ${ClassName}HelperService  {
 	 {
 	      return ${className}Dao.getSignle${ClassName}(${className});
 	 }
+
+    /**
+	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
+	   * @param isCache
+	   * @param ${ClassName}No
+	   * @return
+	*/
+	public get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
+	{
+	    ${ClassName} ret=null;
+	    if (StringUtil.isBlank(orderNo)) {
+            return ret;
+        }
+        String key = CacheConstantUtil.ORDER_BASE_ + ${ClassName}No;
+        String redisCache = null;
+        if (isCache) {
+            redisCache = cacheHelperService.getRedisCache(${ClassName}No);
+        }
+        if (StringUtil.isNotBlank(redisCache)) {
+            ret = JSONObject.parseObject(redisCache, ${ClassName}.class);
+        }
+        if (ret != null) {
+            return ret;
+        }
+        ${ClassName} parms=new ${ClassName}();
+        parms.set${ClassName}No(${ClassName}No);
+        ret=getSignle${ClassName}(parms);
+        if (ret != null && isCache) {
+            cacheHelperService.saveRedis(key, JSON.toJSONString(ret), 60 * 5);
+        }
+        return ret;
+	}
 	 /**
 	 * 修改单条数据
 	 * @param id
@@ -100,5 +133,5 @@ public class ${ClassName}HelperService  {
 	  }
 	
 }]]>
-	</content>
+    </content>
 </template>
