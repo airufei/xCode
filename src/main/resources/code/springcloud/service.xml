@@ -41,7 +41,7 @@ public class ${ClassName}Service  {
      private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
       /**
 	   * getList(获取${functionName}带分页数据-服务)
-       * @author @author ${functionAuthor}
+       * @author ${functionAuthor}
        * @param json
 	   * @return
 	   */
@@ -66,7 +66,7 @@ public class ${ClassName}Service  {
 
 	   /**
 	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
-       * @author @author ${functionAuthor}
+       * @author ${functionAuthor}
        * @param ${className}
 	   * @return
 	   */
@@ -89,7 +89,7 @@ public class ${ClassName}Service  {
     /**
 	 * save (保存${functionName} 数据-服务)
 	 * @param ${className}
-     * @author @author ${functionAuthor}
+     * @author ${functionAuthor}
 	 * @return
 	 */
     @RequestMapping("save")
@@ -108,7 +108,7 @@ public class ${ClassName}Service  {
 
 	   /**
 	   * get${ClassName}(获取${functionName}单条数据-服务)
-	   * @author @author ${functionAuthor}
+	   * @author ${functionAuthor}
 	   * @param ${className}
 	   * @return
 	   */
@@ -133,7 +133,7 @@ public class ${ClassName}Service  {
 	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
 	   * @param ${ClassName}No
 	   * @param isCache
-	   * @author @author ${functionAuthor}
+	   * @author ${functionAuthor}
 	   * @return
 	   */
 	   @RequestMapping("get${className}ByNo")
@@ -153,7 +153,7 @@ public class ${ClassName}Service  {
     /**
 	 * delete(逻辑删除${functionName}数据-服务)
 	 * @param id
-	 * @author @author ${functionAuthor}
+	 * @author ${functionAuthor}
 	 * @return
 	 */
      @RequestMapping("delete")

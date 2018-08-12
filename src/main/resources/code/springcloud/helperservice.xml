@@ -55,7 +55,7 @@ public class ${ClassName}HelperService  {
     /*
      * save(保存${functionName})
      * @param ${className}
-     * @author @author ${functionAuthor}
+     * @author ${functionAuthor}
      * @date 2018/1/30 14:59
      */
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
@@ -84,7 +84,7 @@ public class ${ClassName}HelperService  {
     /**
 	 * 获取单条数据
 	 * @param ${className}
-	 * @author @author ${functionAuthor}
+	 * @author ${functionAuthor}
 	 * @return
 	 */
 	 public ${ClassName} getSignle${ClassName}(${ClassName} ${className})
@@ -96,7 +96,7 @@ public class ${ClassName}HelperService  {
 	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
 	   * @param isCache
 	   * @param ${ClassName}No
-	   * @author @author ${functionAuthor}
+	   * @author ${functionAuthor}
 	   * @return
 	*/
 	public get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
