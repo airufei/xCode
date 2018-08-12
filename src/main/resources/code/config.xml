@@ -2,7 +2,7 @@
 <config>
 	<!-- 生成分类 -->
 	<category>
-		<category dictKey="curd" dictValue="增删改查（单表）">
+		<category dictKey="curd" dictValue="普通单体应用-xCode">
 			<template>curd/controller.xml</template>
 			<template>curd/service.xml</template>
 			<template>curd/iservice.xml</template>
@@ -11,7 +11,15 @@
 			<template>curd/listpage.xml</template>
 		</category>
 
-		<category dictKey="springcloud" dictValue="springcloud(模型)">
+		<category dictKey="dubbo" dictValue="微服务-Dubbo">
+			<template>dubbo/iservice.xml</template>
+			<template>dubbo/dao.xml</template>
+			<template>dubbo/entity.xml</template>
+			<template>dubbo/mapper.xml</template>
+			<template>dubbo/service.xml</template>
+		</category>
+
+		<category dictKey="springcloud" dictValue="微服务-springcloud">
 			<template>springcloud/controller.xml</template>
 			<template>springcloud/dao.xml</template>
 			<template>springcloud/entity.xml</template>
@@ -21,34 +29,15 @@
 			<template>springcloud/helperservice.xml</template>
 		</category>
 
-		<category dictKey="lcApp" dictValue="lcApp(增删改)">
-			<template>lcApp/controller.xml</template>
-			<template>lcApp/dao.xml</template>
-			<template>lcApp/entity.xml</template>
-			<template>lcApp/mapper.xml</template>
-			<template>lcApp/service.xml</template>
-		</category>
-
-		<category dictKey="dubbo" dictValue="dubbo(增删改)">
-			<template>dubbo/iservice.xml</template>
-			<template>dubbo/dao.xml</template>
-			<template>dubbo/entity.xml</template>
-			<template>dubbo/mapper.xml</template>
-			<template>dubbo/service.xml</template>
-		</category>
-
-		<category dictKey="Hibernate" dictValue="lcAdmin增删改查（单表）">
-			<template>hib/controller.xml</template>
-			<template>hib/service.xml</template>
-			<template>hib/iservice.xml</template>
-			<template>hib/idao.xml</template>
-			<template>hib/dao.xml</template>
-			<template>hib/entity.xml</template>
-			<template>hib/hbm.xml</template>
-			<template>hib/editpage.xml</template>
-			<template>hib/addpage.xml</template>
-			<template>hib/listpage.xml</template>
-			<template>hib/pagejs.xml</template>
+		<category dictKey="Hibernate" dictValue="单体应用-admin">
+			<template>lcAdmin/controller.xml</template>
+			<template>lcAdmin/service.xml</template>
+			<template>lcAdmin/iservice.xml</template>
+			<template>lcAdmin/entity.xml</template>
+			<template>lcAdmin/editpage.xml</template>
+			<template>lcAdmin/addpage.xml</template>
+			<template>lcAdmin/listpage.xml</template>
+			<template>lcAdmin/pagejs.xml</template>
 		</category>
 
 	</category>
