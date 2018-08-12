@@ -282,10 +282,8 @@ public class ${ClassName}Controller extends AbBaseController {
 				}
 			}
 		} catch (Exception e) {
-
 			logger.debug("ChannelManagerController------->formateDate(): " + e.getMessage());
 			e.printStackTrace();
-
 		}
 		return newList;
 	}
