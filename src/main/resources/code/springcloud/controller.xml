@@ -36,6 +36,7 @@ public class ${ClassName}Controller {
 	private ${ClassName}Service ${className}Service;
 	@Autowired
     private CommonService commonService;
+
 	/**
 	 * getList:(获取${functionName}分页查询接口)
 	 * @Author ${functionAuthor}

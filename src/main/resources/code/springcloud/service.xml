@@ -41,14 +41,14 @@ public class ${ClassName}Service  {
      private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
       /**
 	   * getList(获取${functionName}带分页数据-服务)
-	   * @param map
+       * @author @author ${functionAuthor}
+       * @param json
 	   * @return
 	   */
 	   @RequestMapping("getList")
-	   public Partion  getList(@RequestBody JSONObject map)
+	   public Partion  getList(@RequestBody JSONObject json)
 	   {
-	      String parms = JSON.toJSONString(map);
-          logger.info("getList(获取${functionName}带分页数据-服务) 开始 parms={}", parms);
+          logger.info("getList(获取${functionName}带分页数据-服务) 开始 json={}", json);
           if(map==null||map.size()<1)
           {
              return null;
@@ -66,7 +66,8 @@ public class ${ClassName}Service  {
 
 	   /**
 	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
-	   * @param map
+       * @author @author ${functionAuthor}
+       * @param ${className}
 	   * @return
 	   */
 	   @RequestMapping("get${className}List")
@@ -88,6 +89,7 @@ public class ${ClassName}Service  {
     /**
 	 * save (保存${functionName} 数据-服务)
 	 * @param ${className}
+     * @author @author ${functionAuthor}
 	 * @return
 	 */
     @RequestMapping("save")
@@ -106,7 +108,8 @@ public class ${ClassName}Service  {
 
 	   /**
 	   * get${ClassName}(获取${functionName}单条数据-服务)
-	   * @param map
+	   * @author @author ${functionAuthor}
+	   * @param ${className}
 	   * @return
 	   */
 	   @RequestMapping("get${className}")
@@ -130,6 +133,7 @@ public class ${ClassName}Service  {
 	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
 	   * @param ${ClassName}No
 	   * @param isCache
+	   * @author @author ${functionAuthor}
 	   * @return
 	   */
 	   @RequestMapping("get${className}ByNo")
@@ -148,7 +152,8 @@ public class ${ClassName}Service  {
 
     /**
 	 * delete(逻辑删除${functionName}数据-服务)
-	 * @param question
+	 * @param id
+	 * @author @author ${functionAuthor}
 	 * @return
 	 */
      @RequestMapping("delete")
