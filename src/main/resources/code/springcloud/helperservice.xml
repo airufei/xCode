@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import ${packageName}.base.common.CacheHelperService;
 import ${packageName}.base.${javaModuleName}.dao.${ClassName}Dao;
-
 /**
  * Service(${functionName})
  * @author ${functionAuthor}
@@ -34,6 +33,8 @@ public class ${ClassName}HelperService  {
 
 	@Autowired
 	private ${ClassName}Dao ${className}Dao;
+	@Autowired
+    private CacheHelperService cacheHelperService;
     private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
 	  /**
 	   * 获取分页总记录数
@@ -99,13 +100,13 @@ public class ${ClassName}HelperService  {
 	   * @author ${functionAuthor}
 	   * @return
 	*/
-	public get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
+	public ${ClassName} get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
 	{
 	    ${ClassName} ret=null;
-	    if (StringUtil.isBlank(orderNo)) {
+	    if (StringUtil.isBlank(${ClassName}No)) {
             return ret;
         }
-        String key = CacheConstantUtil.ORDER_BASE_ + ${ClassName}No;
+        String key = CacheConstantUtil.ORDER_BASE_ +"get${ClassName}ByNo"+ ${ClassName}No;
         String redisCache = null;
         if (isCache) {
             redisCache = cacheHelperService.getRedisCache(${ClassName}No);
