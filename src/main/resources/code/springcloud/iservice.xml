@@ -44,7 +44,7 @@ public interface ${ClassName}Service  {
      * @Author ${functionAuthor}
      * @return
      */
-    @RequestMapping(value = "get${className}List", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "get${ClassName}List", consumes = MediaType.APPLICATION_JSON_VALUE)
     List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className});
 
 
@@ -53,7 +53,7 @@ public interface ${ClassName}Service  {
      * @Author ${functionAuthor}
      * @return
      */
-    @RequestMapping(value = "get${className}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "get${ClassName}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className});
 
     /**
@@ -62,7 +62,7 @@ public interface ${ClassName}Service  {
 	   * @param isCache
 	   * @return
 	 */
-	@RequestMapping(value = "get${className}ByNo", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "get${ClassName}ByNo", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ${ClassName} get${ClassName}ByNo(@RequestParam("${ClassName}No") String ${ClassName}No,@RequestParam("isCache") boolean isCache);
 
     /**

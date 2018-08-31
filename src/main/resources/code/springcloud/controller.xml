@@ -94,7 +94,7 @@ public class ${ClassName}Controller {
      * @param parms
      * @return
      */
-    @RequestMapping("get${className}List")
+    @RequestMapping("get${ClassName}List")
     public DataReturn get${ClassName}List(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
         dataReturn.setCode(ResultCode.FAILURE);
@@ -136,7 +136,7 @@ public class ${ClassName}Controller {
      * @param parms
      * @return
      */
-    @RequestMapping("get${className}")
+    @RequestMapping("get${ClassName}")
     public DataReturn get${ClassName}ByNo(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
         dataReturn.setCode(ResultCode.FAILURE);
@@ -177,7 +177,7 @@ public class ${ClassName}Controller {
      * @param parms
      * @return
      */
-    @RequestMapping("get${className}")
+    @RequestMapping("get${ClassName}")
     public DataReturn get${ClassName}(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
         dataReturn.setCode(ResultCode.FAILURE);

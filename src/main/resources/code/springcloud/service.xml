@@ -84,7 +84,7 @@ public class ${ClassName}Service  {
        * @param ${className}
 	   * @return
 	   */
-	   @RequestMapping("get${className}List")
+	   @RequestMapping("get${ClassName}List")
 	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName} ${className})
 	   {
 	      String parms = JSON.toJSONString(${className});
@@ -140,7 +140,7 @@ public class ${ClassName}Service  {
 	   * @param ${className}
 	   * @return
 	   */
-	   @RequestMapping("get${className}")
+	   @RequestMapping("get${ClassName}")
 	   public ${ClassName}  get${ClassName}(@RequestBody ${ClassName} ${className})
 	   {
 	      ${ClassName} ret=null;
@@ -171,7 +171,7 @@ public class ${ClassName}Service  {
 	   * @author ${functionAuthor}
 	   * @return
 	   */
-	   @RequestMapping("get${className}ByNo")
+	   @RequestMapping("get${ClassName}ByNo")
 	   public ${ClassName}  get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
 	   {
 	      ${ClassName} ret=null;
