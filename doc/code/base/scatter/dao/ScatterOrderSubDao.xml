@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miuzone.base.scatter.dao.ScatterOrderSubDao">
+
+	<sql id="scatterOrderSubColumns">
+	   str_to_date(a.CREATE_TIME, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	   str_to_date(a.UPDATE_TIME, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.ID AS "id",
+		a.ORDER_NO AS "orderNo",
+		a.UPDATE_TIME AS "updateTime",
+		a.CREATE_TIME AS "createTime",
+		a.UUID AS "uuid",
+		a.FLAG AS "flag",
+		a.REMARK AS "remark",
+		a.COUPON_NO AS "couponNo",
+		a.COUPON_NAME AS "couponName",
+		a.COUPON_THEME AS "couponTheme",
+		a.COUPON_AMOUNT AS "couponAmount",
+		a.COUPON_APR AS "couponApr",
+		a.COUPON_TYPE AS "couponType"
+	</sql>
+	
+	<sql id="scatterOrderSubJoins">
+	</sql>
+    
+	<select id="getScatterOrderSubById" resultType="com.miuzone.model.scatter.ScatterOrderSub">
+		SELECT 
+			<include refid="scatterOrderSubColumns"/>
+		FROM dwf_order_scatter_sub a
+		<include refid="scatterOrderSubJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
+		SELECT 
+			count(*) as count
+		FROM dwf_order_scatter_sub a
+		<include refid="scatterOrderSubJoins"/>
+		<where>
+			1=1
+			<if test="orderNo != null and orderNo != ''">
+				AND a.ORDER_NO = #{orderNo}
+			</if>
+			<if test="uuid != null and uuid != ''">
+				AND a.UUID = #{uuid}
+			</if>
+			<if test="couponNo != null and couponNo != ''">
+				AND a.COUPON_NO = #{couponNo}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" resultType="com.miuzone.model.scatter.ScatterOrderSub" parameterType="com.alibaba.fastjson.JSONObject">
+		SELECT 
+			<include refid="scatterOrderSubColumns"/>
+		FROM
+		(SELECT id from  dwf_order_scatter_sub t
+		<where>
+			1=1
+			<if test="orderNo != null and orderNo != ''">
+				AND t.ORDER_NO = #{orderNo}
+			</if>
+			<if test="uuid != null and uuid != ''">
+				AND t.UUID = #{uuid}
+			</if>
+			<if test="couponNo != null and couponNo != ''">
+				AND t.COUPON_NO = #{couponNo}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY t.UPDATE_TIME desc
+			</otherwise>
+		</choose>
+		 limit #{startIndex},#{pageSize}) b inner join
+		dwf_order_scatter_sub a  on b.id=a.id
+	</select>
+
+    <select id="getScatterOrderSubList" resultType="com.miuzone.model.scatter.ScatterOrderSub" parameterType="com.miuzone.model.scatter.ScatterOrderSub">
+		SELECT
+			<include refid="scatterOrderSubColumns"/>
+		(SELECT id from  dwf_order_scatter_sub t
+		<where>
+			1=1
+			<if test="orderNo != null and orderNo != ''">
+				AND t.ORDER_NO = #{orderNo}
+			</if>
+			<if test="uuid != null and uuid != ''">
+				AND t.UUID = #{uuid}
+			</if>
+			<if test="couponNo != null and couponNo != ''">
+				AND t.COUPON_NO = #{couponNo}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY t.UPDATE_TIME desc
+			</otherwise>
+		</choose>
+		) b  inner join dwf_order_scatter_sub a  on b.id=a.id
+		<include refid="scatterOrderSubJoins"/>
+	</select>
+
+       <select id="getSignleScatterOrderSub" resultType="com.miuzone.model.scatter.ScatterOrderSub" parameterType="com.miuzone.model.scatter.ScatterOrderSub">
+		SELECT
+			<include refid="scatterOrderSubColumns"/>
+		FROM
+		(SELECT id from  dwf_order_scatter_sub t
+		<where>
+			1=1
+			<if test="orderNo != null and orderNo != ''">
+				AND t.ORDER_NO = #{orderNo}
+			</if>
+			<if test="uuid != null and uuid != ''">
+				AND t.UUID = #{uuid}
+			</if>
+			<if test="couponNo != null and couponNo != ''">
+				AND t.COUPON_NO = #{couponNo}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY t.UPDATE_TIME desc
+			</otherwise>
+		</choose>
+		limit 1)b inner join  dwf_order_scatter_sub a on b.id=a.id
+		<include refid="scatterOrderSubJoins"/>
+	</select>
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO dwf_order_scatter_sub(
+			ID,
+			ORDER_NO,
+			UPDATE_TIME,
+			CREATE_TIME,
+			UUID,
+			FLAG,
+			REMARK,
+			COUPON_NO,
+			COUPON_NAME,
+			COUPON_THEME,
+			COUPON_AMOUNT,
+			COUPON_APR,
+			COUPON_TYPE
+		) VALUES (
+			#{id},
+			#{orderNo},
+			#{updateTime},
+			#{createTime},
+			#{uuid},
+			#{flag},
+			#{remark},
+			#{couponNo},
+			#{couponName},
+			#{couponTheme},
+			#{couponAmount},
+			#{couponApr},
+			#{couponType}
+		)
+	</insert>
+	
+	
+<insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+     <selectKey resultType="long" keyProperty="id" order="AFTER">  
+        SELECT  
+        LAST_INSERT_ID()  
+     </selectKey>  
+		INSERT INTO dwf_order_scatter_sub(
+			ID,
+			ORDER_NO,
+			UPDATE_TIME,
+			CREATE_TIME,
+			UUID,
+			FLAG,
+			REMARK,
+			COUPON_NO,
+			COUPON_NAME,
+			COUPON_THEME,
+			COUPON_AMOUNT,
+			COUPON_APR,
+			COUPON_TYPE
+		) VALUES 
+ <foreach collection="list" item="item" index="index" separator="," >
+		(
+			#{item.id},
+			#{item.orderNo},
+			#{item.updateTime},
+			#{item.createTime},
+			#{item.uuid},
+			#{item.flag},
+			#{item.remark},
+			#{item.couponNo},
+			#{item.couponName},
+			#{item.couponTheme},
+			#{item.couponAmount},
+			#{item.couponApr},
+			#{item.couponType}
+		)
+</foreach>
+	</insert>
+
+	<update id="updateById">
+		UPDATE dwf_order_scatter_sub SET 	
+					  <if test="orderNo != null and orderNo != '' ">
+			            ORDER_NO = #{orderNo},
+			           </if>
+					  <if test="updateTime != null and updateTime != '' ">
+			            UPDATE_TIME = #{updateTime},
+			           </if>
+					  <if test="uuid != null and uuid != '' ">
+			            UUID = #{uuid},
+			           </if>
+					  <if test="flag != null and flag != '' ">
+			            FLAG = #{flag},
+			           </if>
+					  <if test="remark != null and remark != '' ">
+			            REMARK = #{remark},
+			           </if>
+					  <if test="couponNo != null and couponNo != '' ">
+			            COUPON_NO = #{couponNo},
+			           </if>
+					  <if test="couponName != null and couponName != '' ">
+			            COUPON_NAME = #{couponName},
+			           </if>
+					  <if test="couponTheme != null and couponTheme != '' ">
+			            COUPON_THEME = #{couponTheme},
+			           </if>
+					  <if test="couponAmount != null and couponAmount != '' ">
+			            COUPON_AMOUNT = #{couponAmount},
+			           </if>
+					  <if test="couponApr != null and couponApr != '' ">
+			            COUPON_APR = #{couponApr},
+			           </if>
+					  <if test="couponType != null and couponType != '' ">
+			            COUPON_TYPE = #{couponType},
+			           </if>
+				UPDATE_TIME= NOW()
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+	UPDATE dwf_order_scatter_sub SET 
+	flag = -1
+		WHERE id = #{id}
+	</update>
+</mapper>
