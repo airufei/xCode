@@ -28,7 +28,7 @@ import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
  * @version ${functionVersion}
  */
 @RestController
-@RequestMapping("/${subModuleName}")
+@RequestMapping("/${subModuleName}/")
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
@@ -45,10 +45,9 @@ public class ${ClassName}Controller {
 	 * @param parms
 	 * @return
 	 */
-	@RequestMapping("/getList")
+	@RequestMapping("getList")
 	public DataReturn getList(HttpServletRequest request, String parms){
 		DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
 	   try {
 	        logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
@@ -97,7 +96,6 @@ public class ${ClassName}Controller {
     @RequestMapping("get${ClassName}List")
     public DataReturn get${ClassName}List(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
             logger.info("get${ClassName}List:(获取${functionName}不分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
@@ -139,7 +137,6 @@ public class ${ClassName}Controller {
     @RequestMapping("get${ClassName}")
     public DataReturn get${ClassName}ByNo(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
             logger.info("get${ClassName}ByNo:(查询${functionName}单条数据接口-带缓存) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
@@ -180,7 +177,6 @@ public class ${ClassName}Controller {
     @RequestMapping("get${ClassName}")
     public DataReturn get${ClassName}(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
             logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
@@ -262,7 +258,6 @@ public class ${ClassName}Controller {
 	@RequestMapping(value = "save")
     public DataReturn save(HttpServletRequest request, String parms) {
 		DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
             logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {

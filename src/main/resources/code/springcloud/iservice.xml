@@ -80,7 +80,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean delete(@RequestBody long id);
+    boolean delete(@RequestParam("id") Long id);
 	
 }]]>
 	</content>

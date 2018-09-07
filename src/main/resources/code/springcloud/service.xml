@@ -200,7 +200,7 @@ public class ${ClassName}Service  {
 	 * @return
 	 */
      @RequestMapping("delete")
-	 public boolean delete(long id)
+	 public boolean delete(Long id)
 	 {
 	    logger.info("delete(逻辑删除${functionName}数据-服务) 开始 id={}", id);
         boolean isSuccess = false;
