@@ -19,7 +19,7 @@
 			<template>dubbo/service.xml</template>
 		</category>
 
-		<category dictKey="springcloud" dictValue="微服务-springcloud">
+		<category dictKey="springcloud" dictValue="springcloud-1.58版本">
 			<template>springcloud/controller.xml</template>
 			<template>springcloud/dao.xml</template>
 			<template>springcloud/entity.xml</template>
@@ -29,7 +29,17 @@
 			<template>springcloud/helperservice.xml</template>
 		</category>
 
-		<category dictKey="Hibernate" dictValue="单体应用-admin">
+		<category dictKey="springcloud_2" dictValue="springcloud-2.0版本">
+			<template>springcloud_2/controller.xml</template>
+			<template>springcloud_2/dao.xml</template>
+			<template>springcloud_2/entity.xml</template>
+			<template>springcloud_2/mapper.xml</template>
+			<template>springcloud_2/service.xml</template>
+			<template>springcloud_2/iservice.xml</template>
+			<template>springcloud_2/helperservice.xml</template>
+		</category>
+
+		<category dictKey="Hibernate" dictValue="Hibernate-admin">
 			<template>lcAdmin/controller.xml</template>
 			<template>lcAdmin/service.xml</template>
 			<template>lcAdmin/iservice.xml</template>
