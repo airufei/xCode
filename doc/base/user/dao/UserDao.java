@@ -1,16 +1,16 @@
-package com.miuzone.base.scatter.dao;
+package com.cn.xmf.base.user.dao;
 
-import com.miuzone.model.scatter.*;
+import com.cn.xmf.model.user.*;
 import java.util.List;
 import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 /**
- * 新智投宝订单子表DAO接口
+ * 用户信息DAO接口
  * @author airufei
- * @version 2018-08-29
+ * @version 2018-09-11
  */
 @SuppressWarnings("all")
-public interface ScatterOrderSubDao {
+public interface UserDao {
 	
 	/**
 	 * 删除数据（逻辑删除）
@@ -20,38 +20,38 @@ public interface ScatterOrderSubDao {
 	public void delete(long id);
     /**
 	 * 单条数据增加
-	 * @param scatterOrderSub
+	 * @param user
 	 * @return
 	 */
-	public void add(ScatterOrderSub scatterOrderSub);
+	public void add(User user);
 
     /**
 	 * 批量数据增加
-	 * @param scatterOrderSub
+	 * @param user
 	 * @return
 	 */
-	 public void addTrainRecordBatch(List<ScatterOrderSub> list);
+	 public void addTrainRecordBatch(List<User> list);
 
      /**
 	 * 根据ID获取单条数据
 	 * @param id
 	 * @return
 	 */
-	 public ScatterOrderSub getScatterOrderSubById (long id);
+	 public User getUserById (long id);
 
       /**
 	 * 修改单条数据
 	 * @param id
 	 * @return
 	 */
-	  public void updateById(ScatterOrderSub scatterOrderSub);
+	  public void updateById(User user);
 
 	  /**
 	   * 获取分页数据
 	   * @param map
 	   * @return
 	   */
-	   public List<ScatterOrderSub>  getList(JSONObject map);
+	   public List<User>  getList(JSONObject map);
 	   
 	   
 	   /**
@@ -59,14 +59,14 @@ public interface ScatterOrderSubDao {
 	   * @param map
 	   * @return
 	   */
-	   public List<ScatterOrderSub>  getScatterOrderSubList(ScatterOrderSub scatterOrderSub);
+	   public List<User>  getUserList(User user);
 
 	   /**
 	   * 获取单条数据
 	   * @param map
 	   * @return
 	   */
-	   public ScatterOrderSub  getSignleScatterOrderSub(ScatterOrderSub scatterOrderSub);
+	   public User  getSignleUser(User user);
 
 	  /**
 	   * 获取分页记录总数

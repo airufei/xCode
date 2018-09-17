@@ -1,4 +1,4 @@
-package com.miuzone.api.scatter.controller;
+package com.cn.xmf.api.user.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -11,40 +11,39 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
-import com.miuzone.model.scatter.*;
-import com.miuzone.base.model.*;
-import com.miuzone.utils.*;
-import com.miuzone.api.common.CommonService;
-import com.miuzone.api.scatter.service.*;
+import com.cn.xmf.model.user.*;
+import com.cn.xmf.base.model.*;
+import com.cn.xmf.utils.*;
+import com.cn.xmf.api.common.CommonService;
+import com.cn.xmf.api.user.service.*;
 /**
- * ScatterOrderSubController(新智投宝订单子表)
+ * UserController(用户信息)
  * @author airufei
- * @version 2018-08-29
+ * @version 2018-09-11
  */
 @RestController
-@RequestMapping("/scatter")
+@RequestMapping("/user/")
 @SuppressWarnings("all")
-public class ScatterOrderSubController {
+public class UserController {
 
-    private static Logger logger = LoggerFactory.getLogger(ScatterOrderSubService.class);
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 	@Autowired
-	private ScatterOrderSubService scatterOrderSubService;
+	private UserService userService;
 	@Autowired
     private CommonService commonService;
 
 	/**
-	 * getList:(获取新智投宝订单子表分页查询接口)
+	 * getList:(获取用户信息分页查询接口)
 	 * @Author airufei
 	 * @param request
 	 * @param parms
 	 * @return
 	 */
-	@RequestMapping("/getList")
+	@RequestMapping("getList")
 	public DataReturn getList(HttpServletRequest request, String parms){
 		DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
 	   try {
-	        logger.info("getList:(获取新智投宝订单子表分页查询接口) 开始  parms={}", parms);
+	        logger.info("getList:(获取用户信息分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -58,11 +57,11 @@ public class ScatterOrderSubController {
             int pageSize = json.getIntValue("pageSize");
             JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
             param.putAll(json);
-            Partion pt = scatterOrderSubService.getList(param);
-            List<ScatterOrderSub> list = null;
+            Partion pt = userService.getList(param);
+            List<User> list = null;
             int totalCount = 0;
             if (pt != null) {
-                list = (List<ScatterOrderSub>) pt.getList();
+                list = (List<User>) pt.getList();
                 totalCount = pt.getPageCount();
             }
             JSONObject jsonObject = new JSONObject();
@@ -72,28 +71,27 @@ public class ScatterOrderSubController {
             dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
             dataReturn.setMessage("服务繁忙，请稍后再试");
-            String msg="getList:(获取新智投宝订单子表分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
+            String msg="getList:(获取用户信息分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("getList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
-        logger.info("getList:(获取新智投宝订单子表分页查询接口) 结束  parms={}", parms);
+        logger.info("getList:(获取用户信息分页查询接口) 结束  parms={}", parms);
         return dataReturn;
 	}
 
      /**
-     * getScatterOrderSubList:(获取新智投宝订单子表不分页查询接口)
+     * getUserList:(获取用户信息不分页查询接口)
      * @Author airufei
      * @param request
      * @param parms
      * @return
      */
-    @RequestMapping("getscatterOrderSubList")
-    public DataReturn getScatterOrderSubList(HttpServletRequest request, String parms) {
+    @RequestMapping("getUserList")
+    public DataReturn getUserList(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
-            logger.info("getScatterOrderSubList:(获取新智投宝订单子表不分页查询接口) 开始  parms={}", parms);
+            logger.info("getUserList:(获取用户信息不分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -103,39 +101,38 @@ public class ScatterOrderSubController {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ScatterOrderSub scatterOrderSub=json.toJavaObject(ScatterOrderSub.class);
-            if (scatterOrderSub == null) {
+            User user=json.toJavaObject(User.class);
+            if (user == null) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            List<ScatterOrderSub> list= scatterOrderSubService.getScatterOrderSubList(scatterOrderSub);
+            List<User> list= userService.getUserList(user);
             dataReturn.setData(list);
             dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
             dataReturn.setMessage("服务器繁忙，请稍后再试");
-            String msg="getScatterOrderSubList:(获取新智投宝订单子表不分页查询接口)====>"+ StringUtil.getExceptionMsg(e);
+            String msg="getUserList:(获取用户信息不分页查询接口)====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getScatterOrderSubList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getUserList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
-        logger.info("getScatterOrderSubList:(获取新智投宝订单子表不分页查询接口) 结束  parms={},", parms);
+        logger.info("getUserList:(获取用户信息不分页查询接口) 结束  parms={},", parms);
         return dataReturn;
     }
 
 
  /**
-     * getScatterOrderSubByNo:(查询新智投宝订单子表单条数据接口-带缓存)
+     * getUserByNo:(查询用户信息单条数据接口-带缓存)
      * @Author airufei
      * @param request
      * @param parms
      * @return
      */
-    @RequestMapping("getscatterOrderSub")
-    public DataReturn getScatterOrderSubByNo(HttpServletRequest request, String parms) {
+    @RequestMapping("getUser")
+    public DataReturn getUserByNo(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
-            logger.info("getScatterOrderSubByNo:(查询新智投宝订单子表单条数据接口-带缓存) 开始  parms={}", parms);
+            logger.info("getUserByNo:(查询用户信息单条数据接口-带缓存) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -145,38 +142,37 @@ public class ScatterOrderSubController {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ScatterOrderSub scatterOrderSub=json.toJavaObject(ScatterOrderSub.class);
-            if (scatterOrderSub == null) {
+            User user=json.toJavaObject(User.class);
+            if (user == null) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ScatterOrderSub retscatterOrderSub= scatterOrderSubService.getScatterOrderSub(scatterOrderSub);
-            dataReturn.setData(retscatterOrderSub);
+            User retuser= userService.getUser(user);
+            dataReturn.setData(retuser);
             dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
             dataReturn.setMessage("服务器繁忙，请稍后再试");
-            String msg="getScatterOrderSubByNo:(查询新智投宝订单子表单条数据接口-带缓存)  异常====>"+StringUtil.getExceptionMsg(e);
+            String msg="getUserByNo:(查询用户信息单条数据接口-带缓存)  异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getScatterOrderSubByNo", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getUserByNo", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
-        logger.info("getScatterOrderSub:getScatterOrderSubByNo:(查询新智投宝订单子表单条数据接口-带缓存) 结束  parms={},", parms);
+        logger.info("getUser:getUserByNo:(查询用户信息单条数据接口-带缓存) 结束  parms={},", parms);
         return dataReturn;
     }
 
      /**
-     * getScatterOrderSub:(查询新智投宝订单子表单条数据接口)
+     * getUser:(查询用户信息单条数据接口)
      * @Author airufei
      * @param request
      * @param parms
      * @return
      */
-    @RequestMapping("getscatterOrderSub")
-    public DataReturn getScatterOrderSub(HttpServletRequest request, String parms) {
+    @RequestMapping("getUser")
+    public DataReturn getUser(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
-            logger.info("getScatterOrderSub:(查询新智投宝订单子表单条数据接口) 开始  parms={}", parms);
+            logger.info("getUser:(查询用户信息单条数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -186,27 +182,27 @@ public class ScatterOrderSubController {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ScatterOrderSub scatterOrderSub=json.toJavaObject(ScatterOrderSub.class);
-            if (scatterOrderSub == null) {
+            User user=json.toJavaObject(User.class);
+            if (user == null) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ScatterOrderSub retscatterOrderSub= scatterOrderSubService.getScatterOrderSub(scatterOrderSub);
-            dataReturn.setData(retscatterOrderSub);
+            User retuser= userService.getUser(user);
+            dataReturn.setData(retuser);
             dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
             dataReturn.setMessage("服务器繁忙，请稍后再试");
-             String msg="getScatterOrderSub:(查询新智投宝订单子表单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
+             String msg="getUser:(查询用户信息单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getScatterOrderSub", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getUser", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
-        logger.info("getScatterOrderSub:(查询新智投宝订单子表单条数据接口) 结束  parms={},", parms);
+        logger.info("getUser:(查询用户信息单条数据接口) 结束  parms={},", parms);
         return dataReturn;
     }
 
 	/**
-	 * delete:(逻辑删除新智投宝订单子表数据接口)
+	 * delete:(逻辑删除用户信息数据接口)
 	 * @Author airufei
      * @param request
      * @param parms
@@ -217,7 +213,7 @@ public class ScatterOrderSubController {
 	  DataReturn dataReturn = new DataReturn();
         dataReturn.setCode(ResultCode.FAILURE);
         try {
-            logger.info("delete:(逻辑删除新智投宝订单子表数据接口) 开始  parms={}", parms);
+            logger.info("delete:(逻辑删除用户信息数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -229,7 +225,7 @@ public class ScatterOrderSubController {
             }
             Long id = json.getLong("id");
             if (id != null && id > 0) {
-                scatterOrderSubService.delete(id);
+                userService.delete(id);
                 dataReturn.setMessage("删除成功");
                 dataReturn.setCode(ResultCode.SUCCESS);
             } else {
@@ -237,17 +233,17 @@ public class ScatterOrderSubController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            String msg="delete:(逻辑删除新智投宝订单子表数据接口) error===>" + StringUtil.getExceptionMsg(e);
+            String msg="delete:(逻辑删除用户信息数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("delete", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             dataReturn.setMessage("服务器繁忙，请稍后再试");
         }
-        logger.info("delete:(逻辑删除新智投宝订单子表数据接口) 结束  parms={}", parms);
+        logger.info("delete:(逻辑删除用户信息数据接口) 结束  parms={}", parms);
         return dataReturn;
 	}
 	
 	/**
-	 * save:(保存新智投宝订单子表数据接口)
+	 * save:(保存用户信息数据接口)
 	 * @Author airufei
      * @param request
      * @param parms
@@ -256,9 +252,8 @@ public class ScatterOrderSubController {
 	@RequestMapping(value = "save")
     public DataReturn save(HttpServletRequest request, String parms) {
 		DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
         try {
-            logger.info("save:(保存新智投宝订单子表数据接口) 开始  parms={}", parms);
+            logger.info("save:(保存用户信息数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -268,16 +263,16 @@ public class ScatterOrderSubController {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ScatterOrderSub scatterOrderSub=json.toJavaObject(ScatterOrderSub.class);
+            User user=json.toJavaObject(User.class);
             // 无保存内容
-            if (scatterOrderSub == null) {
+            if (user == null) {
                 dataReturn.setMessage("无保存内容");
                 return dataReturn;
             }
-            scatterOrderSub.setCreateTime(new Date());
-            scatterOrderSub.setUpdateTime(new Date());
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
             // 保存数据库
-            ScatterOrderSub ret =scatterOrderSubService.save(scatterOrderSub);
+            User ret =userService.save(user);
             if(ret!=null)
             {
               dataReturn.setCode(ResultCode.SUCCESS);
@@ -285,13 +280,13 @@ public class ScatterOrderSubController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            String msg="save:(保存新智投宝订单子表数据接口) error===>" + StringUtil.getExceptionMsg(e);
+            String msg="save:(保存用户信息数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("save", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             dataReturn.setMessage("服务器繁忙，请稍后再试");
             return dataReturn;
         }
-        logger.info("save:(保存新智投宝订单子表数据接口) 结束  parms={}", parms);
+        logger.info("save:(保存用户信息数据接口) 结束  parms={}", parms);
         return dataReturn;
 	}
 
