@@ -225,7 +225,7 @@
 								var res=data.result;
 								if(res)
 								{
-                                    CloseWind();
+                                    closeDialogAndreload();
 								}
 								var msg = data.msg;
 								$.messager.alert("操作提示", msg);
