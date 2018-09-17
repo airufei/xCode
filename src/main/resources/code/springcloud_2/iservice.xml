@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import ${packageName}.base.model.*;
 import ${packageName}.model.${javaModuleName}.*;
-import ${packageName}.utils.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;

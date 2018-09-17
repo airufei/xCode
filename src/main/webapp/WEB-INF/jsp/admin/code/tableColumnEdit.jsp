@@ -159,7 +159,6 @@
 
 				</tr>
 				<tr>
-
 					<td colspan="2"></td>
 					<td><input type="button" value="保存" onclick="save()"></td>
 					<td><input type="button" value="取消" onclick="CloseWind()"></td>
@@ -223,7 +222,11 @@
 						success : function(data) {
 							if (data != null && data != undefined
 									&& data != "undefined") {
-								//var res=data.result;
+								var res=data.result;
+								if(res)
+								{
+                                    CloseWind();
+								}
 								var msg = data.msg;
 								$.messager.alert("操作提示", msg);
 							}

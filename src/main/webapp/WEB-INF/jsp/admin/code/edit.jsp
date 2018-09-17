@@ -32,37 +32,32 @@
 					<tr>
 						<td>生成包路径:</td>
 						<td><input class="easyui-textbox" style="width:100%;height:32px"  value="${genScheme.packageName}" name="packageName" maxlength="200" /></td>
-						<td>建议模块包：com.cn.cooxin</td>
+						<td>基础包 如 ：com.cn.xmf、com.cn.miuzone</td>
 					</tr>
 					<tr>
 						<td>子包路径:</td>
 						<td><input class="easyui-textbox" style="width:100%;height:32px"  value="${genScheme.subPackageName}" name="subPackageName" maxlength="200" /></td>
-						<td>API层子包(如lcapi,pcapi)</td>
+						<td>API层子包(如api)</td>
 					</tr>
 					<tr>
 						<td>java模块名:</td>
 						<td><input class="easyui-textbox" style="width:100%;height:32px" value="${genScheme.moduleName}"  name="moduleName" maxlength="200" /></td>
-						<td>java模块，例如 admin、mipay、order</td>
+						<td>java模块 如：order、user</td>
 					</tr>
 					<tr>
 						<td>页面模块名:</td>
 						<td><input class="easyui-textbox" style="width:100%;height:32px" value="${genScheme.modulePageName}"  name="modulePageName" maxlength="200" /></td>
-						<td>页面端系统名，例如 admin</td>
+						<td>页面端系统名，例如 user、无页面则空</td>
 					</tr>
 					<tr>
 						<td>访问路径:</td>
 						<td><input  class="easyui-textbox" style="width:100%;height:32px" value="${genScheme.subModuleName}" name="subModuleName" maxlength="200" /></td>
-						<td>如：admin/user</td>
+						<td>如：user</td>
 					</tr>
 					<tr>
 						<td>生成功能描述:</td>
 						<td><input  class="easyui-textbox" style="width:100%;height:32px"  value="${genScheme.functionName}" name="functionName" maxlength="200" /></td>
 						<td>将设置到类描述</td>
-					</tr>
-					<tr>
-						<td>生成功能名:</td>
-						<td><input class="easyui-textbox" style="width:100%;height:32px"  value="${genScheme.functionNameSimple}" name="functionNameSimple" maxlength="200" /></td>
-						<td>用作功能提示，如：保存“某某”成功</td>
 					</tr>
 					<tr>
 						<td>生成功能作者:</td>
@@ -79,7 +74,7 @@
 												title="${tb.name}">${tb.name}</option>
 										</c:forEach>
 								</select></td>
-						<td>生成的数据表，一对多情况下请选择主表</td>
+						<td>从配置表中获取</td>
 					</tr>
 					<tr>
 						<td></td>
