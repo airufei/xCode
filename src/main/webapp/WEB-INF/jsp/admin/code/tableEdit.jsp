@@ -50,8 +50,7 @@
                            maxlength="200"/></td>
 
                 <td>备注:</td>
-                <td><textarea name="remark" value="${tb.remark}"
-                              maxlength="200"/> X
+                <td><textarea name="remark" value="${tb.remark}" maxlength="200"></textarea>
                 </td>
             </tr>
             <tr>
