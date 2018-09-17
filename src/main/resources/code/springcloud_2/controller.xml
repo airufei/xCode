@@ -28,7 +28,6 @@ import ${packageName}.${subPackageName}.common.SysCommonService;
  * @version ${functionVersion}
  */
 @RestController
-@RequestMapping("/${subModuleName}/")
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
@@ -69,6 +68,12 @@ public class ${ClassName}Controller {
             if (pt != null) {
                 list = (List<${ClassName}>) pt.getList();
                 totalCount = pt.getPageCount();
+            }
+             if (list == null||list.size()<=0) {
+                retData.setData(jsonObject);
+                retData.setCode(RetCode.NO_DATA);
+                retData.setMessage(RetMessage.NO_DATA);
+                return retData;
             }
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("list", list);
