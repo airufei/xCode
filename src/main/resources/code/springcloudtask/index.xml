@@ -32,13 +32,16 @@
         <section class="content">
 
             <div class="row">
-
                 <div class="col-xs-3">
+                  <#list colList as c>
+                      <#if (c.isQuery?? && c.isQuery == "1")>
                     <div class="input-group">
-                        <span class="input-group-addon">键</span>
-                        <input type="text" class="form-control" id="dictKey" autocomplete="on">
+                        <span class="input-group-addon">${c.comments}</span>
+                        <input type="text" class="form-control" id="${c.javaFieldId}" autocomplete="on">
                     </div>
-                </div>
+                  </#if>
+             </#list>
+              </div>
 
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">搜索</button>
@@ -83,7 +86,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">新增${functionName}</h4>
+                <h4 class="modal-title">保存-${functionName}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal form" role="form">

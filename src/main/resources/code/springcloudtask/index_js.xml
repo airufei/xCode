@@ -35,7 +35,7 @@
 	     <#if (c.isList?? && c.isList == "1")>
             {
                 "data": '${c.javaFieldId}',
-                "visible": false,
+                "visible": true,
                 "width": '180'
             },
           </#if>
@@ -47,7 +47,7 @@
                     return function () {
                         tableData['key'+row.id] = row;
                         return '<p id="' + row.id + '" >' +
-                            '<button class="btn btn-warning btn-xs update" type="button">' + I18n.system_opt_edit + '</button>  ' +
+                            '<button class="btn btn-warning btn-xs job_operate" _type="${className}_edit"" type="button">' + I18n.system_opt_edit + '</button>  ' +
                             '<button class="btn btn-danger btn-xs job_operate" _type="${className}_del" type="button">' + I18n.system_opt_del + '</button>  ' +
                             '</p>';
                     };
@@ -153,8 +153,15 @@
         });
     });
 
-    // add
-    $(".add").click(function () {
+
+    $("#${className}_list").on('click', '.job_operate', function () {
+        var type = $(this).attr("_type");
+        if ("{className}_edit" == type) {
+            edit(this);
+        }
+    });
+
+    function edit(target) {
         var id = $(this).parent('p').attr("id");
         var row = tableData['key' + id];
         if (row != null && row != undefined) {
@@ -163,7 +170,12 @@
            $("#addModal .form input[name='${c.javaFieldId}']").val(row.${c.javaFieldId});
          </#if>
         </#list>
-      }
+        }
+        // show
+        $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
+     }
+    // add
+    $(".add").click(function () {
         // show
         $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
