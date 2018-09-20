@@ -169,7 +169,8 @@
 		 <#if (c.isEditPage?? && c.isEditPage == "1")>
            $("#addModal .form input[name='${c.javaFieldId}']").val(row.${c.javaFieldId});
          </#if>
-        </#list>
+         </#list>
+          $("#addModal .form input[name='id']").val(row.id);
         }
         // show
         $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
