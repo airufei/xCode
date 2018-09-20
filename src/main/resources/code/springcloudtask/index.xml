@@ -12,20 +12,20 @@
 	${r'<@netCommon.commonStyle />'}
     <!-- DataTables -->
     <link rel="stylesheet" href="/jobadmin/adminlte/plugins/datatables/dataTables.bootstrap.css">
-    <title>字典表</title>
+    <title>${functionName}管理</title>
 </head>
-<body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if>">
+<body class="hold-transition skin-blue sidebar-mini  ${r'<#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if>'}">
 <div class="wrapper">
     <!-- header -->
 	${r'<@netCommon.commonHeader />'}
     <!-- left -->
-	${r'<@netCommon.commonLeft "dict" />'}
+	${r'<@netCommon.commonLeft "${className}" />'}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>${${functionName}</h1>
+            <h1>${functionName}</h1>
         </section>
 
         <!-- Main content -->
@@ -53,15 +53,14 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-body">
-                            <table id="dict_list" class="table table-bordered table-striped" width="100%">
+                            <table id="${className}_list" class="table table-bordered table-striped" width="100%">
                                 <thead>
                                 <tr>
-                                    <th name="id">ID</th>
-                                    <th name="dictKey">键</th>
-                                    <th name="dictValue">值</th>
-                                    <th name="type">类型</th>
-                                    <th name="remark">备注</th>
-                                    <th name="createtimestr">更新时间</th>
+                                  <#list colList as c>
+                                   <#if (c.isList?? && c.isList == "1")>
+                                    <th name="${c.javaFieldId}">${c.comments}</th>
+                                    </#if>
+                                  </#list>
                                     <th name="operate">操作</th>
                                 </tr>
                                 </thead>
@@ -76,7 +75,7 @@
     </div>
 
     <!-- footer -->
-	<@netCommon.commonFooter />
+	${r'<@netCommon.commonFooter />'}
 </div>
 
 <!-- job新增.模态框 -->
@@ -84,36 +83,25 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">新增字典</h4>
+                <h4 class="modal-title">新增${functionName}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal form" role="form">
+               <#list colList as c>
+		          <#if (c.isEditPage?? && c.isEditPage == "1")>
                     <div class="form-group">
-                        <label for="dictKey" class="col-sm-2 control-label">键<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="dictKey" placeholder="请输入键"
-                                                     maxlength="50"></div>
+                        <label for="${c.javaFieldId}" class="col-sm-2 control-label">${c.comments}<font color="red">*</font></label>
+                        <div class="col-sm-10"><input type="text" class="form-control" name="${c.javaFieldId}" placeholder="请输入..."
+                           maxlength="${c.dataLength}"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="dictValue" class="col-sm-2 control-label">值<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="dictValue" placeholder="请输入值"
-                                                     maxlength="50"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="type" class="col-sm-2 control-label">类型<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="type" placeholder="请输入类型"
-                                                     maxlength="50"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="remark" class="col-sm-2 control-label">备注<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="remark" placeholder="请输入备注"
-                                                     maxlength="100"></div>
-                    </div>
+                  </#if>
+                </#list>
                     <hr>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
-                            <button type="submit" class="btn btn-primary">${I18n.system_save}</button>
+                            <button type="submit" class="btn btn-primary">${r'${I18n.system_save}'}</button>
                             <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">${I18n.system_cancel}</button>
+                                    data-dismiss="modal">${r'${I18n.system_cancel}'}</button>
                         </div>
                     </div>
                 </form>
@@ -122,58 +110,14 @@
     </div>
 </div>
 
-<!-- 更新.模态框 -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">更新字典</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal form" role="form">
-                    <div class="form-group">
-                        <label for="dictKey" class="col-sm-2 control-label">键<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="dictKey" placeholder="请输入键"
-                                                     maxlength="50"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="dictValue" class="col-sm-2 control-label">值<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="dictValue" placeholder="请输入值"
-                                                     maxlength="50"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="type" class="col-sm-2 control-label">类型<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="type" placeholder="请输入类型"
-                                                     maxlength="50"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="remark" class="col-sm-2 control-label">备注<font color="red">*</font></label>
-                        <div class="col-sm-10"><input type="text" class="form-control" name="remark" placeholder="请输入备注"
-                                                     maxlength="100"></div>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6">
-                            <button type="submit" class="btn btn-primary">${I18n.system_save}</button>
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">${I18n.system_cancel}</button>
-                            <input type="hidden" name="id">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<@netCommon.commonScript />
+ ${r'<@netCommon.commonScript />'}
 <!-- DataTables -->
 <script src="/jobadmin/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/jobadmin/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="/jobadmin/plugins/jquery/jquery.validate.min.js"></script>
 <!-- moment -->
 <script src="/jobadmin/adminlte/plugins/daterangepicker/moment.min.js"></script>
-<script src="/jobadmin/js/dict.index.1.js"></script>
+<script src="/jobadmin/js/${className}.index.1.js"></script>
 </body>
 </html>
 

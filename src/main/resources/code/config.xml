@@ -50,6 +50,17 @@
 			<template>lcAdmin/pagejs.xml</template>
 		</category>
 
+		<category dictKey="jobAdmin" dictValue="job-admin">
+			<template>springcloudtask/controller.xml</template>
+			<template>springcloudtask/service.xml</template>
+			<template>springcloudtask/helper_service.xml</template>
+			<template>springcloudtask/dao.xml</template>
+			<template>springcloudtask/mapper.xml</template>
+			<template>springcloudtask/entity.xml</template>
+			<template>springcloudtask/index.xml</template>
+			<template>springcloudtask/index_js.xml</template>
+		</category>
+
 	</category>
 	<!-- java类型 -->
 	<javaType>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>controller</name>
-    <filePath>src/${packageName}/${subPackageName}/${javaModuleName}/controller</filePath>
+    <filePath>src/${packageName}/${javaModuleName}/controller</filePath>
     <fileName>${ClassName}Controller.java</fileName>
     <content><![CDATA[
-package ${packageName}.${subPackageName}.${javaModuleName}.controller;
+package ${packageName}.${javaModuleName}.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -17,18 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
-import ${packageName}.model.${javaModuleName}.*;
-import ${packageName}.base.model.*;
-import ${packageName}.utils.*;
-import ${packageName}.api.common.CommonService;
-import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
+import ${packageName}.${javaModuleName}.model.*;
+import ${packageName}.common.CommonService;
+import ${packageName}.${javaModuleName}.service.*;
 /**
  * ${ClassName}Controller(${functionName})
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @RestController
-@RequestMapping("/${subModuleName}/")
+@RequestMapping("/${className}/")
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
@@ -38,13 +36,18 @@ public class ${ClassName}Controller {
 	@Autowired
     private CommonService commonService;
 
+    @RequestMapping
+    public String index() {
+        return "${className}/${className}-index";
+    }
 	/**
 	 * getList:(获取${functionName}分页查询接口)
 	 * @Author ${functionAuthor}
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("getList")
+	@RequestMapping("pageList")
+	 @ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject retJon = new JSONObject();
 		JSONObject param =null;
@@ -79,10 +82,9 @@ public class ${ClassName}Controller {
             retJon.put("recordsTotal", totalCount);
             retJon.put("recordsFiltered", totalCount);
         } catch (Exception e) {
-            dataReturn.setMessage("服务繁忙，请稍后再试");
             String msg="getList:(获取${functionName}分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getList", parms, JSON.toJSONString(retJon), msg, this.getClass());
+            commonService.sendDingMessage("getList", param, JSON.toJSONString(retJon), msg, this.getClass());
             e.printStackTrace();
         }
         logger.info("getList:(获取${functionName}分页查询接口) 结束");
@@ -97,10 +99,12 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@RequestMapping("delete")
+	 @ResponseBody
 	public ReturnT<String> delete(HttpServletRequest request){
 	 ReturnT<String> returnT = new ReturnT<>(ReturnT.FAIL_CODE, "删除失败");
+	  String ids =null;
         try {
-            String ids = request.getParameter("id");
+            ids = request.getParameter("id");
             id = StringUtil.stringToInt(ids);
             logger.info("delete 开始============>"+ id);
             if(id<=0)
@@ -117,9 +121,10 @@ public class ${ClassName}Controller {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            returnT=returnT.FAIL;
             String msg="delete:(逻辑删除${functionName}数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("delete", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("delete", ids, null, msg, this.getClass());
             dataReturn.setMessage("服务器繁忙，请稍后再试");
         }
         logger.info("delete 结束============>"+ JSON.toJSONString(returnT));
@@ -134,6 +139,7 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@RequestMapping(value = "save")
+	 @ResponseBody
     public  ReturnT<String> save(${ClassName} ${className}) {
 		 ReturnT<String> returnT = new ReturnT<>(ReturnT.FAIL_CODE, "保存数据失败");
 		String parms=null;
@@ -141,15 +147,15 @@ public class ${ClassName}Controller {
             parms=JSON.toJSONString(${className});
             logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
             if (${className} == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                returnT.setMsg("参数为空");
+                return returnT;
             }
             if(${className}==null)
             {
                 returnT.setMsg("参数错误");
                 return returnT;
             }
-            ${ClassName} ret = ${className}Service.save(dict);
+            ${ClassName} ret = ${className}Service.save(${className});
             if(ret==null)
             {
                 returnT.setMsg("保存数据失败");
@@ -162,7 +168,7 @@ public class ${ClassName}Controller {
             String msg="save:(保存${functionName}数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("save", parms, JSON.toJSONString(returnT), msg, this.getClass());
-            dataReturn.setMessage("服务器繁忙，请稍后再试");
+             returnT.setMsg("服务器繁忙，请稍后再试");
         }
        logger.info("save 结束============>"+ JSON.toJSONString(returnT));
         return returnT;
