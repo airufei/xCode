@@ -148,7 +148,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
     <select id="get${ClassName}List" resultType="${packageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${javaModuleName}.model.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
-		(SELECT id from  ${table.name} t
+		FROM (SELECT id from  ${table.name} t
 		<where>
 			1=1
 			<#list colList as c>
