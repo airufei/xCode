@@ -20,7 +20,6 @@
                 obj.${c.javaFieldId} = $('#${c.javaFieldId}').val();
               </#if>
 			  </#list>
-			    obj.id = $('#id').val();
                 obj.start = d.start;
                 obj.length = d.length;
                 return obj;
@@ -35,7 +34,11 @@
 	     <#if (c.isList?? && c.isList == "1")>
             {
                 "data": '${c.javaFieldId}',
-                "visible": true,
+                <#if (c.javaFieldId?? && c.javaFieldId == "id")>
+                "visible": false,
+                 <#else>
+                 "visible": true,
+                </#if>
                 "width": '180'
             },
           </#if>

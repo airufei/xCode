@@ -6,7 +6,7 @@
     <content><![CDATA[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${packageName}.service.${javaModuleName}.dao.${ClassName}Dao">
+<mapper namespace="${packageName}.base.${javaModuleName}.dao.${ClassName}Dao">
 
     <#-- 输出字段列 -->
 	<sql id="${className}Columns">
@@ -34,7 +34,7 @@
 		</#assign>
 ${columnField?substring(0, columnField?last_index_of(","))}
 	</sql>
-	
+
 	<#-- 输出字段关联表 -->
 	<sql id="${className}Joins">
 		<#-- 关联父表 -->
@@ -49,17 +49,17 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</#if>
 		</#list>
 	</sql>
-    
+
 	<select id="get${ClassName}ById" resultType="${packageName}.model.${javaModuleName}.${ClassName}">
-		SELECT 
+		SELECT
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
 		<include refid="${className}Joins"/>
 		WHERE a.id = ${"#"}{id}
 	</select>
-	
+
 	<select id="getTotalCount" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
-		SELECT 
+		SELECT
 			count(*) as count
 		FROM ${table.name} a
 		<include refid="${className}Joins"/>
@@ -75,17 +75,17 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 					<#if c.queryType ?? && c.queryType == 'between'>
 				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
 					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND a.${c.name} LIKE 
+				AND a.${c.name} LIKE
 					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
 					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND a.${c.name} LIKE 
+				AND a.${c.name} LIKE
 					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
 					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
 					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
 					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND a.${c.name} LIKE 
+				AND a.${c.name} LIKE
 					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
 					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
 					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
@@ -97,9 +97,9 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</#list>
 		</where>
 	</select>
-	
+
 	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
-		SELECT 
+		SELECT
 			<include refid="${className}Columns"/>
 		FROM
 		(SELECT id from  ${table.name} t
@@ -233,12 +233,12 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		<include refid="${className}Joins"/>
 	</select>
 
-		<insert id="add" useGeneratedKeys="true" keyProperty="id">
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO ${table.name}(
 		<#assign insertField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
-			      <if test="${c.javaFieldId} != null">
+				  <if test="${c.javaFieldId} != null">
 			       ${c.name},
 			       </if>
 				</#if>
@@ -249,7 +249,7 @@ ${insertField?substring(0, insertField?last_index_of(","))}
 		<#assign insertJavaField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
-			    <if test="${c.javaFieldId} != null ">
+				  <if test="${c.javaFieldId} != null ">
 			        ${"#"}{${c.javaFieldId}},
 			      </if>
 				</#if>
@@ -293,22 +293,21 @@ ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 ${r"</foreach>"}
 	</insert>
 
+<update id="updateById">
+   UPDATE ${table.name} SET
+    <#list colList as c>
+        <#if c.isEdit?? && c.isEdit == "1">
+          <if test="${c.javaFieldId} != null and ${c.javaFieldId} != '' ">
+            ${c.name} = ${"#"}{${c.javaFieldId}},
+           </if>
+        </#if>
+    </#list>
+	UPDATE_TIME= NOW()
+	WHERE id = ${"#"}{id}
+</update>
 
-	<update id="updateById">
-		UPDATE ${table.name} SET 	
-				<#list colList as c>
-					<#if c.isEdit?? && c.isEdit == "1">
-					  <if test="${c.javaFieldId} != null and ${c.javaFieldId} != '' ">
-			            ${c.name} = ${"#"}{${c.javaFieldId}},
-			           </if>
-					</#if>
-				</#list>
-				UPDATE_TIME= NOW()
-		WHERE id = ${"#"}{id}
-	</update>
-	
 	<update id="delete">
-	UPDATE ${table.name} SET 
+	UPDATE ${table.name} SET
 	flag = -1
 		WHERE id = ${"#"}{id}
 	</update>

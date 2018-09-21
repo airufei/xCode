@@ -19,7 +19,7 @@
 			<template>dubbo/service.xml</template>
 		</category>
 
-		<category dictKey="springcloud" dictValue="springcloud-1.58版本">
+		<category dictKey="springcloud" dictValue="springcloud-1.58-接口版">
 			<template>springcloud/controller.xml</template>
 			<template>springcloud/dao.xml</template>
 			<template>springcloud/entity.xml</template>
@@ -29,7 +29,7 @@
 			<template>springcloud/helperservice.xml</template>
 		</category>
 
-		<category dictKey="springcloud_2" dictValue="springcloud-2.0版本">
+		<category dictKey="springcloud_2" dictValue="springcloud-2.0-接口版">
 			<template>springcloud_2/controller.xml</template>
 			<template>springcloud_2/dao.xml</template>
 			<template>springcloud_2/entity.xml</template>
@@ -39,7 +39,7 @@
 			<template>springcloud_2/helperservice.xml</template>
 		</category>
 
-		<category dictKey="Hibernate" dictValue="Hibernate-admin">
+		<category dictKey="Hibernate" dictValue="Hibernate-admin_xml版">
 			<template>lcAdmin/controller.xml</template>
 			<template>lcAdmin/service.xml</template>
 			<template>lcAdmin/iservice.xml</template>
@@ -50,15 +50,27 @@
 			<template>lcAdmin/pagejs.xml</template>
 		</category>
 
-		<category dictKey="jobAdmin" dictValue="job-admin">
-			<template>springcloudtask/controller.xml</template>
-			<template>springcloudtask/service.xml</template>
-			<template>springcloudtask/helper_service.xml</template>
-			<template>springcloudtask/dao.xml</template>
-			<template>springcloudtask/mapper.xml</template>
-			<template>springcloudtask/entity.xml</template>
-			<template>springcloudtask/index.xml</template>
-			<template>springcloudtask/index_js.xml</template>
+		<category dictKey="job-Admin" dictValue="job-admin_自给数据">
+			<template>job-admin/controller.xml</template>
+			<template>job-admin/service.xml</template>
+			<template>job-admin/helper_service.xml</template>
+			<template>job-admin/dao.xml</template>
+			<template>job-admin/mapper.xml</template>
+			<template>job-admin/entity.xml</template>
+			<template>job-admin/index.xml</template>
+			<template>job-admin/index_js.xml</template>
+		</category>
+
+		<category dictKey="job-admin_ms" dictValue="job-admin_微服务数据">
+			<template>job-admin_ms/controller.xml</template>
+			<template>job-admin_ms/service.xml</template>
+			<template>job-admin_ms/helper_service.xml</template>
+			<template>job-admin_ms/dao.xml</template>
+			<template>job-admin_ms/mapper.xml</template>
+			<template>job-admin_ms/iservice.xml</template>
+			<template>job-admin_ms/entity.xml</template>
+			<template>job-admin_ms/index.xml</template>
+			<template>job-admin_ms/index_js.xml</template>
 		</category>
 
 	</category>

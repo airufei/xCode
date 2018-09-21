@@ -238,7 +238,9 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		<#assign insertField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
-			${c.name},
+			      <if test="${c.javaFieldId} != null">
+			       ${c.name},
+			       </if>
 				</#if>
 			</#list>
 		</#assign>
@@ -247,7 +249,9 @@ ${insertField?substring(0, insertField?last_index_of(","))}
 		<#assign insertJavaField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
-			${"#"}{${c.javaFieldId}},
+			    <if test="${c.javaFieldId} != null ">
+			        ${"#"}{${c.javaFieldId}},
+			      </if>
 				</#if>
 			</#list>
 		</#assign>
@@ -255,28 +259,32 @@ ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 		)
 	</insert>
 	
-	
+
 <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
-     <selectKey resultType="long" keyProperty="id" order="AFTER">  
-        SELECT  
-        LAST_INSERT_ID()  
-     </selectKey>  
+     <selectKey resultType="long" keyProperty="id" order="AFTER">
+        SELECT
+        LAST_INSERT_ID()
+     </selectKey>
 		INSERT INTO ${table.name}(
 		<#assign insertField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
-			${c.name},
+				  <if test="${c.javaFieldId} != null">
+			       ${c.name},
+			        </if>
 				</#if>
 			</#list>
 		</#assign>
 ${insertField?substring(0, insertField?last_index_of(","))}
-		) VALUES 
+		) VALUES
  ${r'<foreach collection="list" item="item" index="index" separator="," >'}
 		(
 		<#assign insertJavaField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
-			${"#"}{item.${c.javaFieldId}},
+				 <if test="${c.javaFieldId} != null">
+			       ${"#"}{item.${c.javaFieldId}},
+			      </if>
 				</#if>
 			</#list>
 		</#assign>
@@ -284,7 +292,6 @@ ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 		)
 ${r"</foreach>"}
 	</insert>
-
 	<update id="updateById">
 		UPDATE ${table.name} SET 	
 				<#list colList as c>
