@@ -245,7 +245,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</#list>
 		</#assign>
 ${insertField?substring(0, insertField?last_index_of(","))}
-		) VALUES (
+		</if> ) VALUES (
 		<#assign insertJavaField>
 			<#list colList as c>
 				<#if c.isInsert?? && c.isInsert == "1">
@@ -256,7 +256,7 @@ ${insertField?substring(0, insertField?last_index_of(","))}
 			</#list>
 		</#assign>
 ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
-		)
+		</if> )
 	</insert>
 	
 
@@ -276,7 +276,7 @@ ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 			</#list>
 		</#assign>
 ${insertField?substring(0, insertField?last_index_of(","))}
-		) VALUES
+		</if> ) VALUES
  ${r'<foreach collection="list" item="item" index="index" separator="," >'}
 		(
 		<#assign insertJavaField>
@@ -289,7 +289,7 @@ ${insertField?substring(0, insertField?last_index_of(","))}
 			</#list>
 		</#assign>
 ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
-		)
+		</if>)
 ${r"</foreach>"}
 	</insert>
 	<update id="updateById">

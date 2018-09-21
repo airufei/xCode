@@ -114,14 +114,12 @@
         }
 
         var id = $(this).parent('p').attr("id");
-
         layer.confirm(I18n.system_ok + typeName + '?', {
             icon: 3,
             title: I18n.system_tips,
             btn: [I18n.system_ok, I18n.system_cancel]
         }, function (index) {
             layer.close(index);
-
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -217,7 +215,7 @@
         },
         submitHandler: function (form) {
             $.post(base_url + "/${className}/save", $("#addModal .form").serialize(), function (data, status) {
-                if (data.code === "200") {
+                if (data.code == 200) {
                     $('#addModal').modal('hide');
                     layer.open({
                         title: I18n.system_tips,
@@ -226,7 +224,6 @@
                         icon: '1',
                         end: function (layero, index) {
                             ${className}Table.fnDraw();
-                            //window.location.reload();
                         }
                     });
                 } else {

@@ -217,7 +217,7 @@
         },
         submitHandler: function (form) {
             $.post(base_url + "/${className}/save", $("#addModal .form").serialize(), function (data, status) {
-                if (data.code === "200") {
+                if (data.code ==200) {
                     $('#addModal').modal('hide');
                     layer.open({
                         title: I18n.system_tips,
@@ -226,7 +226,6 @@
                         icon: '1',
                         end: function (layero, index) {
                             ${className}Table.fnDraw();
-                            //window.location.reload();
                         }
                     });
                 } else {
