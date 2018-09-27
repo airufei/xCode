@@ -32,17 +32,17 @@
         <section class="content">
 
             <div class="row">
+              <#list colList as c>
+                <#if (c.isQuery?? && c.isQuery == "1")>
                 <div class="col-xs-3">
-                  <#list colList as c>
-                      <#if (c.isQuery?? && c.isQuery == "1")>
+
                     <div class="input-group">
                         <span class="input-group-addon">${c.comments}</span>
                         <input type="text" class="form-control" id="${c.javaFieldId}" autocomplete="on">
                     </div>
-                  </#if>
-             </#list>
               </div>
-
+               </#if>
+             </#list>
                 <div class="col-xs-1">
                     <button class="btn btn-block btn-info" id="searchBtn">搜索</button>
                 </div>
