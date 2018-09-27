@@ -81,11 +81,11 @@
 </div>
 
 <!-- job新增.模态框 -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="addModal" tabindex="-1"  role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document"  id="modalDialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">保存-${functionName}</h4>
+                <h4 class="modal-title">保存${functionName}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal form" role="form">
@@ -120,7 +120,16 @@
 <script src="/jobadmin/plugins/jquery/jquery.validate.min.js"></script>
 <!-- moment -->
 <script src="/jobadmin/adminlte/plugins/daterangepicker/moment.min.js"></script>
+<script src="/jobadmin/adminlte/plugins/jQuery/jquery-ui-1.9.2.custom.min.js"></script>//拖拽
 <script src="/jobadmin/js/${className}.index.1.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#modalDialog").draggable();		        //为模态对话框添加拖拽，拖拽区域只在顶部栏
+        $("#modalDialog").draggable({handle: ".modal-header"});//为模态对话框添加拖拽
+        $("#addModal").css("overflow", "hidden"); // 禁止模态对话框的半透明背景滚动
+    })
+</script>
 </body>
 </html>
 
