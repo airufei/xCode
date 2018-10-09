@@ -25,7 +25,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 @SuppressWarnings("all")
 
-@FeignClient(value = "${r'${base-service.application}'}", configuration = HttpBasicAuthConfig.class)// 配置远程服务名以及自定义权限验证配置
+@FeignClient(value = "${r'${base-service.base-service}'}", configuration = HttpBasicAuthConfig.class)// 配置远程服务名以及自定义权限验证配置
 @RequestMapping("/server/${subModuleName}/")// 配置远程服务路径
 
 public interface ${ClassName}Service  {

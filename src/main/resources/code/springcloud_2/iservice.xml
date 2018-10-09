@@ -22,7 +22,7 @@ import com.alibaba.fastjson.JSONObject;
  * @version ${functionVersion}
  */
 @SuppressWarnings("all")
-@FeignClient(value = "${r'${base-service.application}'}")// 配置远程服务名以及自定义权限验证配置
+@FeignClient(value = "${r'${base-service.base-service}'}")// 配置远程服务名以及自定义权限验证配置
 @RequestMapping("/server/${subModuleName}/")// 配置远程服务路径
 
 public interface ${ClassName}Service  {
