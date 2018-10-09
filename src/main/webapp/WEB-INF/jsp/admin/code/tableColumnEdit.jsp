@@ -50,7 +50,9 @@
 					<td title="选中后该字段被加入到update语句里">编辑</td>
 					<td title="选中后该字段被加入到查询列表里">列表</td>
 					<td title="选中后该字段被加入到查询条件里">查询</td> 
-					<td title="编辑页字段">编辑页字段</td> 
+					<td title="编辑页显示字段">编辑页</td>
+					<td title="必须插入字段">必须插入</td>
+					<td title="必须编辑字段">必须编辑</td>
 					<td title="该字段为查询字段时的查询匹配放松">匹配方式</td>
 					<td title="字段在表单中显示的类型">表单类型</td>
 					<td title="显示表单类型设置为“下拉框、复选框、点选框”时，需设置字典的类型">字典类型</td>
@@ -131,6 +133,22 @@
 								<option value="0" ${columns.isEditPage=='0' ?'selected':''}
 										title="否">否</option>
 									
+							</select></td>
+							<td><select name="isInsertRequiredField" class="required input-mini"
+										style="width:75px">
+								<option value="0" ${columns.isInsertRequiredField=='0' ?'selected':''}
+										title="否">否</option>
+								<option value="1" ${columns.isInsertRequiredField=='1' ?'selected':''}
+										title="是">是</option>
+
+							</select></td>
+							<td><select name="isUpdateRequiredField" class="required input-mini"
+										style="width:75px">
+								<option value="0" ${columns.isUpdateRequiredField=='0' ?'selected':''}
+										title="否">否</option>
+								<option value="1" ${columns.isUpdateRequiredField=='1' ?'selected':''}
+										title="是">是</option>
+
 							</select></td>
 							<td><select name="queryType" class="required input-mini">
 									<c:forEach items="${config.queryTypeList}" var="dict">

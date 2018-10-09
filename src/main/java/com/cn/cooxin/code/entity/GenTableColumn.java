@@ -27,6 +27,8 @@ public class GenTableColumn extends BaseEntitys {
 	private String isPk; // 是否主键（1：主键）
 	private String isNull; // 是否可为空（1：可为空；0：不为空）
 	private String isInsert; // 是否为插入字段（1：插入字段）
+    private String isInsertRequiredField; // 插入必须字段
+    private String isUpdateRequiredField; // 修改必须字段
 	private String isEdit; // 是否编辑字段（1：编辑字段）
 	private String isList; // 是否列表字段（1：列表字段）
 	private String isQuery; // 是否查询字段（1：查询字段）
@@ -212,7 +214,23 @@ public class GenTableColumn extends BaseEntitys {
 		this.pk = pk;
 	}
 
-	/**
+    public String getIsInsertRequiredField() {
+        return isInsertRequiredField;
+    }
+
+    public void setIsInsertRequiredField(String isInsertRequiredField) {
+        this.isInsertRequiredField = isInsertRequiredField;
+    }
+
+    public String getIsUpdateRequiredField() {
+        return isUpdateRequiredField;
+    }
+
+    public void setIsUpdateRequiredField(String isUpdateRequiredField) {
+        this.isUpdateRequiredField = isUpdateRequiredField;
+    }
+
+    /**
 	 * 获取列名和说明
 	 * 
 	 * @return
@@ -347,7 +365,11 @@ public class GenTableColumn extends BaseEntitys {
 				&& !StringUtil.equals(getSimpleJavaField(), "remark")
 				&& !StringUtil.equals(getSimpleJavaField(), "createtime")
 				&& !StringUtil.equals(getSimpleJavaField(), "updatetime")
+				&& !StringUtil.equals(getSimpleJavaField(), "updateTime")
+				&& !StringUtil.equals(getSimpleJavaField(), "createTime")
 				&& !StringUtil.equals(getSimpleJavaField(), "flag");
+
 	}
+
 
 }

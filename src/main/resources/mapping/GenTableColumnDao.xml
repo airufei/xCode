@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.cooxin.code.dao.IGenTableColumnDao">
-    
+
     <sql id="genTableColumnColumns">
 		id, 
 			table_id as tableId, 
@@ -26,64 +26,67 @@
 			updatetime, 
 		    str_to_date(createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
 	        str_to_date(updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
-			remark, 
+			remark,
+			isInsertRequiredField,
+			isUpdateRequiredField,
 			flag
 	</sql>
-	
+
     <select id="getGenTableColumnById" resultType="com.cn.cooxin.code.entity.GenTableColumn">
-		SELECT 
-			<include refid="genTableColumnColumns"/>
-		FROM t_code_table_column a
-		WHERE a.id = #{id}
-	</select>
-	
-	<select id="getList" resultType="com.cn.cooxin.code.entity.GenTableColumn" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
-		SELECT 
-			<include refid="genTableColumnColumns"/>
-		FROM t_code_table_column a
-		WHERE a.flag = #{flag} 
-		<if test="tableName != null and tableName != ''">
-			AND a.table_name=#{tableName}
-		</if>
-		<if test="tableId != null and tableId != ''">
-			AND a.table_id = #{tableId}
-		</if>
-		
-	</select>
-	<select id="getQueryFieldCount" resultType="Integer" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
-		SELECT 
-			count(0) as count
-		FROM t_code_table_column a
-		WHERE a.flag = #{flag} 
-		<if test="tableName != null and tableName != ''">
-			AND a.table_name=#{tableName}
-		</if>
-		<if test="tableId != null and tableId != ''">
-			AND a.table_id = #{tableId}
-		</if>
-		and a.is_query='1'
-	</select>
-	<select id="getEditFieldCount" resultType="Integer" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
-		SELECT 
-			count(0) as count
-		FROM t_code_table_column a
-		WHERE a.flag = #{flag} 
-		<if test="tableName != null and tableName != ''">
-			AND a.table_name=#{tableName}
-		</if>
-		<if test="tableId != null and tableId != ''">
-			AND a.table_id = #{tableId}
-		</if>
-		and a.is_editPage='1'
-	</select>
-	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenTableColumn">
-		SELECT 
-			<include refid="genTableColumnColumns"/>
-		FROM t_code_table_column a
-		WHERE a.flag = #{flag} 
-	</select>
-	
-	<insert id="add">
+        SELECT
+        <include refid="genTableColumnColumns"/>
+        FROM t_code_table_column a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="getList" resultType="com.cn.cooxin.code.entity.GenTableColumn"
+            parameterType="com.cn.cooxin.code.entity.GenTableColumn">
+        SELECT
+        <include refid="genTableColumnColumns"/>
+        FROM t_code_table_column a
+        WHERE a.flag = #{flag}
+        <if test="tableName != null and tableName != ''">
+            AND a.table_name=#{tableName}
+        </if>
+        <if test="tableId != null and tableId != ''">
+            AND a.table_id = #{tableId}
+        </if>
+
+    </select>
+    <select id="getQueryFieldCount" resultType="Integer" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
+        SELECT
+        count(0) as count
+        FROM t_code_table_column a
+        WHERE a.flag = #{flag}
+        <if test="tableName != null and tableName != ''">
+            AND a.table_name=#{tableName}
+        </if>
+        <if test="tableId != null and tableId != ''">
+            AND a.table_id = #{tableId}
+        </if>
+        and a.is_query='1'
+    </select>
+    <select id="getEditFieldCount" resultType="Integer" parameterType="com.cn.cooxin.code.entity.GenTableColumn">
+        SELECT
+        count(0) as count
+        FROM t_code_table_column a
+        WHERE a.flag = #{flag}
+        <if test="tableName != null and tableName != ''">
+            AND a.table_name=#{tableName}
+        </if>
+        <if test="tableId != null and tableId != ''">
+            AND a.table_id = #{tableId}
+        </if>
+        and a.is_editPage='1'
+    </select>
+    <select id="findAllList" resultType="com.cn.cooxin.code.entity.GenTableColumn">
+        SELECT
+        <include refid="genTableColumnColumns"/>
+        FROM t_code_table_column a
+        WHERE a.flag = #{flag}
+    </select>
+
+    <insert id="add">
 		INSERT INTO t_code_table_column(
 			id, 
 			table_id, 
@@ -106,7 +109,9 @@
 			sort, 
 			createtime, 
 			updatetime, 
-			remark, 
+			remark,
+			isInsertRequiredField,
+			isUpdateRequiredField,
 			flag
 		) VALUES (
 			#{id}, 
@@ -130,12 +135,14 @@
 			#{sort}, 
 			#{createtime}, 
 			#{updatetime}, 
-			#{remark}, 
+			#{remark},
+			#{isInsertRequiredField},
+			#{isUpdateRequiredField},
 			#{flag}
 		)
 	</insert>
-	
-	<update id="updateById">
+
+    <update id="updateById">
 		UPDATE t_code_table_column SET 
 			comments = #{comments}, 
 			jdbc_type = #{jdbcType}, 
@@ -154,18 +161,20 @@
 			sort = #{sort}, 
 			updatetime = #{updatetime}, 
 			remark = #{remark},
+			isInsertRequiredField=#{isInsertRequiredField},
+			isUpdateRequiredField=#{isUpdateRequiredField},
 			flag = #{flag}
 		WHERE id = #{id}
 	</update>
-	
-	<update id="delete">
+
+    <update id="delete">
 		delete from t_code_table_column 
 		WHERE id = #{id}
 	</update>
-	
-	<update id="deleteColumnByTableId">
+
+    <update id="deleteColumnByTableId">
 		delete from t_code_table_column 
 		WHERE table_id = #{tableId}
 	</update>
-	
+
 </mapper>

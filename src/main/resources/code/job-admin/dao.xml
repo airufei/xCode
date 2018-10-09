@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>dao</name>
-	<filePath>src/${packageName}/${javaModuleName}/dao</filePath>
+	<filePath>src/${packageName}/${subPackageName}/${javaModuleName}/dao</filePath>
 	<fileName>${ClassName}Dao.java</fileName>
 	<content><![CDATA[
-package ${packageName}.${javaModuleName}.dao;
+package ${packageName}.${subPackageName}.${javaModuleName}.dao;
 
-import ${packageName}.${javaModuleName}.model.*;
+import ${packageName}.${subPackageName}.${javaModuleName}.model.*;
 import java.util.List;
 import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
