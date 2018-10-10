@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Service;
 import ${packageName}.${subPackageName}.${javaModuleName}.dao.${ClassName}Dao;
 import ${packageName}.${subPackageName}.common.CommonService;
+import ${packageName}.base.model.Partion;
+import ${packageName}.utils.StringUtil;
 /**
  * Service(${functionName})
  * @author ${functionAuthor}
