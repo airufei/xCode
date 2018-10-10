@@ -234,12 +234,15 @@ CREATE TABLE `t_code_table_column` (
   `flag` int(1) unsigned zerofill NOT NULL DEFAULT '0' COMMENT '删除标记（0：正常；1：删除）',
   `table_name` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '表名称',
   `is_editPage` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '编辑字段',
+  `isInsertRequiredField` char(1) COLLATE utf8_bin DEFAULT '0' COMMENT '插入必须字段 1 非必须0',
+  `isUpdateRequiredField` char(1) COLLATE utf8_bin DEFAULT '0' COMMENT '插入必须字段 1 非必须0',
+  `is_sort` char(1) COLLATE utf8_bin DEFAULT '0' COMMENT '是否排序 1排序，0不排序',
   PRIMARY KEY (`id`),
   KEY `gen_table_column_table_id` (`table_id`),
   KEY `gen_table_column_name` (`name`),
   KEY `gen_table_column_sort` (`sort`),
   KEY `gen_table_column_del_flag` (`flag`)
-) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='业务表字段';
+) ENGINE=InnoDB AUTO_INCREMENT=796 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='业务表字段';
 
 -- ----------------------------
 -- Records of t_code_table_column
