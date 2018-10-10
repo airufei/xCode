@@ -29,6 +29,7 @@
 			remark,
 			isInsertRequiredField,
 			isUpdateRequiredField,
+			is_sort as isSort,
 			flag
 	</sql>
 
@@ -112,6 +113,7 @@
 			remark,
 			isInsertRequiredField,
 			isUpdateRequiredField,
+			is_sort,
 			flag
 		) VALUES (
 			#{id}, 
@@ -138,6 +140,7 @@
 			#{remark},
 			#{isInsertRequiredField},
 			#{isUpdateRequiredField},
+			#{isSort},
 			#{flag}
 		)
 	</insert>
@@ -163,6 +166,7 @@
 			remark = #{remark},
 			isInsertRequiredField=#{isInsertRequiredField},
 			isUpdateRequiredField=#{isUpdateRequiredField},
+			is_sort=#{isSort},
 			flag = #{flag}
 		WHERE id = #{id}
 	</update>
