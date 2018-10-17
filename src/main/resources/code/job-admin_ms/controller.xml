@@ -53,9 +53,10 @@ public class ${ClassName}Controller {
 		JSONObject retJon = new JSONObject();
 		JSONObject param =null;
 	   try {
-            String startStr = request.getParameter("start");
-            String length = request.getParameter("length");
-            String type = request.getParameter("type");
+              <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
+                String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");;
+              </#if>
+			  </#list>
             int pageSize = 10;
             int pageNo = 1;
             int start=0;
@@ -71,13 +72,17 @@ public class ${ClassName}Controller {
             }
             param = StringUtil.getPageJSONObject(pageNo, pageSize);
             logger.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
-            param.put("type",type);
+
+            <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
+             param.put("${c.javaFieldId}",${c.javaFieldId});
+             </#if>
+			 </#list>
             Partion pt = ${className}Service.getList(param);
             List<${ClassName}> list = null;
             int totalCount = 0;
             if (pt != null) {
                 list = (List<${ClassName}>) pt.getList();
-                totalCount = pt.getPageCount();
+                totalCount = pt.getTotalCount();
             }
             retJon.put("data", list);
             retJon.put("recordsTotal", totalCount);

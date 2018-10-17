@@ -58,7 +58,6 @@ public class ${ClassName}Controller {
 	   try {
             String startStr = request.getParameter("start");
             String length = request.getParameter("length");
-            String type = request.getParameter("type");
              <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
                 String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");;
               </#if>

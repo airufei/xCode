@@ -2,12 +2,12 @@
 <template>
     <name>index</name>
     <filePath>src/main/resources/static/js</filePath>
-    <fileName>${className}.index.1.js</fileName>
+    <fileName>${className}.index.js</fileName>
     <content><![CDATA[
 
     $(function () {
-    // init date tables
-    var ${className}Table = $("#${className}_list").dataTable({
+    //查询表格数据
+    var ${className}Table = $("#${className}_table").dataTable({
         "deferRender": true,
         "processing": true,
         "serverSide": true,
@@ -16,7 +16,7 @@
             type: "post",
             data: function (d) {
                 var obj = {};
-             <#list colList as c><#if (c.isList?? && c.isList == "1")>
+             <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
                 obj.${c.javaFieldId} = $('#${c.javaFieldId}').val();
               </#if>
 			  </#list>
@@ -50,7 +50,7 @@
                     return function () {
                         tableData['key'+row.id] = row;
                         return '<p id="' + row.id + '" >' +
-                            '<button class="btn btn-warning btn-xs job_operate" _type="${className}_edit"" type="button">' + I18n.system_opt_edit + '</button>  ' +
+                            '<button class="btn btn-warning btn-xs job_operate" _type="${className}_save"" type="button">' + I18n.system_opt_edit + '</button>  ' +
                             '<button class="btn btn-danger btn-xs job_operate" _type="${className}_del" type="button">' + I18n.system_opt_del + '</button>  ' +
                             '</p>';
                     };
@@ -86,24 +86,17 @@
     // table data
     var tableData = {};
 
-    // search btn
+    // 查询按钮事件
     $('#searchBtn').on('click', function () {
         ${className}Table.fnDraw();
     });
 
-    // jobGroup change
-    $('#jobGroup').on('change', function () {
-        //reload
-        var jobGroup = $('#jobGroup').val();
-        window.location.href = base_url + "/jobinfo?jobGroup=" + jobGroup;
-    });
 
-    // job operate
-    $("#${className}_list").on('click', '.job_operate', function () {
+    // 操作按钮事件
+    $("#${className}_table").on('click', '.job_operate', function () {
         var typeName;
         var url;
         var needFresh = false;
-
         var type = $(this).attr("_type");
         if ("${className}_del" == type) {
             typeName = I18n.system_opt_del;
@@ -112,7 +105,6 @@
         } else {
             return;
         }
-
         var id = $(this).parent('p').attr("id");
         layer.confirm(I18n.system_ok + typeName + '?', {
             icon: 3,
@@ -155,15 +147,25 @@
     });
 
 
-    $("#${className}_list").on('click', '.job_operate', function () {
+   //编辑按钮事件
+    $("#${className}_table").on('click', '.job_operate', function () {
         var type = $(this).attr("_type");
-        if ("{className}_edit" == type) {
+        if ("${className}_save" == type) {
             edit(this);
         }
     });
 
+    //双击弹出编辑
+    $('#${className}_table').on('dblclick','tr',function(){
+        edit(this);
+    });
+
+    //处理编辑页面的数据
     function edit(target) {
-        var id = $(this).parent('p').attr("id");
+        var id = $(target).parent('p').attr("id");
+        if(id==null||id==undefined||id<0) {
+            id = $(target).children('td').children('p').attr("id");
+        }
         var row = tableData['key' + id];
         if (row != null && row != undefined) {
          <#list colList as c>
@@ -176,11 +178,13 @@
         // show
         $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
      }
-    // add
+
+    // 添加页面按钮事件
     $(".add").click(function () {
-        // show
-        $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
+         edit(this);
     });
+
+    //验证保存数据并且提交
     var addModalValidate = $("#addModal .form").validate({
         errorElement: 'span',
         errorClass: 'help-block',
@@ -215,7 +219,7 @@
         },
         submitHandler: function (form) {
             $.post(base_url + "/${className}/save", $("#addModal .form").serialize(), function (data, status) {
-                if (data.code == 200) {
+                if (data.code ==200) {
                     $('#addModal').modal('hide');
                     layer.open({
                         title: I18n.system_tips,
@@ -237,6 +241,7 @@
             });
         }
     });
+    //重置编辑页面数据
     $("#addModal").on('hide.bs.modal', function () {
         $("#addModal .form")[0].reset();
         addModalValidate.resetForm();
@@ -244,22 +249,6 @@
         $(".remote_panel").show();	// remote
 
     });
-    /**
-     * find title by name, GlueType
-     */
-    function findGlueTypeTitle(glueType) {
-        var glueTypeTitle;
-        $("#addModal .form select[name=glueType] option").each(function () {
-            var name = $(this).val();
-            var title = $(this).text();
-            if (glueType == name) {
-                glueTypeTitle = title;
-                return false
-            }
-        });
-        return glueTypeTitle;
-    }
-
 });
 
 
