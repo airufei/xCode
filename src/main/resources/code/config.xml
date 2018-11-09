@@ -73,6 +73,15 @@
 			<template>job-admin_ms/index_js.xml</template>
 		</category>
 
+		<category dictKey="zjgf-microservice" dictValue="zjgf_微服务数据">
+			<template>zjgf-microservice/controller.xml</template>
+			<template>zjgf-microservice/service.xml</template>
+			<template>zjgf-microservice/helperservice.xml</template>
+			<template>zjgf-microservice/dao.xml</template>
+			<template>zjgf-microservice/mapper.xml</template>
+			<template>zjgf-microservice/entity.xml</template>
+		</category>
+
 	</category>
 	<!-- java类型 -->
 	<javaType>

@@ -4,30 +4,35 @@
     <filePath>src/${packageName}/${subPackageName}/${javaModuleName}/controller</filePath>
     <fileName>${ClassName}Controller.java</fileName>
     <content><![CDATA[
-package ${packageName}.${subPackageName}.${javaModuleName}.controller;
+package ${packageName}.${subPackageName}.controller.${javaModuleName};
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import ${packageName}.dingTalk.CommonService;
+import ${packageName}.entity.${subPackageName}.*;
+import ${packageName}.service.${subPackageName}.*;
+import ${packageName}.base.model*;
+import ${packageName}.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpServletRequest;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSON;
-import ${packageName}.model.${javaModuleName}.*;
-import ${packageName}.base.model.*;
-import ${packageName}.util.*;
-import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
-import ${packageName}.${subPackageName}.common.SysCommonService;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * ${ClassName}Controller(${functionName})
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @RestController
+@RequestMapping("/${subModuleName}/")
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
@@ -35,7 +40,7 @@ public class ${ClassName}Controller {
 	@Autowired
 	private ${ClassName}Service ${className}Service;
 	@Autowired
-    private SysCommonService sysCommonService; //如果不需要发钉钉消息可以注释了
+    private CommonService commonService;
 
 	/**
 	 * getList:(获取${functionName}分页查询接口)
@@ -45,18 +50,18 @@ public class ${ClassName}Controller {
 	 * @return
 	 */
 	@RequestMapping("getList")
-	public RetData getList(HttpServletRequest request, String parms){
-		RetData retData = new RetData();
+	public DataReturn getList(HttpServletRequest request, String parms){
+		DataReturn dataReturn = new DataReturn();
 	   try {
 	        logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             int pageNo = json.getIntValue("pageNo");
             int pageSize = json.getIntValue("pageSize");
@@ -69,27 +74,20 @@ public class ${ClassName}Controller {
                 list = (List<${ClassName}>) pt.getList();
                 totalCount = pt.getPageCount();
             }
-             if (list == null||list.size()<=0) {
-                retData.setData(jsonObject);
-                retData.setCode(RetCode.NO_DATA);
-                retData.setMessage(RetMessage.NO_DATA);
-                return retData;
-            }
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("list", list);
             jsonObject.put("totalCount", totalCount);
-            retData.setData(jsonObject);
-            retData.setCode(RetCode.SUCCESS);
+            dataReturn.setData(jsonObject);
+            dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            retData.setCode(RetCode.SYS_ERROR);
-            retData.setMessage(RetMessage.SYS_ERROR);
+            dataReturn.setMessage("服务繁忙，请稍后再试");
             String msg="getList:(获取${functionName}分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            sysCommonService.sendDingMessage("getList", parms, JSON.toJSONString(retData), msg, this.getClass());
+            commonService.sendDingMessage("getList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
         logger.info("getList:(获取${functionName}分页查询接口) 结束  parms={}", parms);
-        return retData;
+        return dataReturn;
 	}
 
      /**
@@ -100,38 +98,77 @@ public class ${ClassName}Controller {
      * @return
      */
     @RequestMapping("get${ClassName}List")
-    public RetData get${ClassName}List(HttpServletRequest request, String parms) {
-       RetData retData = new RetData();
+    public DataReturn get${ClassName}List(HttpServletRequest request, String parms) {
+        DataReturn dataReturn = new DataReturn();
         try {
             logger.info("get${ClassName}List:(获取${functionName}不分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             if (${className} == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             List<${ClassName}> list= ${className}Service.get${ClassName}List(${className});
-            retData.setData(list);
-            retData.setCode(RetCode.SUCCESS);
-            retData.setMessage(RetMessage.SUCCESS);
+            dataReturn.setData(list);
+            dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            retData.setCode(RetCode.SYS_ERROR);
-            retData.setMessage(RetMessage.SYS_ERROR);
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
             String msg="get${ClassName}List:(获取${functionName}不分页查询接口)====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            sysCommonService.sendDingMessage("get${ClassName}List", parms, JSON.toJSONString(retData), msg, this.getClass());
+            commonService.sendDingMessage("get${ClassName}List", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
         logger.info("get${ClassName}List:(获取${functionName}不分页查询接口) 结束  parms={},", parms);
-        return retData;
+        return dataReturn;
+    }
+
+
+ /**
+     * get${ClassName}ByNo:(查询${functionName}单条数据接口-带缓存)
+     * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+     */
+    @RequestMapping("get${ClassName}ByNo")
+    public DataReturn get${ClassName}ByNo(HttpServletRequest request, String parms) {
+        DataReturn dataReturn = new DataReturn();
+        try {
+            logger.info("get${ClassName}ByNo:(查询${functionName}单条数据接口-带缓存) 开始  parms={}", parms);
+            if (StringUtil.isBlank(parms)) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            JSONObject json = JSONObject.parseObject(parms);
+            if (json == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
+            if (${className} == null) {
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
+            }
+            ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
+            dataReturn.setData(ret${className});
+            dataReturn.setCode(ResultCode.SUCCESS);
+        } catch (Exception e) {
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            String msg="get${ClassName}ByNo:(查询${functionName}单条数据接口-带缓存)  异常====>"+StringUtil.getExceptionMsg(e);
+            logger.error(msg);
+            commonService.sendDingMessage("get${ClassName}ByNo", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            e.printStackTrace();
+        }
+        logger.info("get${ClassName}:get${ClassName}ByNo:(查询${functionName}单条数据接口-带缓存) 结束  parms={},", parms);
+        return dataReturn;
     }
 
      /**
@@ -142,38 +179,36 @@ public class ${ClassName}Controller {
      * @return
      */
     @RequestMapping("get${ClassName}")
-    public RetData get${ClassName}(HttpServletRequest request, String parms) {
-        RetData retData = new RetData();
+    public DataReturn get${ClassName}(HttpServletRequest request, String parms) {
+        DataReturn dataReturn = new DataReturn();
         try {
             logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             if (${className} == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
-            retData.setData(ret${className});
-            retData.setCode(RetCode.SUCCESS);
-            retData.setMessage(RetMessage.SUCCESS);
+            dataReturn.setData(ret${className});
+            dataReturn.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            retData.setCode(RetCode.SYS_ERROR);
-            retData.setMessage(RetMessage.SYS_ERROR);
-            String msg="get${ClassName}:(查询${functionName}单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+             String msg="get${ClassName}:(查询${functionName}单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            sysCommonService.sendDingMessage("get${ClassName}", parms, JSON.toJSONString(retData), msg, this.getClass());
+            commonService.sendDingMessage("get${ClassName}", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
         logger.info("get${ClassName}:(查询${functionName}单条数据接口) 结束  parms={},", parms);
-        return retData;
+        return dataReturn;
     }
 
 	/**
@@ -184,37 +219,37 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@RequestMapping("delete")
-	public RetData delete(HttpServletRequest request, String parms){
-	    RetData retData = new RetData();
+	public DataReturn delete(HttpServletRequest request, String parms){
+	  DataReturn dataReturn = new DataReturn();
+        dataReturn.setCode(ResultCode.FAILURE);
         try {
             logger.info("delete:(逻辑删除${functionName}数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             Long id = json.getLong("id");
             if (id != null && id > 0) {
                 ${className}Service.delete(id);
-                retData.setCode(RetCode.SUCCESS);
-                retData.setMessage(RetMessage.SUCCESS);
+                dataReturn.setMessage("删除成功");
+                dataReturn.setCode(ResultCode.SUCCESS);
             } else {
-                retData.setMessage("请选择需要删除的数据");
+                dataReturn.setMessage("请选择需要删除的数据");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            retData.setCode(RetCode.SYS_ERROR);
-            retData.setMessage(RetMessage.SYS_ERROR);
             String msg="delete:(逻辑删除${functionName}数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            sysCommonService.sendDingMessage("delete", parms, JSON.toJSONString(retData), msg, this.getClass());
+            commonService.sendDingMessage("delete", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
         }
         logger.info("delete:(逻辑删除${functionName}数据接口) 结束  parms={}", parms);
-        return retData;
+        return dataReturn;
 	}
 	
 	/**
@@ -225,24 +260,24 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@RequestMapping(value = "save")
-    public RetData save(HttpServletRequest request, String parms) {
-		RetData retData = new RetData();
+    public DataReturn save(HttpServletRequest request, String parms) {
+		DataReturn dataReturn = new DataReturn();
         try {
             logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                retData.setMessage("参数为空");
-                return retData;
+                dataReturn.setMessage("参数为空");
+                return dataReturn;
             }
             ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             // 无保存内容
             if (${className} == null) {
-                retData.setMessage("无保存内容");
-                return retData;
+                dataReturn.setMessage("无保存内容");
+                return dataReturn;
             }
             ${className}.setCreateTime(new Date());
             ${className}.setUpdateTime(new Date());
@@ -250,19 +285,19 @@ public class ${ClassName}Controller {
             ${ClassName} ret =${className}Service.save(${className});
             if(ret!=null)
             {
-              retData.setCode(RetCode.SUCCESS);
-              retData.setMessage(RetMessage.SUCCESS);
+              dataReturn.setCode(ResultCode.SUCCESS);
+               dataReturn.setMessage("保存成功");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            retData.setCode(RetCode.SYS_ERROR);
-            retData.setMessage(RetMessage.SYS_ERROR);
             String msg="save:(保存${functionName}数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            sysCommonService.sendDingMessage("save", parms, JSON.toJSONString(retData), msg, this.getClass());
+            commonService.sendDingMessage("save", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            return dataReturn;
         }
         logger.info("save:(保存${functionName}数据接口) 结束  parms={}", parms);
-        return retData;
+        return dataReturn;
 	}
 
 }]]>

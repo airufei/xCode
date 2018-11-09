@@ -107,7 +107,7 @@ public class ${ClassName}Controller {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             if (${className} == null) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -134,7 +134,7 @@ public class ${ClassName}Controller {
      * @param parms
      * @return
      */
-    @RequestMapping("get${ClassName}")
+    @RequestMapping("get${ClassName}ByNo")
     public DataReturn get${ClassName}ByNo(HttpServletRequest request, String parms) {
         DataReturn dataReturn = new DataReturn();
         try {
@@ -148,7 +148,7 @@ public class ${ClassName}Controller {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             if (${className} == null) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -188,7 +188,7 @@ public class ${ClassName}Controller {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             if (${className} == null) {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
@@ -269,7 +269,7 @@ public class ${ClassName}Controller {
                 dataReturn.setMessage("参数为空");
                 return dataReturn;
             }
-            ${ClassName} ${className}=json.toJavaObject(${ClassName}.class);
+            ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
             // 无保存内容
             if (${className} == null) {
                 dataReturn.setMessage("无保存内容");
