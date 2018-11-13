@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 
 /**
  * 生成方案Entity
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @XmlRootElement(name="template")

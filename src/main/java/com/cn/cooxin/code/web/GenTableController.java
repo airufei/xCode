@@ -37,7 +37,7 @@ import com.cn.cooxin.util.StringUtil;
 /**
  * 业务表Controller
  *
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @Controller
@@ -210,17 +210,13 @@ public class GenTableController {
             String sqlType = con.getJdbcType();
             if (sqlType != null && (sqlType.contains("int"))) {
                 con.setJavaType("java.lang.Integer");
-            }
-            else if (sqlType != null && sqlType.contains("bigint")) {
+            } else if (sqlType != null && sqlType.contains("bigint")) {
                 con.setJavaType("java.lang.Long");
-            }
-            else if (sqlType != null && (sqlType.contains("datetime")||sqlType.contains("date"))) {
+            } else if (sqlType != null && (sqlType.contains("datetime") || sqlType.contains("date"))) {
                 con.setJavaType("java.util.Date");
-            }
-            else if (sqlType != null && (sqlType.contains("decimal"))) {
+            } else if (sqlType != null && (sqlType.contains("decimal"))) {
                 con.setJavaType("java.math.BigDecimal");
-            }
-            else {
+            } else {
                 con.setJavaType("java.lang.String");
             }
             newList.add(con);
@@ -285,9 +281,9 @@ public class GenTableController {
                 res = false;
             }
             if (res) {
-                tableColumnService.add(list);
-                res = true;
-                msg = "保存业务表列信息成功";
+                JSONObject json = tableColumnService.add(list);
+                res = json.getBooleanValue("res");
+                msg = json.getString("msg");
             }
 
         } catch (Exception e) {

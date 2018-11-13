@@ -36,7 +36,7 @@
 				<if test="dbName == 'mssql'">'%'+#{category}+'%'</if>
 				<if test="dbName == 'mysql'">concat('%',#{category},'%')</if>
 		</if>
-		ORDER BY a.name, a.updatetime DESC
+		ORDER BY a.updatetime DESC
 	</select>
 	
 	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenTemplate">
@@ -45,7 +45,7 @@
 		FROM t_code_template a
 		<include refid="genTemplateJoins"/>
 		WHERE a.flag = #{flag} 
-		ORDER BY a.name, a.updatetime DESC
+		ORDER BY a.updatetime DESC
 	</select>
 	
 	<insert id="insert">

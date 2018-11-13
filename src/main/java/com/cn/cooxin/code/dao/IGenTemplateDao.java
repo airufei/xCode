@@ -11,7 +11,7 @@ import com.cn.cooxin.code.entity.GenTemplate;
 
 /**
  * 代码模板DAO接口
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @SuppressWarnings("all")

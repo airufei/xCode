@@ -11,7 +11,7 @@ import com.cn.cooxin.code.entity.Partion;
 
 /**
  * 业务表DAO接口
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @SuppressWarnings("all")

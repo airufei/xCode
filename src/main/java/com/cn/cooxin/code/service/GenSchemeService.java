@@ -26,7 +26,7 @@ import com.cn.cooxin.util.StringUtil;
 
 /**
  * 生成方案Service
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @Service

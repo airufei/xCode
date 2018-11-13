@@ -20,7 +20,7 @@ import com.cn.cooxin.util.GenUtils;
 
 /**
  * 代码模板Service
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @Service

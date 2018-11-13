@@ -6,7 +6,7 @@ package com.cn.cooxin.code.entity;
 
 /**
  * 生成方案Entity
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 public class GenScheme extends BaseEntitys {

@@ -23,7 +23,7 @@ import com.cn.cooxin.util.StringUtil;
 /**
  * 业务表Service
  * 
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @SuppressWarnings("all")
