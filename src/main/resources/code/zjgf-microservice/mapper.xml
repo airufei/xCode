@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>mapper</name>
-    <filePath>src/${packageName}/base/${javaModuleName}/dao</filePath>
+    <filePath>src/${packageName}/dao/${javaModuleName}</filePath>
     <fileName>${ClassName}Dao.xml</fileName>
     <content><![CDATA[
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -339,7 +339,7 @@ ${r"</foreach>"}
 
 	<update id="delete">
 	UPDATE ${table.name} SET
-	flag = -1
+	del_flag = 1
 		WHERE id = ${"#"}{id}
 	</update>
 </mapper>]]>

@@ -7,7 +7,7 @@
 
 package ${packageName}.entity.${javaModuleName};
 
-import${packageName}.base.model.BaseEntitys;
+import ${packageName}.base.model.BaseEntitys;
 
 import java.math.BigDecimal;
 import java.util.Date;

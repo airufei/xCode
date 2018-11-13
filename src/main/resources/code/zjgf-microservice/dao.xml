@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>dao</name>
-	<filePath>src/${packageName}/base/${javaModuleName}/dao</filePath>
+	<filePath>src/${packageName}/dao/${javaModuleName}</filePath>
 	<fileName>${ClassName}Dao.java</fileName>
 	<content><![CDATA[
 package ${packageName}.dao.${javaModuleName};

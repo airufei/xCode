@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>service</name>
-    <filePath>src/${packageName}/base/${javaModuleName}/service</filePath>
+    <filePath>src/${packageName}/service/${javaModuleName}</filePath>
     <fileName>${ClassName}Service.java</fileName>
     <content><![CDATA[
 
@@ -161,25 +161,25 @@ public class ${ClassName}Service  {
 
 	   /**
 	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
-	   * @param ${ClassName}No
+	   * @param ${className}No
 	   * @param isCache
 	   * @author ${functionAuthor}
 	   * @return
 	   */
-	   public ${ClassName}  get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
+	   public ${ClassName}  get${ClassName}ByNo(String ${className}No, boolean isCache)
 	   {
 	      ${ClassName} ret=null;
-          logger.info("get${className}ByNo(获取${functionName}单条数据--带缓存) 开始 ${ClassName}No={},isCache={}", ${ClassName}No,isCache);
-           if(${ClassName}No==null)
+          logger.info("get${className}ByNo(获取${functionName}单条数据--带缓存) 开始 ${className}No={},isCache={}", ${className}No,isCache);
+           if(${className}No==null)
            {
              return ret;
            }
           try {
-	          ret=${className}HelperService.get${ClassName}ByNo(${ClassName}No,isCache);
+	          ret=${className}HelperService.get${ClassName}ByNo(${className}No,isCache);
 	       } catch (Exception e) {
             String msg = "get${className}ByNo(获取${functionName}单条数据--带缓存) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            String parms = ${ClassName}No;
+            String parms = ${className}No;
             commonService.sendDingMessage("base-service[get${className}ByNo]", parms, null, msg, this.getClass());
             e.printStackTrace();
           }
