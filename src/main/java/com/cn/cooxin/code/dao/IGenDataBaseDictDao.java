@@ -11,7 +11,7 @@ import com.cn.cooxin.code.entity.GenTableColumn;
 
 /**
  * 业务表字段DAO接口
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 public interface IGenDataBaseDictDao {

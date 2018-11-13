@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 生成方案Entity
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @XmlRootElement(name="category")

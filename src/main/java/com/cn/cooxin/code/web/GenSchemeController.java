@@ -35,7 +35,7 @@ import com.cn.cooxin.util.StringUtil;
 /**
  * 生成方案Controller
  * 
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @Controller

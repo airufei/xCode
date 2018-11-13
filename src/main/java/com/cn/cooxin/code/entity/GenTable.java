@@ -8,7 +8,7 @@ import com.cn.cooxin.util.StringUtil;
 
 /**
  * 业务表Entity
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 public class GenTable extends BaseEntitys {

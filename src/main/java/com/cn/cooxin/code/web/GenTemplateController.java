@@ -24,7 +24,7 @@ import com.cn.cooxin.code.service.GenTemplateService;
 
 /**
  * 代码模板Controller
- * @author ThinkGem
+ *
  * @version 2013-10-15
  */
 @Controller
