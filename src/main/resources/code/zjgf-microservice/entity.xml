@@ -7,7 +7,7 @@
 
 package ${packageName}.entity.${javaModuleName};
 
-import ${packageName}.base.model.BaseEntitys;
+import ${packageName}.base.model.BaseEntity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,7 +17,7 @@ import java.util.Date;
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
-public class ${ClassName} extends BaseEntitys {
+public class ${ClassName} extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 	<#-- 生成字段属性 -->

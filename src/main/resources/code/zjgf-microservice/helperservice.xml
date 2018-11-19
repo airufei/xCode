@@ -92,21 +92,21 @@ public class ${ClassName}HelperService  {
 
     /**
 	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
-	   * @param ${ClassName}No
+	   * @param ${className}No
 	   * @param isCache
 	   * @author ${functionAuthor}
 	   * @return
 	*/
-	public ${ClassName} get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
+	public ${ClassName} get${ClassName}ByNo(String ${className}No, boolean isCache)
 	{
 	    ${ClassName} ret=null;
-	    if (StringUtil.isBlank(${ClassName}No)) {
+	    if (StringUtil.isBlank(${className}No)) {
             return ret;
         }
-        String key = CacheConstantUtil.BY_NO_ +"get${ClassName}ByNo"+ ${ClassName}No;
+        String key = CacheConstantUtil.BY_NO_ +"get${ClassName}ByNo"+ ${className}No;
         String redisCache = null;
         if (isCache) {
-            redisCache = cacheHelperService.getSsdbCache(${ClassName}No);
+            redisCache = cacheHelperService.getSsdbCache(${className}No);
         }
         if (StringUtil.isNotBlank(redisCache)) {
             ret = JSONObject.parseObject(redisCache, ${ClassName}.class);
@@ -115,7 +115,7 @@ public class ${ClassName}HelperService  {
             return ret;
         }
         ${ClassName} parms=new ${ClassName}();
-        parms.set${ClassName}No(${ClassName}No);
+        parms.set${ClassName}No(${className}No);
         ret=getSignle${ClassName}(parms);
         if (ret != null && isCache) {
             cacheHelperService.saveSsdb(key, JSON.toJSONString(ret), 60 * 5);

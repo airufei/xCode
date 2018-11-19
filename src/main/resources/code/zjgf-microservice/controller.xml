@@ -280,8 +280,8 @@ public class ${ClassName}Controller {
                 dataReturn.setMessage("无保存内容");
                 return dataReturn;
             }
-            ${className}.setCreateTime(new Date());
-            ${className}.setUpdateTime(new Date());
+            ${className}.setCreateDate(new Date());
+            ${className}.setUpdateDate(new Date());
             // 保存数据库
             ${ClassName} ret =${className}Service.save(${className});
             if(ret!=null)
