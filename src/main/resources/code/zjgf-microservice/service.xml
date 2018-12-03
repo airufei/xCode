@@ -45,14 +45,15 @@ public class ${ClassName}Service  {
        * @param json
 	   * @return
 	   */
-	   public Partion<ClassName>  getList(@RequestBody JSONObject json)
+	   @RequestMapping("getList")
+	   public Partion<${ClassName}>  getList(@RequestBody JSONObject json)
 	   {
           logger.info("getList(获取${functionName}带分页数据-服务) 开始 json={}", json);
           if(json==null||json.size()<1)
           {
              return null;
           }
-          Partion<ClassName> pt =null;
+          Partion<${ClassName}> pt =null;
           try
            {
               int totalcount =${className}HelperService.getTotalCount(json);
@@ -65,11 +66,7 @@ public class ${ClassName}Service  {
 		   } catch (Exception e) {
             String msg = "getList(获取${functionName} 异常 " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            String parms = null;
-            if (json != null) {
-                parms = json.toString();
-            }
-            commonService.sendDingMessage("base-service[getList]", parms, null, msg, this.getClass());
+            commonService.sendDingMessage("base-service[getList]", json.toString(), null, msg, this.getClass());
             e.printStackTrace();
           }
 		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 ");
@@ -82,6 +79,7 @@ public class ${ClassName}Service  {
        * @param ${className}
 	   * @return
 	   */
+	   @RequestMapping("get${ClassName}List")
 	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName} ${className})
 	   {
 	      String parms = JSON.toJSONString(${className});
@@ -110,6 +108,7 @@ public class ${ClassName}Service  {
      * @author ${functionAuthor}
 	 * @return
 	 */
+	 @RequestMapping("save")
 	public ${ClassName} save(@RequestBody ${ClassName} ${className})
 	{
 	    String parms = JSON.toJSONString(${className});
@@ -136,6 +135,7 @@ public class ${ClassName}Service  {
 	   * @param ${className}
 	   * @return
 	   */
+	   @RequestMapping("get${ClassName}")
 	   public ${ClassName}  get${ClassName}(@RequestBody ${ClassName} ${className})
 	   {
 	      ${ClassName} ret=null;
@@ -166,6 +166,7 @@ public class ${ClassName}Service  {
 	   * @author ${functionAuthor}
 	   * @return
 	   */
+	   @RequestMapping("get${ClassName}NoByUuid")
 	   public ${ClassName}  get${ClassName}ByNo(String ${className}No, boolean isCache)
 	   {
 	      ${ClassName} ret=null;
@@ -177,13 +178,12 @@ public class ${ClassName}Service  {
           try {
 	          ret=${className}HelperService.get${ClassName}ByNo(${className}No,isCache);
 	       } catch (Exception e) {
-            String msg = "get${className}ByNo(获取${functionName}单条数据--带缓存) " + StringUtil.getExceptionMsg(e);
+            String msg = "get${ClassName}ByNo(获取${className}单条数据--带缓存) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            String parms = ${className}No;
-            commonService.sendDingMessage("base-service[get${className}ByNo]", parms, null, msg, this.getClass());
+            commonService.sendDingMessage("base-service[get${ClassName}NoByNo]", ${className}No, null, msg, this.getClass());
             e.printStackTrace();
           }
-	       logger.info("get${className}ByNo(获取${functionName}单条数据--带缓存) 单条数据-服务) 结束 "+JSON.toJSONString(ret));
+	       logger.info("get${ClassName}ByNo(获取${functionName}单条数据--带缓存) 单条数据-服务) 结束 "+JSON.toJSONString(ret));
 	      return ret;
 	   }
 
@@ -193,6 +193,7 @@ public class ${ClassName}Service  {
 	 * @author ${functionAuthor}
 	 * @return
 	 */
+	 @RequestMapping("delete")
 	 public boolean delete(Long id)
 	 {
 	    logger.info("delete(逻辑删除${functionName}数据-服务) 开始 id={}", id);
