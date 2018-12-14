@@ -51,7 +51,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</#list>
 	</sql>
 
-	<select id="get${ClassName}ById" resultType="${packageName}.${javaModuleName}.model.${ClassName}">
+	<select id="get${ClassName}ById" resultType="${packageName}.${packageName}.model.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -99,7 +99,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 
-	<select id="getList" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
+	<select id="getList" resultType="${packageName}.${packageName}.model.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -150,7 +150,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.${packageName}.model.${ClassName}" parameterType="${packageName}.${packageName}.model.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
