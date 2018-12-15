@@ -111,21 +111,23 @@ public class ${ClassName}Service  {
 	 */
 	public ${ClassName} save(@RequestBody ${ClassName} ${className})
 	{
-	    String parms = JSON.toJSONString(${className});
+	   String parms = JSON.toJSONString(${className});
         logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
+         ${ClassName} ret=null;
         if (${className} == null) {
-            return ${className};
+            return ret;
         }
         try {
-	         ${className}=${className}HelperService.save(${className});
+	         ret=${className}HelperService.save(${className});
 	     } catch (Exception e) {
             String msg = "save (保存${functionName} 数据-服务) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("base-service[save]", parms, null, msg, this.getClass());
+            ret=null;
+            sysCommonService.sendDingMessage("base-service[save]", parms, null, msg, this.getClass());
             e.printStackTrace();
           }
 	    logger.info("save (保存${functionName} 数据-服务) 结束");
-	    return  ${className};
+	    return  ret;
 	}
 
 	   /**
