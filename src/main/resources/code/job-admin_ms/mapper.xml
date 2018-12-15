@@ -6,7 +6,7 @@
     <content><![CDATA[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${packageName}.base.${javaModuleName}.dao.${ClassName}Dao">
+<mapper namespace="${packageName}.${javaModuleName}.dao.${ClassName}Dao">
 
     <#-- 输出字段列 -->
 	<sql id="${className}Columns">
@@ -50,7 +50,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</#list>
 	</sql>
 
-	<select id="get${ClassName}ById" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+	<select id="get${ClassName}ById" resultType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -98,7 +98,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 
-	<select id="getList" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
+	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -149,7 +149,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
@@ -198,7 +198,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-       <select id="getSignle${ClassName}" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+       <select id="getSignle${ClassName}" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
