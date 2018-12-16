@@ -70,7 +70,7 @@ public class ${ClassName}Controller {
                 totalCount = pt.getPageCount();
             }
              if (list == null||list.size()<=0) {
-                retData.setData(jsonObject);
+                retData.setData(list);
                 retData.setCode(RetCode.NO_DATA);
                 retData.setMessage(RetMessage.NO_DATA);
                 return retData;

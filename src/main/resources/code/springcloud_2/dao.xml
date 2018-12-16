@@ -4,7 +4,7 @@
 	<filePath>src/${packageName}/base/${javaModuleName}/dao</filePath>
 	<fileName>${ClassName}Dao.java</fileName>
 	<content><![CDATA[
-package ${packageName}.base.${javaModuleName}.dao;
+package ${packageName}.service.${javaModuleName}.dao;
 
 import ${packageName}.model.${javaModuleName}.*;
 import java.util.List;
