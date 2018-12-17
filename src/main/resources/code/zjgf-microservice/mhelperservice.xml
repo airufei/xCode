@@ -61,15 +61,18 @@ public class ${ClassName}HelperService  {
      */
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
     public ${ClassName} save(${ClassName} ${className}) {
+       ${ClassName} ret=null;
         if (${className} == null) {
-            return ${className};
+            return ret;
         }
         if (${className}.getId() != null && ${className}.getId() > 0) {
             updateById(${className});
+            ret=${className};
         } else {
             ${className}Dao.add(${className});
+             ret=${className};
         }
-        return ${className};
+        return ret;
     }
 
      /**

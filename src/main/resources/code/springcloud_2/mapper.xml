@@ -242,6 +242,10 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 
 
 <insert id="add" useGeneratedKeys="true" keyProperty="id">
+ <selectKey resultType="long" keyProperty="id" order="AFTER">
+        SELECT
+        LAST_INSERT_ID()
+     </selectKey>
 		INSERT INTO ${table.name}(
 		<#assign insertField>
 	<#list colList as c>
