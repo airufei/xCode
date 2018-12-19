@@ -59,7 +59,7 @@ public class ${ClassName}Controller {
             String startStr = request.getParameter("start");
             String length = request.getParameter("length");
              <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
-                String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");;
+                String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
               </#if>
 			 </#list>
             int pageSize = 10;

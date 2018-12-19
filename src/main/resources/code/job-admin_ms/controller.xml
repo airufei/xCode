@@ -54,7 +54,7 @@ public class ${ClassName}Controller {
 		JSONObject param =null;
 	   try {
               <#list colList as c><#if (c.isQuery?? && c.isQuery == "1")>
-                String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");;
+                String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
               </#if>
 			  </#list>
             int pageSize = 10;
