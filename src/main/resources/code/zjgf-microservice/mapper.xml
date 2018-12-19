@@ -65,7 +65,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM ${table.name} a
 		<include refid="${className}Joins"/>
 		<where>
-			1=1
+			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -105,7 +105,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM
 		(SELECT id from  ${table.name} t
 		<where>
-			1=1
+			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -155,7 +155,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
 		<where>
-			1=1
+			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -205,7 +205,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM
 		${table.name} a
 		<where>
-			1=1
+			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
