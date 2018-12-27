@@ -69,7 +69,8 @@ public class ${ClassName}HelperService  {
             updateById(${className});
             ret=${className};
         } else {
-            ${className}Dao.add(${className});
+             ${className}Dao.add(${className});
+             ${className}Dao.add(${className});
              ret=${className};
         }
         return ret;
