@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>mapper</name>
-    <filePath>src/${packageName}/dao/${javaModuleName}</filePath>
+    <filePath>src/${packageName}/service/${subPackageName}/dao</filePath>
     <fileName>${ClassName}Dao.xml</fileName>
     <content><![CDATA[
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${packageName}.dao.${javaModuleName}.${ClassName}Dao">
+<mapper namespace="${packageName}.${subPackageName}.dao.${ClassName}Dao">
 
 
     <#-- 输出字段列 -->
@@ -51,7 +51,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</#list>
 	</sql>
 
-	<select id="get${ClassName}ById" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+	<select id="get${ClassName}ById" resultType="${packageName}.entity.${subPackageName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -99,7 +99,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 
-	<select id="getList" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
+	<select id="getList" resultType="${packageName}.entity.${subPackageName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -150,7 +150,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.entity.${subPackageName}.${ClassName}" parameterType="${packageName}.entity.${subPackageName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
@@ -199,7 +199,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-       <select id="getSignle${ClassName}" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+       <select id="getSignle${ClassName}" resultType="${packageName}.entity.${subPackageName}.${ClassName}" parameterType="${packageName}.entity.${subPackageName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM

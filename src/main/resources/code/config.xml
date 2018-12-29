@@ -76,6 +76,7 @@
 		<category dictKey="zjgf-microservice" dictValue="zjgf_微服务数据">
 			<template>zjgf-microservice/controller.xml</template>
 			<template>zjgf-microservice/service.xml</template>
+			<template>zjgf-microservice/iservice.xml</template>
 			<template>zjgf-microservice/helperservice.xml</template>
 			<template>zjgf-microservice/dao.xml</template>
 			<template>zjgf-microservice/mapper.xml</template>

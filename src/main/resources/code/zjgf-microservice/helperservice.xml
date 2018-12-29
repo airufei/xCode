@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>service</name>
-    <filePath>src/${packageName}/service/${javaModuleName}</filePath>
+    <filePath>src/${packageName}/service/${subPackageName}/service</filePath>
     <fileName>${ClassName}HelperService.java</fileName>
     <content><![CDATA[
 
-package ${packageName}.service.iyunbao;
+package ${packageName}.${subPackageName}.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
