@@ -51,7 +51,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</#list>
 	</sql>
 
-	<select id="get${ClassName}ById" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+	<select id="get${ClassName}ById" resultType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM ${table.name} a
@@ -99,7 +99,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</where>
 	</select>
 
-	<select id="getList" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
+	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -150,7 +150,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
@@ -199,7 +199,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-       <select id="getSignle${ClassName}" resultType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}" parameterType="${packageName}.${subPackageName}.${javaModuleName}.model.${ClassName}">
+       <select id="getSignle${ClassName}" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -242,80 +242,69 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 
 
 <insert id="add" useGeneratedKeys="true" keyProperty="id">
+ <selectKey resultType="long" keyProperty="id" order="AFTER">
+        SELECT
+        LAST_INSERT_ID()
+     </selectKey>
 		INSERT INTO ${table.name}(
-		<#assign insertField>
 	<#list colList as c>
 	  <#if c.isInsert?? && c.isInsert == "1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
-		<if test="${c.javaFieldId} != null and ${c.javaFieldId} != ''">
+		<if test="${c.javaFieldId} != null">
 		 ${c.name},
 		</if>
 		</#if>
 	 </#list>
 	<#list colList as c>
 	  <#if c.isInsert?? && c.isInsert == "1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
-		 ${c.name},
+		 ${c.name}
 	  </#if>
 	</#list>
-		</#assign>
-${insertField?substring(0, insertField?last_index_of(","))}
 		) VALUES (
-		<#assign insertJavaField>
+
 		<#list colList as c>
 		 <#if c.isInsert?? && c.isInsert == "1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
-		 <if test="${c.javaFieldId} != null and ${c.javaFieldId} != ''">
+		 <if test="${c.javaFieldId} != null ">
 		  ${"#"}{${c.javaFieldId}},
 		   </if>
 		 </#if>
 		</#list>
 		<#list colList as c>
 		  <#if c.isInsert?? && c.isInsert == "1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
-		 ${"#"}{${c.javaFieldId}},
+		 ${"#"}{${c.javaFieldId}}
 		  </#if>
 		</#list>
-		</#assign>
-${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 		)
 	</insert>
 
-   <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+  <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
      <selectKey resultType="long" keyProperty="id" order="AFTER">
         SELECT
         LAST_INSERT_ID()
      </selectKey>
 		INSERT INTO ${table.name}(
-		<#assign insertField>
 		<#list colList as c>
-		<#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
-		<if test="${c.javaFieldId} != null">
+		   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
 		 ${c.name},
-		 </if>
-		</#if>
+		   </#if>
 		</#list>
 		<#list colList as c>
-		 <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
-		  ${c.name},
-			 </#if>
+		   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
+		  ${c.name}
+		   </#if>
 	    </#list>
-		</#assign>
-		${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 		 ) VALUES
  ${r'<foreach collection="list" item="item" index="index" separator="," >'}
 		(
-		<#assign insertJavaField>
 			<#list colList as c>
 	          <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
-		 <if test="${c.javaFieldId} != null">
 		  ${"#"}{item.${c.javaFieldId}},
-		 </if>
 		 </#if>
 			</#list>
 			<#list colList as c>
 			   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
-		  ${"#"}{item.${c.javaFieldId}},
+		  ${"#"}{item.${c.javaFieldId}}
 			  </#if>
 			</#list>
-		</#assign>
-		${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
 		)
 ${r"</foreach>"}
 	</insert>
@@ -324,7 +313,7 @@ ${r"</foreach>"}
    UPDATE ${table.name} SET
     <#list colList as c>
         <#if c.isEdit?? && c.isEdit == "1" && c.isUpdateRequiredField?? && c.isUpdateRequiredField=="0">
-            <if test="${c.javaFieldId} != null and ${c.javaFieldId} != ''">
+            <if test="${c.javaFieldId} != null">
             ${c.name} = ${"#"}{${c.javaFieldId}},
            </if>
         </#if>
