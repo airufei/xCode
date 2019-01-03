@@ -29,7 +29,8 @@ import java.util.List;
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
-@Service
+@RestController
+@RequestMapping("/service/${subModuleName}/")
 public class ${ClassName}Service  {
 
 	@Autowired
