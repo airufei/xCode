@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>controller</name>
-    <filePath>src/${packageName}/controller/${javaModuleName}/</filePath>
+    <filePath>src/${packageName}/api/controller/${subPackageName}</filePath>
     <fileName>${ClassName}Controller.java</fileName>
     <content><![CDATA[
-package ${packageName}.${subPackageName}.controller.${javaModuleName};
+package ${packageName}.controller.${subPackageName};
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -87,7 +87,6 @@ public class ${ClassName}Controller {
         } catch (Exception e) {
             dataReturn.setMessage("服务繁忙，请稍后再试");
             String msg="getList:(获取${functionName}分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
-            logger.error(msg);
             commonService.sendDingMessage("getList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
@@ -127,7 +126,6 @@ public class ${ClassName}Controller {
         } catch (Exception e) {
             dataReturn.setMessage("服务器繁忙，请稍后再试");
             String msg="get${ClassName}List:(获取${functionName}不分页查询接口)====>"+ StringUtil.getExceptionMsg(e);
-            logger.error(msg);
             commonService.sendDingMessage("get${ClassName}List", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
@@ -168,7 +166,6 @@ public class ${ClassName}Controller {
         } catch (Exception e) {
             dataReturn.setMessage("服务器繁忙，请稍后再试");
             String msg="get${ClassName}ByNo:(查询${functionName}单条数据接口-带缓存)  异常====>"+StringUtil.getExceptionMsg(e);
-            logger.error(msg);
             commonService.sendDingMessage("get${ClassName}ByNo", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
@@ -208,7 +205,6 @@ public class ${ClassName}Controller {
         } catch (Exception e) {
             dataReturn.setMessage("服务器繁忙，请稍后再试");
              String msg="get${ClassName}:(查询${functionName}单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
-            logger.error(msg);
             commonService.sendDingMessage("get${ClassName}", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             e.printStackTrace();
         }
@@ -249,7 +245,6 @@ public class ${ClassName}Controller {
         } catch (Exception e) {
             e.printStackTrace();
             String msg="delete:(逻辑删除${functionName}数据接口) error===>" + StringUtil.getExceptionMsg(e);
-            logger.error(msg);
             commonService.sendDingMessage("delete", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             dataReturn.setMessage("服务器繁忙，请稍后再试");
         }
@@ -296,7 +291,6 @@ public class ${ClassName}Controller {
         } catch (Exception e) {
             e.printStackTrace();
             String msg="save:(保存${functionName}数据接口) error===>" + StringUtil.getExceptionMsg(e);
-            logger.error(msg);
             commonService.sendDingMessage("save", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
             dataReturn.setMessage("服务器繁忙，请稍后再试");
             return dataReturn;
