@@ -6,6 +6,8 @@ package com.cn.cooxin.code.service;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,7 +76,13 @@ public class GenSchemeService {
 	private String generateGen(GenScheme GenScheme){
 
 		StringBuilder result = new StringBuilder();
-		
+		String functionNameSimple = GenScheme.getFunctionNameSimple();
+		String functionName = GenScheme.getFunctionName();
+		if(StringUtil.isBlank(functionNameSimple))
+		{
+			GenScheme.setFunctionNameSimple(functionName);
+		}
+
 		// 查询主表及字段列
 		GenTable GenTable = GenTableDao.getGenTableById(GenScheme.getTableId());
 		GenTableColumn col=new GenTableColumn();

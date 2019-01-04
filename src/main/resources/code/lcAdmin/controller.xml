@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.chainfin.cft.common.jqgrid.strategy2.JqGridProvider;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,34 +107,15 @@ public class ${ClassName}Controller extends AbBaseController {
 		int pageNo = 1;
 		int pageSize = 10;
 		String search="";
-		
 		if (in != null) {
 			pageNo = in.getPage().intValue();
 			pageSize = in.getRows().intValue();
 			search=in.getSearch();
 		}
 		Map mp=StringUtil.getParms(search);
-		if(mp!=null)//设置查询条件
-		{
-		     <#list colList as c>
-		       <#if (c.isQuery?? && c.isQuery == "1")>
-		        ch.set${c.simpleJavaField?cap_first}(StringUtil.ObjToString(mp.get("${c.javaFieldId}")));
-			 </#if>
-		  </#list>
-			
-		}
-		JqGridOutputVO vo = new JqGridOutputVO();
-		Pagination pt = null;
-		pt = ${className}Service.getList(ch, pageNo, pageSize);
-		if (pt != null) {
-			long currentPage = ((long) pt.getTotalCount() + pageSize - 1)/pageSize;
-			vo.setPage((long) pageNo);
-			List newList = pt.getList();
-			newList = formateDate(newList);
-			vo.setRows(newList);
-			vo.setRecords((long) pt.getTotalCount());
-			vo.setTotal(currentPage);
-		}
+		String parms=JSON.toJSONString(mp);
+		JSONObject jsonObject=JSONObject.parseObject(parms);
+		JqGridOutputVO vo = ${className}Service.getList(jsonObject, pageNo, pageSize);
 		return vo;
 	}
 	
@@ -250,44 +233,6 @@ public class ${ClassName}Controller extends AbBaseController {
 		result.put("msg", msg);
 		return result;
 	}
-	
-	/**
-	 * 格式化列表信息
-	 * 
-	 * @param list
-	 */
-	private List formateDate(List list) {
-		List newList = new ArrayList();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			if (null != list && list.size() > 0) {
-				for (Object object : list) {
-					if (object != null) {
-						${ClassName} mp = (${ClassName}) object;
-						// 格式化支付时间
-						if (mp != null
-								&& !StringUtil.isNull(mp.getCreatetime())) {
-							String str = sdf.format((Date) mp.getCreatetime());
-							mp.setCreatetimestr(str);//需要自行设置
-
-						}
-						if (mp != null
-								&& !StringUtil.isNull(mp.getUpdatetime())) {
-							String str = sdf.format((Date) mp.getUpdatetime());
-							mp.setUpdatetimestr(str);//需要自行设置
-
-						}
-						newList.add(mp);
-					}
-				}
-			}
-		} catch (Exception e) {
-			logger.debug("ChannelManagerController------->formateDate(): " + e.getMessage());
-			e.printStackTrace();
-		}
-		return newList;
-	}
-
 }]]>
 	</content>
 </template>
