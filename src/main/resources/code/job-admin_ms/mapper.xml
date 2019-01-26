@@ -64,7 +64,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM ${table.name} a
 		<include refid="${className}Joins"/>
 		<where>
-			flag=#{flag}
+
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -95,6 +95,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 				</#if>
 			</#list>
+			and flag=${"#"}{flag}
 		</where>
 	</select>
 
@@ -104,7 +105,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM
 		(SELECT id from  ${table.name} t
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -135,6 +135,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
+			and flag=${"#"}{flag}
 		</where>
 		 limit ${"#"}{startIndex},${"#"}{pageSize}) b inner join
 		${table.name} a  on b.id=a.id
@@ -154,7 +155,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -185,6 +185,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
+				and flag=${"#"}{flag}
 		</where>
 		) b  inner join ${table.name} a  on b.id=a.id
 	<#list colList as c>
@@ -204,7 +205,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM
 		${table.name} a
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -235,6 +235,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
+				and flag=${"#"}{flag}
 		</where>
 		limit 1
 	</select>
