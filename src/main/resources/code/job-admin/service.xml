@@ -44,7 +44,7 @@ public class ${ClassName}Service  {
        * @param json
 	   * @return
 	   */
-	   public Partion  getList(@RequestBody JSONObject json)
+	   public Partion  getList(JSONObject json)
 	   {
           logger.info("getList(获取${functionName}带分页数据-服务) 开始 json={}", json);
           if(json==null||json.size()<1)
@@ -81,7 +81,7 @@ public class ${ClassName}Service  {
        * @param ${className}
 	   * @return
 	   */
-	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName} ${className})
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
 	   {
 	      String parms = JSON.toJSONString(${className});
 	      List<${ClassName}> list=null;
@@ -109,7 +109,7 @@ public class ${ClassName}Service  {
      * @author ${functionAuthor}
 	 * @return
 	 */
-	public ${ClassName} save(@RequestBody ${ClassName} ${className})
+	public ${ClassName} save(${ClassName} ${className})
 	{
 	   String parms = JSON.toJSONString(${className});
         logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
@@ -136,7 +136,7 @@ public class ${ClassName}Service  {
 	   * @param ${className}
 	   * @return
 	   */
-	   public ${ClassName}  get${ClassName}(@RequestBody ${ClassName} ${className})
+	   public ${ClassName}  get${ClassName}(${ClassName} ${className})
 	   {
 	      ${ClassName} ret=null;
 	      String parms = JSON.toJSONString(${className});

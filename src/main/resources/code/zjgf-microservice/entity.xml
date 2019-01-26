@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>entity</name>
-	<filePath>src/${packageName}/model/${javaModuleName}</filePath>
+	<filePath>src/${packageName}/model/${subPackageName}</filePath>
 	<fileName>${ClassName}.java</fileName>
 	<content><![CDATA[
 
-package ${packageName}.entity.${javaModuleName};
+package ${packageName}.entity.${subPackageName};
 
 import ${packageName}.base.model.BaseEntity;
 

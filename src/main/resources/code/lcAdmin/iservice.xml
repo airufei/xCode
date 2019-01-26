@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 import ${packageName}.common.model.Pagination;
 import ${packageName}.${moduleName}.entity.*;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * Service(${functionName})
@@ -35,26 +36,19 @@ public interface I${ClassName}Service {
 	 */
 	 public ${ClassName} get${ClassName}ById (long id);
 
-      /**
-	 * 修改单条数据
-	 * @param id
-	 * @return
-	 */
-	  public boolean updateById(${ClassName} ${className});
-
 	  /**
 	   * 获取分页数据
 	   * @param map
 	   * @return
 	   */
-	   public Pagination getList(${ClassName} ${className},int pageNo, int pageSize);
+	   public JqGridOutputVO getList(JSONObject jsonObject, int pageNo, int pageSize)
 	   
 	  /**
 	   * 保存数据
 	   * @param map
 	   * @return
 	   */
-	   public void save(${ClassName} ${className});
+	   public ${ClassName} save(${ClassName} ${className});
 	
 	   /**
 	   * 获取集合数据，不带分页

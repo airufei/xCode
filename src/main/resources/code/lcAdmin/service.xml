@@ -17,7 +17,9 @@ import ${packageName}.${moduleName}.service.*;
 import ${packageName}.${moduleName}.dao.impl.*;
 import ${packageName}.common.model.Pagination;
 import ${packageName}.${moduleName}.dao.impl.*;
-import ${packageName}.${moduleName}.common.service.impl.MicroService;
+import com.chainfin.cft.app.common.service.impl.MicroService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 /**
  * Service(${functionName})
  * @author ${functionAuthor}
@@ -81,13 +83,39 @@ public class ${ClassName}Service implements I${ClassName}Service {
        * @author ${functionAuthor}
 	   * @return
 	   */
-	   public DataReturn getList(${ClassName} ${className},int pageNo, int pageSize)
+	   public JqGridOutputVO getList(JSONObject object,int pageNo, int pageSize)
 	   {
-		String s = JSONObject.toJSONString(${className});
-        JSONObject object = JSONObject.parseObject(s);
+	    JqGridOutputVO vo = new JqGridOutputVO();
+	     if(object==null)
+	     {
+	       return vo;
+	     }
         object.put("pageNo", pageNo);
         object.put("pageSize", pageSize);
-        return microService.post(object, "mzadmin/${subModuleName}/getList", true);
+        DataReturn ret= microService.post(object, "mzadmin/${subModuleName}/getList", true);
+        if(ret==null)
+        {
+          return vo;
+        }
+        if (ResultCode.FAILURE == ret.getCode() || ret.getData() == null) {
+            return vo;
+        }
+        JSONObject dataObj = (JSONObject) ret.getData();
+        if(dataObj==null)
+        {
+          return vo;
+        }
+        long totalCount = dataObj.getLongValue("totalCount");
+        long pageCount = dataObj.getLongValue("pageCount");
+        List<${ClassName}> list=null;
+        if (totalCount > 0) {
+            list = JSONObject.parseArray(dataObj.getString("list"), ${ClassName}.class);
+        }
+        vo.setPage((long) pageNo);
+		vo.setRows(list);
+		vo.setRecords(totalCount);
+		vo.setTotal(pageCount);
+		return vo;
 	   }
 
 	 /**
@@ -130,7 +158,7 @@ public class ${ClassName}Service implements I${ClassName}Service {
         Object obj=data.getData();
         if(obj!=null)
         {
-           ret = JSONObject.parseObject(obj..toString(), ${ClassName}.class);
+           ret = JSONObject.parseObject(obj.toString(), ${ClassName}.class);
         }
         return ret;
     }
@@ -156,7 +184,7 @@ public class ${ClassName}Service implements I${ClassName}Service {
         Object obj=data.getData();
         if(obj!=null)
         {
-           ret = JSONObject.parseObject(obj..toString(), ${ClassName}.class);
+           ret = JSONObject.parseObject(obj.toString(), ${ClassName}.class);
         }
         return ret;
     }

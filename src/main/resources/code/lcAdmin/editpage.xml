@@ -13,7 +13,7 @@
 <body>
 
 <form id="edit-form" method="post" action="${r'<@spring.url "'}  /${subModuleName}/save${r'.html "/>'}">
-<input type="hidden" name="id" value="${entity.id}" size="32" />
+<input type="hidden" name="id" value="${r'${entity.id}'}" size="32" />
 	<table style="border-collapse:separate; border-spacing:10px;width:85%;">
 	
 	<#list colList as c>
