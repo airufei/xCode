@@ -492,7 +492,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 	 * getRandNum:(生成随机数)
 	 * 
 	 * @Author airufei
-	 * @param min
+	 * @param max
 	 *            最小值
 	 * @return
 	 */
