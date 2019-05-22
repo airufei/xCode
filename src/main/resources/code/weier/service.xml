@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/adr/service</filePath>
+    <fileName>${ClassName}Service.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.adr.service;
+
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
+import com.wekj.adr.dao.${ClassName}Dao;
+import com.wekj.adr.dto.${ClassName}Dto;
+import com.wekj.adr.po.${ClassName};
+import com.wekj.adr.query.${ClassName}Query;
+import com.wekj.common.util.IdGenerator;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Service
+@Slf4j
+public class ${ClassName}Service {
+
+    @Resource
+    private ${ClassName}Dao ${className}Dao;
+private static final String PREFIX = "${ClassName}";
+
+    /**
+     * get${ClassName}List(获取带分页数据)
+     *
+     * @param ${className}Query the ${className}Query
+     * @return list
+     * @author andi
+     */
+    public ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
+        log.info("get${ClassName}ListByPage ${className}Query={}", JSON.toJSONString(${className}Query));
+        if (${className}Query == null) {
+            return null;
+        }
+        ${ClassName}Query result = new ${ClassName}Query();
+        Long totalcount = getTotalCount(${className}Query);
+        if (totalcount == null || totalcount <= 0) {
+            result.setResults(Lists.newArrayList());
+            result.setTotalNum(0L);
+            return result;
+        }
+        List<${ClassName}> ${className}DaoList = ${className}Dao.get${ClassName}ListByPage(${className}Query);
+        List<${ClassName}Dto> list = ${className}DaoList.stream()
+                .map(this::do2Dto)
+                .collect(Collectors.toList());
+        result.setTotalNum(totalcount);
+        result.setResults(list);
+        return result;
+    }
+
+    /**
+     * get${ClassName}List(获取${functionName}不带分页数据)
+     *
+     * @param ${className}Dto the pre sell conf
+     * @return pre sell conf list
+     * @author andi
+     */
+    public List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
+        log.info("get${ClassName}List param={}", JSON.toJSONString(${className}Dto));
+        if (${className}Dto == null) {
+            return null;
+        }
+        return ${className}Dao.get${ClassName}List(dto2Do(${className}Dto)).stream()
+                .map(this::do2Dto)
+                .collect(Collectors.toList());
+    }
+
+
+    /**
+     * save (保存数据)
+     *
+     * @param ${className}Dto the pre sell conf dto
+     * @return pre sell conf
+     * @author andi
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
+        log.info("save ${className}Dto={}", JSON.toJSONString(${className}Dto));
+        if (${className}Dto == null) {
+            return 0;
+        }
+        if (${className}Dto.getId() == null || ${className}Dto.getId() < 1) {
+            ${ClassName}Dto ${className}ById = get${ClassName}ById(${className}Dto.get${ClassName}Id());
+            if (${className}ById != null) {
+                ${className}Dto.setId(${className}ById.getId());
+            }
+        }
+        ${ClassName} ${className} = dto2Do(${className}Dto);
+        if (${className}Dto.getId() == null || ${className}Dto.getId() < 1) {
+            ${className}.set${ClassName}Id(IdGenerator.generate(PREFIX));
+            ${className}.setGmtModified(new Date());
+            ${className}.setGmtCreate(new Date());
+            return ${className}Dao.add(${className});
+        }
+        ${className}.setGmtModified(new Date());
+        return ${className}Dao.updateById(${className});
+    }
+
+    /**
+     * get${ClassName}(获取单条数据)
+     *
+     * @param ${className}Dto the pre sell conf dto
+     * @return pre sell conf
+     * @author andi
+     */
+    public ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
+        log.info("get${ClassName} ${className}Dto={}", JSON.toJSONString(${className}Dto));
+        if (${className}Dto == null) {
+            return null;
+        }
+        ${ClassName} ${className} = dto2Do(${className}Dto);
+        return do2Dto(${className}Dao.getSignle${ClassName}(${className}));
+    }
+
+
+    /**
+     * get${className}ByNo(获取单条数据)
+     *
+     * @param ${className}Id the pre sell conf no
+     * @return pre sell conf by no
+     * @author andi
+     */
+    public ${ClassName}Dto get${ClassName}ById(String ${className}Id) {
+        log.info("get${ClassName}ById ${className}Id={}", ${className}Id);
+        if (StringUtils.isBlank(${className}Id)) {
+            return null;
+        }
+        ${ClassName} param = new ${ClassName}();
+        param.set${ClassName}Id(${className}Id);
+        return do2Dto(${className}Dao.getSignle${ClassName}(param));
+    }
+
+    /**
+     * delete(逻辑删除数据)
+     *
+     * @param id
+     * @return
+     * @author andi
+     */
+    public boolean delete(Long id) {
+        log.info("delete id={}", id);
+        if (id < 1) {
+            return false;
+        }
+        ${ClassName} dt = ${className}Dao.get${ClassName}ById(id);
+        if (dt == null) {
+            return false;
+        }
+        ${className}Dao.delete(id);
+        return true;
+    }
+
+    /**
+     * 获取分页总记录数
+     *
+     * @param ${className}Query
+     * @return
+     */
+    private Long getTotalCount(${ClassName}Query ${className}Query) {
+        Long totalCount = ${className}Dao.getTotalCount(${className}Query);
+        if (totalCount == null) {
+            return 0L;
+        }
+        return totalCount;
+    }
+
+    private ${ClassName}Dto do2Dto(${ClassName} ${className}) {
+        if (${className} == null) {
+            return null;
+        }
+        ${ClassName}Dto ${className}Dto = new ${ClassName}Dto();
+        BeanUtils.copyProperties(${className}, ${className}Dto);
+        return ${className}Dto;
+    }
+
+    private ${ClassName} dto2Do(${ClassName}Dto ${className}Dto) {
+        if (${className}Dto == null) {
+            return null;
+        }
+        ${ClassName} ${className} = new ${ClassName}();
+        BeanUtils.copyProperties(${className}Dto, ${className});
+        return ${className};
+    }
+
+    public void updateAll(Integer type, String rule) {
+        ${className}Dao.updateAll(type, rule);
+    }
+}
+}]]>
+    </content>
+</template>
