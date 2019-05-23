@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/adr/rest</filePath>
+    <fileName>${ClassName}RestServiceImpl.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.adr.rest;
+
+
+import ${packageName}.adr.dto.${ClassName}Dto;
+import ${packageName}.adr.query.${ClassName}BatchSaveQuery;
+import ${packageName}.adr.query.${ClassName}Query;
+import ${packageName}.adr.service.${ClassName}Service;
+import ${packageName}.adr.spi.${ClassName}RestService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@RestController
+@Slf4j
+public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
+
+    @Resource
+    private ${ClassName}Service ${className}Service;
+
+    /**
+     * get${ClassName}List(获取带分页数据)
+     *
+     * @param ${className}Query
+     * @return ${ClassName}Query
+     * @author ${functionAuthor}
+     */
+    @Override
+    public ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
+        return ${className}Service.get${ClassName}ListByPage(${className}Query);
+    }
+
+    /**
+     * get${ClassName}List(获取不带分页数据)
+     *
+     * @param ${className}Dto
+     * @return List<${ClassName}Dto>
+     * @author ${functionAuthor}
+     */
+    @Override
+    public List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
+        return ${className}Service.get${ClassName}List(${className}Dto);
+    }
+
+
+    /**
+     * save (保存数据)
+     *
+     * @param ${className}Dto
+     * @return int
+     * @author ${functionAuthor}
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
+        return ${className}Service.save(${className}Dto);
+    }
+
+    /**
+     * get${ClassName}(获取单条数据)
+     *
+     * @param ${className}Dto
+     * @return ${ClassName}Dto
+     * @author ${functionAuthor}
+     */
+    @Override
+    public ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
+        return ${className}Service.get${ClassName}(${className}Dto);
+    }
+
+    /**
+     * get${className}ByNo(获取单条数据)
+     *
+     * @param ${className}Id
+     * @return ${ClassName}Dto
+     * @author ${functionAuthor}
+     */
+    @Override
+    public ${ClassName}Dto get${ClassName}ById(String ${className}Id) {
+        return ${className}Service.get${ClassName}ById(${className}Id);
+    }
+
+    /**
+     * delete(逻辑删除数据)
+     *
+     * @param id
+     * @return boolean
+     * @author ${functionAuthor}
+     */
+    @Override
+    public boolean delete(Long id) {
+        return ${className}Service.delete(id);
+    }
+
+}
+}]]>
+    </content>
+</template>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>controller</name>
+    <filePath>src/${packageName}/${subPackageName}/${javaModuleName}/controller</filePath>
+    <fileName>${ClassName}Controller.java</fileName>
+    <content><![CDATA[
+package ${packageName}.${subPackageName}.${javaModuleName}.controller;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+import ${packageName}.model.${javaModuleName}.*;
+import ${packageName}.base.model.*;
+import ${packageName}.utils.*;
+import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
+/**
+ * ${ClassName}Controller(${functionName})
+ * Controller 层的异常应该统一捕获进行处理，这样业务代码更加清晰
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@RestController
+@RequestMapping("/${subModuleName}/")
+@SuppressWarnings("all")
+public class ${ClassName}Controller {
+
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+	@Autowired
+	private ${ClassName}Service ${className}Service;
+
+	/**
+	 * getList:(获取${functionName}分页查询接口)
+	 * @Author ${functionAuthor}
+	 * @param request
+	 * @param parms
+	 * @return
+	 */
+	@RequestMapping("getList")
+	public DataReturn getList(HttpServletRequest request, String parms){
+		DataReturn dataReturn = new DataReturn();
+        logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
+        if (StringUtil.isBlank(parms)) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        JSONObject json = JSONObject.parseObject(parms);
+        if (json == null) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        int pageNo = json.getIntValue("pageNo");
+        int pageSize = json.getIntValue("pageSize");
+        JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
+        param.putAll(json);
+        Partion pt = ${className}Service.getList(param);
+        List<${ClassName}> list = null;
+        int totalCount = 0;
+        if (pt != null) {
+            list = (List<${ClassName}>) pt.getList();
+            totalCount = pt.getPageCount();
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("list", list);
+        jsonObject.put("totalCount", totalCount);
+        dataReturn.setData(jsonObject);
+        dataReturn.setCode(ResultCode.SUCCESS);
+        logger.info("getList:(获取${functionName}分页查询接口) 结束  parms={}", parms);
+        return dataReturn;
+	}
+
+     /**
+     * get${ClassName}Detail:(查询${functionName}详情数据接口)
+     * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+     */
+    @RequestMapping("get${ClassName}Detail")
+    public DataReturn get${ClassName}Detail(HttpServletRequest request, String parms) {
+        DataReturn dataReturn = new DataReturn();
+        logger.info("get${ClassName}:(查询${functionName}详情数据接口) 开始  parms={}", parms);
+        if (StringUtil.isBlank(parms)) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        JSONObject json = JSONObject.parseObject(parms);
+        if (json == null) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
+        if (${className} == null) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
+        dataReturn.setData(ret${className});
+        dataReturn.setCode(ResultCode.SUCCESS);
+        logger.info("get${ClassName}:(查询${functionName}详情数据接口) 结束");
+        return dataReturn;
+    }
+	
+	/**
+	 * save:(保存${functionName}数据接口)
+	 * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+	 */
+	@RequestMapping(value = "save")
+    public DataReturn save(HttpServletRequest request, String parms) {
+		DataReturn dataReturn = new DataReturn();
+        logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
+        if (StringUtil.isBlank(parms)) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        JSONObject json = JSONObject.parseObject(parms);
+        if (json == null) {
+            dataReturn.setMessage("参数为空");
+            return dataReturn;
+        }
+        ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
+        // 无保存内容
+        if (${className} == null) {
+            dataReturn.setMessage("无保存内容");
+            return dataReturn;
+        }
+        ${className}.setCreateTime(new Date());
+        ${className}.setUpdateTime(new Date());
+        // 保存数据库
+        ${ClassName} ret =${className}Service.save(${className});
+        if(ret!=null)
+        {
+          dataReturn.setCode(ResultCode.SUCCESS);
+           dataReturn.setMessage("保存成功");
+        }
+        logger.info("save:(保存${functionName}数据接口) 结束");
+        return dataReturn;
+	}
+
+}]]>
+    </content>
+</template>
