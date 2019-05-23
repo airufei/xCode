@@ -10,6 +10,7 @@ package ${packageName}.adr.query;
 import ${packageName}.adr.dto.${ClassName}Dto;
 import lombok.Data;
 
+import java.util.Date;
 
  /**
  * ${functionName}Dto
@@ -55,11 +56,6 @@ public class ${ClassName}Query extends BaseQuery<${ClassName}Dto> {
      */
     private Integer status = 0;
 	
-	<#-- 构造方法 -->
-	public ${ClassName}() {
-		
-	}
-
 	<#list colList as c>
 	</#list>
 

@@ -10,6 +10,7 @@ package ${packageName}.adr.dto;
 import ${packageName}.common.bean.BaseDO;
 import lombok.Data;
 
+import java.util.Date;
 
  /**
  * ${functionName}Dto
@@ -17,7 +18,7 @@ import lombok.Data;
  * @version ${functionVersion}
  */
  @Data
-public class ${ClassName} extends BaseDO {
+public class ${ClassName}Dto extends BaseDO {
 	
 	private static final long serialVersionUID = 1L;
 	<#-- 生成字段属性 -->
@@ -55,11 +56,6 @@ public class ${ClassName} extends BaseDO {
      */
     private Integer status = 0;
 	
-	<#-- 构造方法 -->
-	public ${ClassName}() {
-		
-	}
-
 	<#list colList as c>
 	</#list>
 

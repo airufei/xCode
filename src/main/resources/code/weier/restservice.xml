@@ -9,7 +9,6 @@ package ${packageName}.adr.rest;
 
 
 import ${packageName}.adr.dto.${ClassName}Dto;
-import ${packageName}.adr.query.${ClassName}BatchSaveQuery;
 import ${packageName}.adr.query.${ClassName}Query;
 import ${packageName}.adr.service.${ClassName}Service;
 import ${packageName}.adr.spi.${ClassName}RestService;

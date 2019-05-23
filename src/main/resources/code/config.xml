@@ -82,6 +82,17 @@
 			<template>zjgf-microservice/mapper.xml</template>
 			<template>zjgf-microservice/entity.xml</template>
 		</category>
+		<category dictKey="weier" dictValue="weier">
+			<template>weier/controller.xml</template>
+			<template>weier/dao.xml</template>
+			<template>weier/dto.xml</template>
+			<template>weier/entity.xml</template>
+			<template>weier/iservice.xml</template>
+			<template>weier/mapper.xml</template>
+			<template>weier/query.xml</template>
+			<template>weier/restservice.xml</template>
+			<template>weier/service.xml</template>
+		</category>
 
 	</category>
 	<!-- java类型 -->

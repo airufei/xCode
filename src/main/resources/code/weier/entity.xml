@@ -10,6 +10,7 @@ package ${packageName}.adr.po;
 import ${packageName}.common.bean.BaseDO;
 import lombok.Data;
 
+import java.util.Date;
 
  /**
  * ${functionName}Dto
@@ -50,13 +51,11 @@ public class ${ClassName} extends BaseDO {
 	private ${c.simpleJavaType} end${c.simpleJavaField?cap_first};
 		</#if>
 	</#list>
+	/**
+     * 是否删除 0：否；1：是
+     */
+    private Integer status = 0;
 	
-	
-	<#-- 构造方法 -->
-	public ${ClassName}() {
-		
-	}
-
 	<#list colList as c>
 	</#list>
 
