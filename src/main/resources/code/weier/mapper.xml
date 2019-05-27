@@ -51,6 +51,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
     <#-- where条件 -->
     <sql id="whereSql">
         <where>
+            1=1
             <#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -78,6 +79,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 
     <sql id="subWhereSql">
         <where>
+            1=1
             <#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -86,15 +88,15 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			            <if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
 					</#if>
 					<#if c.queryType ?? && c.queryType == 'between'>
-				        AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+				        AND t.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
 					<#elseif c.queryType ?? && c.queryType == 'like'>
-				        AND a.${c.name} LIKE concat('%',${"#"}{${c.javaFieldId}},'%')
+				        AND t.${c.name} LIKE concat('%',${"#"}{${c.javaFieldId}},'%')
 					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				        AND a.${c.name} LIKE concat('%',${"#"}{${c.javaFieldId}})
+				        AND t.${c.name} LIKE concat('%',${"#"}{${c.javaFieldId}})
 					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				        AND a.${c.name} LIKE concat(${"#"}{${c.javaFieldId}},'%')
+				        AND t.${c.name} LIKE concat(${"#"}{${c.javaFieldId}},'%')
 					<#else>
-				        AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+				        AND t.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
 					</#if>
 			        </if>
 				</#if>
@@ -117,7 +119,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		<include refid="whereSql"/>
 	</select>
 
-	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
+	<select id="get${ClassName}ListByPage" resultType="${packageName}.adr.po.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -136,7 +138,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.adr.po.${ClassName}" parameterType="${packageName}.adr.po.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
@@ -153,7 +155,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-       <select id="getSignle${ClassName}" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
+       <select id="getSignle${ClassName}" resultType="${packageName}.adr.po.${ClassName}" parameterType="${packageName}.adr.po.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -197,7 +199,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		)
 	</insert>
 
-   <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+   <insert id="addRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
      <selectKey resultType="long" keyProperty="id" order="AFTER">
         SELECT
         LAST_INSERT_ID()

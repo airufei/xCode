@@ -202,10 +202,6 @@ private static final String PREFIX = "${ClassName}";
         return ${className};
     }
 
-    public void updateAll(Integer type, String rule) {
-        ${className}Dao.updateAll(type, rule);
-    }
-}
 }]]>
     </content>
 </template>

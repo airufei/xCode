@@ -19,7 +19,7 @@ public interface ${ClassName}Dao {
 	
 	/**
 	 * 删除数据（逻辑删除）
-	 * @param question
+	 * @param id
 	 * @return
 	 */
 	public void delete(long id);
@@ -35,7 +35,7 @@ public interface ${ClassName}Dao {
 	 * @param list
 	 * @return
 	 */
-	 public void addRecordBatch(List<${ClassName}> list);
+	 public int addRecordBatch(List<${ClassName}> list);
 
      /**
 	 * 根据ID获取单条数据
@@ -49,11 +49,11 @@ public interface ${ClassName}Dao {
 	 * @param ${className}
 	 * @return
 	 */
-	  public void updateById(${ClassName} ${className});
+	  public int updateById(${ClassName} ${className});
 
 	  /**
 	   * 获取分页数据
-	   * @param map
+	   * @param ${className}Query
 	   * @return
 	   */
 	   public List<${ClassName}>  get${ClassName}ListByPage(${ClassName}Query ${className}Query);
@@ -61,14 +61,14 @@ public interface ${ClassName}Dao {
 	   
 	   /**
 	   * 获取集合数据，不带分页
-	   * @param map
+	   * @param ${className}
 	   * @return
 	   */
 	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className});
 
 	   /**
 	   * 获取单条数据
-	   * @param map
+	   * @param ${className}
 	   * @return
 	   */
 	   public ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
