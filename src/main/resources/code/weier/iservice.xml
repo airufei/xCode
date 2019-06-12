@@ -29,8 +29,8 @@ public interface ${ClassName}RestService  {
     /**
      * list:(查询${functionName}带分页数据)
      *
+     * @param ${className}Query
      * @return ${ClassName}Query
-     * @Author ${functionAuthor}
      */
     @RequestMapping(value = "/${className}/get${ClassName}ListByPage", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query);
@@ -38,8 +38,8 @@ public interface ${ClassName}RestService  {
     /**
      * get${ClassName}List:(查询${functionName}不带分页数据)
      *
+     * @param ${className}Dto
      * @return List<${ClassName}Dto>
-     * @Author ${functionAuthor}
      */
     @RequestMapping(value = "/${className}/get${ClassName}List", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto);
@@ -47,8 +47,8 @@ public interface ${ClassName}RestService  {
     /**
      * get${ClassName}:(查询单个实体数据)
      *
+     * @param ${className}Dto
      * @return ${ClassName}Dto
-     * @Author ${functionAuthor}
      */
     @RequestMapping(value = "/${className}/get${ClassName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto);
@@ -56,17 +56,17 @@ public interface ${ClassName}RestService  {
     /**
      * get${ClassName}ById:(根据编号查询单个实体)
      *
-     * @return ${ClassName}Dto
      * @param ${className}Id
+     * @return ${ClassName}Dto
      */
-    @RequestMapping(value = "/${className}/get${ClassName}Id", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/${className}/get${ClassName}ById", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ${ClassName}Dto get${ClassName}ById(@RequestParam("${className}Id") String ${className}Id);
 
     /**
      * save:(保存数据)
      *
+     * @param ${className}Dto
      * @return int
-     * @Author ${functionAuthor}
      */
     @RequestMapping(value = "/${className}/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     int save(@RequestBody ${ClassName}Dto ${className}Dto);
@@ -74,8 +74,8 @@ public interface ${ClassName}RestService  {
     /**
      * delete:(删除数据)
      *
+     * @param id
      * @return boolean
-     * @Author ${functionAuthor}
      */
     @RequestMapping(value = "/${className}/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     boolean delete(@RequestParam("id") Long id);

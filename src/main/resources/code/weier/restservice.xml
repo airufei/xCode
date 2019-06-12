@@ -7,7 +7,8 @@
 
 package ${packageName}.adr.rest;
 
-
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import ${packageName}.adr.dto.${ClassName}Dto;
 import ${packageName}.adr.query.${ClassName}Query;
 import ${packageName}.adr.service.${ClassName}Service;
@@ -38,11 +39,17 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      *
      * @param ${className}Query
      * @return ${ClassName}Query
-     * @author ${functionAuthor}
      */
     @Override
     public ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
-        return ${className}Service.get${ClassName}ListByPage(${className}Query);
+
+        try {
+            log.info("get${ClassName}ListByPage ${className}Query={}", JSON.toJSONString(${className}Query));
+            return ${className}Service.get${ClassName}ListByPage(${className}Query);
+        } catch (Exception e) {
+            log.error("Fail to get${ClassName}ListByPage, ${className}Query={}", JSON.toJSONString(${className}Query), e);
+            return null;
+        }
     }
 
     /**
@@ -50,11 +57,16 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      *
      * @param ${className}Dto
      * @return List<${ClassName}Dto>
-     * @author ${functionAuthor}
      */
     @Override
     public List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
-        return ${className}Service.get${ClassName}List(${className}Dto);
+        try {
+            log.info("get${ClassName}List ${className}Dto={}", JSON.toJSONString(${className}Dto));
+            return ${className}Service.get${ClassName}List(${className}Dto);
+        } catch (Exception e) {
+            log.error("Fail to get${ClassName}List, ${className}Dto={}", JSON.toJSONString(${className}Dto), e);
+            return Lists.newArrayList();
+        }
     }
 
 
@@ -63,12 +75,17 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      *
      * @param ${className}Dto
      * @return int
-     * @author ${functionAuthor}
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
-        return ${className}Service.save(${className}Dto);
+        try {
+            log.info("save ${className}Dto={}", JSON.toJSONString(${className}Dto));
+            return ${className}Service.save(${className}Dto);
+        } catch (Exception e) {
+            log.error("Fail to save, ${className}Dto={}", JSON.toJSONString(${className}Dto), e);
+            return 0;
+        }
     }
 
     /**
@@ -76,11 +93,16 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      *
      * @param ${className}Dto
      * @return ${ClassName}Dto
-     * @author ${functionAuthor}
      */
     @Override
     public ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
-        return ${className}Service.get${ClassName}(${className}Dto);
+        try {
+            log.info("get${ClassName} ${className}Dto={}", JSON.toJSONString(${className}Dto));
+            return ${className}Service.get${ClassName}(${className}Dto);
+        } catch (Exception e) {
+            log.error("Fail to get${ClassName}, ${className}Dto={}", JSON.toJSONString(${className}Dto), e);
+            return null;
+        }
     }
 
     /**
@@ -88,11 +110,16 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      *
      * @param ${className}Id
      * @return ${ClassName}Dto
-     * @author ${functionAuthor}
      */
     @Override
     public ${ClassName}Dto get${ClassName}ById(String ${className}Id) {
-        return ${className}Service.get${ClassName}ById(${className}Id);
+        try {
+            log.info("get${ClassName}ById ${className}Id={}", ${className}Id);
+            return ${className}Service.get${ClassName}ById(${className}Id);
+        } catch (Exception e) {
+            log.error("Fail to get${ClassName}ById, ${className}Id={}", ${className}Id, e);
+            return null;
+        }
     }
 
     /**
@@ -100,14 +127,18 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      *
      * @param id
      * @return boolean
-     * @author ${functionAuthor}
      */
     @Override
     public boolean delete(Long id) {
-        return ${className}Service.delete(id);
+        try {
+            log.info("delete id={}", id);
+            return ${className}Service.delete(id);
+        } catch (Exception e) {
+            log.error("Fail to delete, id={}", id, e);
+            return false;
+        }
     }
 
-}
 }]]>
     </content>
 </template>
