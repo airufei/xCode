@@ -7,7 +7,6 @@
 
 package ${packageName}.adr.service;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.wekj.adr.dao.${ClassName}Dao;
 import com.wekj.adr.dto.${ClassName}Dto;
@@ -38,32 +37,31 @@ public class ${ClassName}Service {
 
     @Resource
     private ${ClassName}Dao ${className}Dao;
-private static final String PREFIX = "${ClassName}";
+    private static final String PREFIX = "${ClassName}";
 
     /**
      * get${ClassName}List(获取带分页数据)
      *
-     * @param ${className}Query the ${className}Query
-     * @return list
+     * @param ${className}Query
+     * @return ${ClassName}Query
      * @author andi
      */
     public ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
-        log.info("get${ClassName}ListByPage ${className}Query={}", JSON.toJSONString(${className}Query));
         if (${className}Query == null) {
             return null;
         }
         ${ClassName}Query result = new ${ClassName}Query();
-        Long totalcount = getTotalCount(${className}Query);
-        if (totalcount == null || totalcount <= 0) {
+        Long totalCount = getTotalCount(${className}Query);
+        if (totalCount == null || totalCount <= 0) {
             result.setResults(Lists.newArrayList());
             result.setTotalNum(0L);
             return result;
         }
-        List<${ClassName}> ${className}DaoList = ${className}Dao.get${ClassName}ListByPage(${className}Query);
-        List<${ClassName}Dto> list = ${className}DaoList.stream()
+        List<${ClassName}> ${className}List = ${className}Dao.get${ClassName}ListByPage(${className}Query);
+        List<${ClassName}Dto> list = ${className}List.stream()
                 .map(this::do2Dto)
                 .collect(Collectors.toList());
-        result.setTotalNum(totalcount);
+        result.setTotalNum(totalCount);
         result.setResults(list);
         return result;
     }
@@ -71,12 +69,11 @@ private static final String PREFIX = "${ClassName}";
     /**
      * get${ClassName}List(获取${functionName}不带分页数据)
      *
-     * @param ${className}Dto the pre sell conf
-     * @return pre sell conf list
+     * @param ${className}Dto
+     * @return List<${ClassName}Dto>
      * @author andi
      */
     public List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
-        log.info("get${ClassName}List param={}", JSON.toJSONString(${className}Dto));
         if (${className}Dto == null) {
             return null;
         }
@@ -89,13 +86,12 @@ private static final String PREFIX = "${ClassName}";
     /**
      * save (保存数据)
      *
-     * @param ${className}Dto the pre sell conf dto
-     * @return pre sell conf
+     * @param ${className}Dto
+     * @return int
      * @author andi
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
-        log.info("save ${className}Dto={}", JSON.toJSONString(${className}Dto));
         if (${className}Dto == null) {
             return 0;
         }
@@ -119,12 +115,11 @@ private static final String PREFIX = "${ClassName}";
     /**
      * get${ClassName}(获取单条数据)
      *
-     * @param ${className}Dto the pre sell conf dto
-     * @return pre sell conf
+     * @param ${className}Dto
+     * @return ${ClassName}Dto
      * @author andi
      */
     public ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
-        log.info("get${ClassName} ${className}Dto={}", JSON.toJSONString(${className}Dto));
         if (${className}Dto == null) {
             return null;
         }
@@ -136,12 +131,11 @@ private static final String PREFIX = "${ClassName}";
     /**
      * get${className}ByNo(获取单条数据)
      *
-     * @param ${className}Id the pre sell conf no
-     * @return pre sell conf by no
+     * @param ${className}Id
+     * @return ${ClassName}Dto
      * @author andi
      */
     public ${ClassName}Dto get${ClassName}ById(String ${className}Id) {
-        log.info("get${ClassName}ById ${className}Id={}", ${className}Id);
         if (StringUtils.isBlank(${className}Id)) {
             return null;
         }
@@ -154,11 +148,10 @@ private static final String PREFIX = "${ClassName}";
      * delete(逻辑删除数据)
      *
      * @param id
-     * @return
+     * @return boolean
      * @author andi
      */
     public boolean delete(Long id) {
-        log.info("delete id={}", id);
         if (id < 1) {
             return false;
         }
@@ -174,7 +167,7 @@ private static final String PREFIX = "${ClassName}";
      * 获取分页总记录数
      *
      * @param ${className}Query
-     * @return
+     * @return Long
      */
     private Long getTotalCount(${ClassName}Query ${className}Query) {
         Long totalCount = ${className}Dao.getTotalCount(${className}Query);

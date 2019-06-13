@@ -28,7 +28,7 @@ public interface ${ClassName}Dao {
 	 * @param ${className}
 	 * @return
 	 */
-	public void add(${ClassName} ${className});
+	public int add(${ClassName} ${className});
 
     /**
 	 * 批量数据增加

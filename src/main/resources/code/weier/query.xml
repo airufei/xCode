@@ -21,6 +21,12 @@ import java.util.Date;
 public class ${ClassName}Query extends BaseQuery<${ClassName}Dto> {
 	
 	private static final long serialVersionUID = 1L;
+
+	/**
+     * id
+     */
+    private Long id;
+
 	<#-- 生成字段属性 -->
 	<#list colList as c>
 		<#-- 如果不是基类属性 -->
