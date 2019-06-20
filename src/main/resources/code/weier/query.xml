@@ -58,11 +58,7 @@ public class ${ClassName}Query extends BasePageQuery<${ClassName}Dto> {
 	private ${c.simpleJavaType} end${c.simpleJavaField?cap_first};
 		</#if>
 	</#list>
-	/**
-     * 是否删除 0：否；1：是
-     */
-    private Integer status = 0;
-	
+
 	<#list colList as c>
 	</#list>
 
