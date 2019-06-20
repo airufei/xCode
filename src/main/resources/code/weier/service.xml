@@ -54,14 +54,14 @@ public class ${ClassName}Service {
         Long totalCount = getTotalCount(${className}Query);
         if (totalCount == null || totalCount <= 0) {
             result.setResults(Lists.newArrayList());
-            result.setTotalNum(0L);
+            result.setTotal(0L);
             return result;
         }
         List<${ClassName}> ${className}List = ${className}Dao.get${ClassName}ListByPage(${className}Query);
         List<${ClassName}Dto> list = ${className}List.stream()
                 .map(this::do2Dto)
                 .collect(Collectors.toList());
-        result.setTotalNum(totalCount);
+        result.setTotal(totalCount);
         result.setResults(list);
         return result;
     }
