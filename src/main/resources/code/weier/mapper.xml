@@ -73,7 +73,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			        </if>
 				</#if>
 			</#list>
-            AND status=${"#"}{status}
+            AND status = 0
         </where>
     </sql>
 
@@ -101,7 +101,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			        </if>
 				</#if>
 			</#list>
-            AND status=${"#"}{status}
+            AND status = 0
         </where>
     </sql>
 
@@ -119,7 +119,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		<include refid="whereSql"/>
 	</select>
 
-	<select id="get${ClassName}ListByPage" resultType="${packageName}.adr.po.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
+	<select id="get${ClassName}ListByPage" resultType="${packageName}.adr.po.${ClassName}" parameterType="${packageName}.adr.query.${ClassName}Query">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM

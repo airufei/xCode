@@ -9,6 +9,7 @@ package ${packageName}.adr.query;
 
 import ${packageName}.adr.dto.${ClassName}Dto;
 import lombok.Data;
+import ${packageName}.common.bean.BasePageQuery;
 
 import java.util.Date;
 
@@ -18,7 +19,7 @@ import java.util.Date;
  * @version ${functionVersion}
  */
  @Data
-public class ${ClassName}Query extends BaseQuery<${ClassName}Dto> {
+public class ${ClassName}Query extends BasePageQuery<${ClassName}Dto> {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -57,11 +58,7 @@ public class ${ClassName}Query extends BaseQuery<${ClassName}Dto> {
 	private ${c.simpleJavaType} end${c.simpleJavaField?cap_first};
 		</#if>
 	</#list>
-	/**
-     * 是否删除 0：否；1：是
-     */
-    private Integer status = 0;
-	
+
 	<#list colList as c>
 	</#list>
 

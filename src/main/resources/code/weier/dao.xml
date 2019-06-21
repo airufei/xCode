@@ -22,41 +22,41 @@ public interface ${ClassName}Dao {
 	 * @param id
 	 * @return
 	 */
-	public void delete(long id);
+	 void delete(long id);
     /**
 	 * 单条数据增加
 	 * @param ${className}
 	 * @return
 	 */
-	public int add(${ClassName} ${className});
+	 int add(${ClassName} ${className});
 
     /**
 	 * 批量数据增加
 	 * @param list
 	 * @return
 	 */
-	 public int addRecordBatch(List<${ClassName}> list);
+	  int addRecordBatch(List<${ClassName}> list);
 
      /**
 	 * 根据ID获取单条数据
 	 * @param id
 	 * @return
 	 */
-	 public ${ClassName} get${ClassName}ById (long id);
+	  ${ClassName} get${ClassName}ById (long id);
 
       /**
 	 * 修改单条数据
 	 * @param ${className}
 	 * @return
 	 */
-	  public int updateById(${ClassName} ${className});
+	   int updateById(${ClassName} ${className});
 
 	  /**
 	   * 获取分页数据
 	   * @param ${className}Query
 	   * @return
 	   */
-	   public List<${ClassName}>  get${ClassName}ListByPage(${ClassName}Query ${className}Query);
+	    List<${ClassName}>  get${ClassName}ListByPage(${ClassName}Query ${className}Query);
 
 	   
 	   /**
@@ -64,21 +64,21 @@ public interface ${ClassName}Dao {
 	   * @param ${className}
 	   * @return
 	   */
-	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className});
+	    List<${ClassName}>  get${ClassName}List(${ClassName} ${className});
 
 	   /**
 	   * 获取单条数据
 	   * @param ${className}
 	   * @return
 	   */
-	   public ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
+	    ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
 
 	  /**
 	   * 获取分页记录总数
 	   * @param ${className}Query
 	   * @return
 	   */
-	   public Long  getTotalCount(${ClassName}Query ${className}Query);
+	    Long  getTotalCount(${ClassName}Query ${className}Query);
 	   
 }]]>
 	</content>
