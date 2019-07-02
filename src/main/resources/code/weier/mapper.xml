@@ -129,11 +129,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		${table.name} a  on b.id=a.id
 	 <#list colList as c>
        <#if c.isSort?? && c.isSort=="1">
-		 <choose>
-			<otherwise>
-                 ORDER BY ${c.name} desc
-			</otherwise>
-		</choose>
+         ORDER BY ${c.name} desc
 	 </#if>
      </#list>
 	</select>
@@ -146,11 +142,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		) b  inner join ${table.name} a  on b.id=a.id
 	<#list colList as c>
        <#if c.isSort?? && c.isSort=="1">
-		 <choose>
-			<otherwise>
-                 ORDER BY ${c.name} desc
-			</otherwise>
-		</choose>
+         ORDER BY ${c.name} desc
 	 </#if>
      </#list>
 	</select>
