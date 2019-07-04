@@ -13,7 +13,7 @@ import lombok.Data;
 import java.util.Date;
 
  /**
- * ${functionName}Dto
+ * ${functionName}
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
