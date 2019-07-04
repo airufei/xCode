@@ -58,22 +58,12 @@ public class ${ClassName}Service implements I${ClassName}Service {
      * @author ${functionAuthor}
 	 * @return
 	 */
-	public ${ClassName} save(${ClassName} ${className})
+	public DataReturn save(${ClassName} ${className})
 	{
 	    String s = JSONObject.toJSONString(${className});
         JSONObject object = JSONObject.parseObject(s);
         DataReturn data = microService.post(object, "mzadmin/${subModuleName}/save", true);
-        if (ResultCode.FAILURE == data.getCode()) {
-            return null;
-        }
-        Object obj = data.getData();
-        if (obj == null) {
-            return null;
-        }
-        if (StringUtil.isBlank(obj.toString())) {
-            return null;
-        }
-        return JSONObject.parseObject(obj.toString(), ${ClassName}.class);
+        return data;
 
 	}
 
@@ -106,11 +96,11 @@ public class ${ClassName}Service implements I${ClassName}Service {
           return vo;
         }
         long totalCount = dataObj.getLongValue("totalCount");
-        long pageCount = dataObj.getLongValue("pageCount");
         List<${ClassName}> list=null;
         if (totalCount > 0) {
             list = JSONObject.parseArray(dataObj.getString("list"), ${ClassName}.class);
         }
+        long pageCount = (totalCount + pageSize - 1)/pageSize;
         vo.setPage((long) pageNo);
 		vo.setRows(list);
 		vo.setRecords(totalCount);

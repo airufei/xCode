@@ -212,11 +212,20 @@ public class ${ClassName}Controller extends AbBaseController {
 				msg = "无保存内容";
 				res = false;
 			}
+			DataReturn ret = null;
 			if (res) {
-				${className}Service.save(${className});
-				res = true;
-				msg = "成功";
+				ret=${className}Service.save(${className});
 			}
+		   if (ret != null && ret.getCode() == 0) {
+                res = true;
+                msg = "成功";
+            } else if (ret != null) {
+                res = false;
+                msg = ret.getMessage();
+            } else {
+                msg = "服务器繁忙，请稍后再试";
+                res = false;
+            }
 
 		} catch (Exception e) {
 			e.printStackTrace();

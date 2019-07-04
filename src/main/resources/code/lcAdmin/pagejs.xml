@@ -13,13 +13,6 @@
 		initDialog();
 		initToolbar();
 		initGrid();
-		var roleName = $("${r'#roleName"'}).val();//角色
-	    if(!isContains(roleName,'ROLE_ADMIN'))
-		{
-			  $(".supersearch").hide();//没有权限，则隐藏搜索框
-			  $(".esn-toolbar-left").hide();//没有权限，则隐藏添加按钮
-		}
-		
 	};
 
 // 字符串str中是否包含subStr
