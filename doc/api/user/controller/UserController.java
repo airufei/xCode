@@ -74,7 +74,7 @@ public class UserController {
             String msg="getList:(获取用户信息分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("getList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
-            e.printStackTrace();
+
         }
         logger.info("getList:(获取用户信息分页查询接口) 结束  parms={}", parms);
         return dataReturn;
@@ -114,7 +114,7 @@ public class UserController {
             String msg="getUserList:(获取用户信息不分页查询接口)====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("getUserList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
-            e.printStackTrace();
+
         }
         logger.info("getUserList:(获取用户信息不分页查询接口) 结束  parms={},", parms);
         return dataReturn;
@@ -155,7 +155,7 @@ public class UserController {
             String msg="getUserByNo:(查询用户信息单条数据接口-带缓存)  异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("getUserByNo", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
-            e.printStackTrace();
+
         }
         logger.info("getUser:getUserByNo:(查询用户信息单条数据接口-带缓存) 结束  parms={},", parms);
         return dataReturn;
@@ -195,7 +195,7 @@ public class UserController {
              String msg="getUser:(查询用户信息单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("getUser", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
-            e.printStackTrace();
+
         }
         logger.info("getUser:(查询用户信息单条数据接口) 结束  parms={},", parms);
         return dataReturn;
@@ -232,7 +232,7 @@ public class UserController {
                 dataReturn.setMessage("请选择需要删除的数据");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
             String msg="delete:(逻辑删除用户信息数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("delete", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
@@ -279,7 +279,7 @@ public class UserController {
                dataReturn.setMessage("保存成功");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
             String msg="save:(保存用户信息数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("save", parms, JSON.toJSONString(dataReturn), msg, this.getClass());

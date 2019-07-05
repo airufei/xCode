@@ -268,7 +268,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 			}
 			return sb.toString();
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+
 		}
 		return "";
 	}
@@ -813,7 +813,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 			try {
 				proc.getInputStream().close();
 			} catch (Exception e) {
-				e.printStackTrace();
+
 			}
 		}
 		return null;

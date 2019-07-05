@@ -130,7 +130,7 @@ public class BinaryUploader {
 			return storageState;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			System.out.println(e.getMessage());
 		}
 		return new BaseState(false, AppInfo.IO_ERROR);

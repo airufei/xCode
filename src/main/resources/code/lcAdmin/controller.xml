@@ -178,12 +178,12 @@ public class ${ClassName}Controller extends AbBaseController {
 		         res = false;
 		       }
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error( "${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			 res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			 res = false;
@@ -228,12 +228,12 @@ public class ${ClassName}Controller extends AbBaseController {
             }
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error( "${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			 res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;

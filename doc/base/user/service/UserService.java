@@ -65,7 +65,7 @@ public class UserService  {
                 parms = json.toString();
             }
             commonService.sendDingMessage("base-service[getList]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 		  logger.info("getList(获取用户信息带分页数据-服务) 结束 ");
 		  return pt;
@@ -93,7 +93,7 @@ public class UserService  {
             String msg = "getUserList 异常 " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("base-service[getUserList]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	      logger.info("getUserList(获取用户信息 不带分页数据-服务) 结束");
 	      return list;
@@ -120,7 +120,7 @@ public class UserService  {
             String msg = "save (保存用户信息 数据-服务) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("base-service[save]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	    logger.info("save (保存用户信息 数据-服务) 结束");
 	    return  user;
@@ -150,7 +150,7 @@ public class UserService  {
             String msg = "getUser(获取用户信息单条数据-服务) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             commonService.sendDingMessage("base-service[getUser]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	       logger.info("getUser(获取用户信息单条数据-服务) 结束 ");
 	      return ret;
@@ -180,7 +180,7 @@ public class UserService  {
             logger.error(msg);
             String parms = UserNo;
             commonService.sendDingMessage("base-service[getuserByNo]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	       logger.info("getuserByNo(获取用户信息单条数据--带缓存) 单条数据-服务) 结束 "+JSON.toJSONString(ret));
 	      return ret;

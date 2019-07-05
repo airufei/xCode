@@ -134,12 +134,12 @@ public class GenTableController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
             res = false;
         } catch (Error e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
             res = false;
@@ -254,11 +254,11 @@ public class GenTableController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
         } catch (Error e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
         }
@@ -287,11 +287,11 @@ public class GenTableController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
         } catch (Error e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
         }
@@ -323,12 +323,12 @@ public class GenTableController {
                 res = false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
             res = false;
         } catch (Error e) {
-            e.printStackTrace();
+
             logger.error("GenTableController:error===>" + e);
             msg = "服务器繁忙，请稍后再试";
             res = false;

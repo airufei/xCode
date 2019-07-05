@@ -151,7 +151,7 @@ public class GenSchemeController {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+
 			logger.error("GenTableController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -186,12 +186,12 @@ public class GenSchemeController {
 				res = false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("GenTableController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("GenTableController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;

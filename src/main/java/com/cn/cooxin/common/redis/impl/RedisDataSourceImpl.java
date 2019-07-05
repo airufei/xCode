@@ -43,7 +43,7 @@ public class RedisDataSourceImpl implements IRedisDataSource {
 	        } catch (Exception e) {
 	        	String msg="getRedisClent error"+ e;
 	            log.error(msg);
-	            e.printStackTrace();
+
 	        }
 	        catch (Error e) {
 	        	String msg="getRedisClent error"+ e;

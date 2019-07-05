@@ -158,11 +158,11 @@ public class DictController {
 				entity = dictService.getDictById(id);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("DictController:error===>" + e);
 
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("DictController:error===>" + e);
 		}
 		if (entity == null) {
@@ -194,12 +194,12 @@ public class DictController {
 				res = false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("DictController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("DictController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -259,12 +259,12 @@ public class DictController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("DictController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("DictController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;

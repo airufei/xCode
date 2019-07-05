@@ -60,10 +60,10 @@ public class HMACSHA1Util {
 	            return getFormattedText(messagedigest.digest());//byte2hex(messagedigest.digest());
 	        } catch (NoSuchAlgorithmException e) {
 	            //NQLog.e("getFileSha1->NoSuchAlgorithmException###", e.toString());
-	            e.printStackTrace();
+
 	        } catch (OutOfMemoryError e) {
 	            //NQLog.e("getFileSha1->OutOfMemoryError###", e.toString());
-	            e.printStackTrace();
+
 	            throw e;
 	        } finally {
 	            in.close();

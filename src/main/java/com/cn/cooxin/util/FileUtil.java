@@ -98,15 +98,15 @@ public class FileUtil {
 			fileOutputStream.close();
 			result = true;
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+
 			result = false;
 			logger.error("下载地址：=====>" + urlStr + " ========>下載抓取图片出错：" + e);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+
 			result = false;
 			logger.error("下载地址：=====>" + urlStr + " ========>下載抓取图片出错：" + e);
 		} catch (IOException e) {
-			e.printStackTrace();
+
 			result = false;
 			logger.error("下载地址：=====>" + urlStr + " ========>下載抓取图片出错：" + e);
 		}
@@ -158,7 +158,7 @@ public class FileUtil {
 			}
 		} catch (Exception e) {
 			logger.error("getFileList============ error====" + e);
-			e.printStackTrace();
+
 		}
 		return filelist;
 	}

@@ -110,14 +110,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 				try {
 					outs.close();
 				} catch (IOException oute) {
-					oute.printStackTrace();
+					out
 				}
 			}
 			if (ins != null) {
 				try {
 					ins.close();
 				} catch (IOException ine) {
-					ine.printStackTrace();
+					in
 				}
 			}
 		}
@@ -237,7 +237,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 				isExsit=false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.debug("isExsitFile 错误："+e);
 		}
 		return isExsit;
@@ -381,7 +381,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 				return false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.debug(descFileName + " 文件创建失败!");
 			return false;
 		}
@@ -478,7 +478,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 			logger.debug(descFileName + " 文件压缩成功!");
 		} catch (Exception e) {
 			logger.debug("文件压缩失败：" + e.getMessage());
-			e.printStackTrace();
+
 		}
 
 	}
@@ -501,7 +501,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 					zouts.putNextEntry(entry);
 					zouts.closeEntry();
 				} catch (Exception e) {
-					e.printStackTrace();
+
 				}
 				return;
 			}
@@ -548,7 +548,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 				fin.close();
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+
 			}
 		}
 	}

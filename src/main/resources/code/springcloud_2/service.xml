@@ -73,7 +73,7 @@ public class ${ClassName}Service  {
                 parms = json.toString();
             }
             sysCommonService.sendDingMessage("base-service[getList]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 ");
 		  return pt;
@@ -101,7 +101,7 @@ public class ${ClassName}Service  {
             String msg = "get${ClassName}List 异常 " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             sysCommonService.sendDingMessage("base-service[get${ClassName}List]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
 	      return list;
@@ -130,7 +130,7 @@ public class ${ClassName}Service  {
             logger.error(msg);
             ret=null;
             sysCommonService.sendDingMessage("base-service[save]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	    logger.info("save (保存${functionName} 数据-服务) 结束");
 	    return  ret;
@@ -160,7 +160,7 @@ public class ${ClassName}Service  {
             String msg = "get${ClassName}(获取${functionName}单条数据-服务) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);
             sysCommonService.sendDingMessage("base-service[get${ClassName}]", parms, null, msg, this.getClass());
-            e.printStackTrace();
+
           }
 	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	      return ret;

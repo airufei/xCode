@@ -182,7 +182,7 @@ public class Global {
 				projectPath = file.toString();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
 		return projectPath;
     }

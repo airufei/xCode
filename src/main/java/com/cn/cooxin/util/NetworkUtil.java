@@ -49,7 +49,7 @@ public class NetworkUtil {
 			url = webRoot + "/" + readstaticFile + "/detail/" + id + ".html";
 		} catch (Exception e) {
 			
-			e.printStackTrace();
+
 			
 		}
 		return url;
@@ -70,7 +70,7 @@ public class NetworkUtil {
 			url = webRoot + "/" + readstaticFile + "/index_" + page + ".html";
 		} catch (Exception e) {
 			logger.error("getNewListUrl:(获取列表静态页面的全路径地址)===>"+e);
-			e.printStackTrace();
+
 			
 		}
 		return url;
@@ -93,7 +93,7 @@ public class NetworkUtil {
 			String path=staticFile+"/detail/"+id+".html";
 			isExist = FileUtils.isExsitFile(path);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("isExsitDetailFile:(判断详情静态页面文件是否存在)===>"+e);
 		}
 		return isExist;
@@ -113,7 +113,7 @@ public class NetworkUtil {
 			String path=staticFile+"/detail/mv_"+id+".html";
 			isExist = FileUtils.isExsitFile(path);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("isExsitDetailFile:(判断详情静态页面文件是否存在)===>"+e);
 		}
 		return isExist;
@@ -133,7 +133,7 @@ public class NetworkUtil {
 			String path=staticFile+"/detail/"+id+".html";
 			isExist = FileUtils.isExsitFile(path);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("deleteDetailFile:(删除详情静态页面文件)===>"+e);
 		}
 		return isExist;
@@ -161,7 +161,7 @@ public class NetworkUtil {
 			}
 			isExist = FileUtils.isExsitFile(path);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("isExsitIndexFile:(判断列表静态页面文件是否存在)===>"+e);
 		}
 		return isExist;
@@ -184,7 +184,7 @@ public class NetworkUtil {
 				file.delete();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("deletIndexFile:(删除列表静态页面文件)===>"+e);
 		}
 		return isExist;

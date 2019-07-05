@@ -126,7 +126,7 @@ public class SendMailUtil {
 			hemail.setMsg(htmlText);
 			hemail.send();
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("email send error!"+e);
 		}
 	}
@@ -177,7 +177,7 @@ public class SendMailUtil {
 					template, map);
 			logger.info(htmlText);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		return htmlText;
 	}

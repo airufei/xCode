@@ -41,7 +41,7 @@ public class UEditorController {
 			writer.close();
 		} catch (IOException e) {
 			logger.error(e);
-			e.printStackTrace();
+
 		}
 
 	}

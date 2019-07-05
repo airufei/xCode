@@ -165,7 +165,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			Date endDate = dft.parse(dft.format(date.getTime()));
 			str=formatDate(endDate,"");
 		} catch (ParseException e) {
-			e.printStackTrace();
+
 			
 		}
 		return str;
@@ -594,7 +594,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			    myDate = formatter.parse(solarDate);  
 			    startDate = formatter.parse(START_DATE);  
 			} catch (ParseException e) {  
-			    e.printStackTrace();  
+
 			}  
 			  
 			int offset = daysBetween(startDate,myDate);  
@@ -637,7 +637,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			lunarDay = offset;  
 			nongli="农历："+lunarYear+"年"+(leapMonthFlag&(lunarMonth==leapMonth)?"闰":"")+lunarMonth+"月"+lunarDay+"日";
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			
 		}  
         return nongli;

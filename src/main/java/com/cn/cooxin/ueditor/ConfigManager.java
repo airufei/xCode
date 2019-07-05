@@ -162,7 +162,7 @@ public final class ConfigManager {
 			conf.put("savePath", savePath);
 			conf.put("rootPath", this.rootPath);
 		} catch (JSONException e) {
-			e.printStackTrace();
+
 
 		}
 		return conf;
@@ -206,7 +206,7 @@ public final class ConfigManager {
 				result[i] = jsonArray.getString(i);
 			}
 		} catch (JSONException e) {
-			e.printStackTrace();
+
 
 		}
 

@@ -186,11 +186,11 @@ public class AdminMenuController {
 				adminMenuService.delete(id);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("AdminMenuController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("AdminMenuController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 		}
@@ -234,11 +234,11 @@ public class AdminMenuController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("AdminMenuController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("AdminMenuController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 		}

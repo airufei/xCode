@@ -313,7 +313,7 @@ public class HttpService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("Https Exception:" + e+"=====url:"+url);
 		}
 

@@ -70,7 +70,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils{
 				return baos.toByteArray();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		return null;
 	}
@@ -89,7 +89,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils{
 				return ois.readObject();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		return null;
 	}

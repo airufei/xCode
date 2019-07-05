@@ -32,7 +32,7 @@ public class FreeMarkers {
 			t.process(model, result);
 			str= result.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("FreeMarkers"+e);
 		}
 		return str;
@@ -45,7 +45,7 @@ public class FreeMarkers {
 			template.process(model, result);
 			str=  result.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("FreeMarkers"+e);
 		}
 		return str;

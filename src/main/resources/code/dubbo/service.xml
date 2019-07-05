@@ -58,7 +58,7 @@ public class ${ClassName}ServiceImpl  implements ${ClassName}Service{
 			data.setCode(ResultCode.FAILURE);
 			data.setMessage("服务器繁忙，请稍后再试");
 			logger.error("调用delete:(${functionName})接口：服务端异常====》" + e + "=====》入参id：" + id);
-			e.printStackTrace();
+
 		}
 		return data;
 	}
@@ -90,7 +90,7 @@ public class ${ClassName}ServiceImpl  implements ${ClassName}Service{
 	    } catch (Exception e) {
 			ret${className}=null;
 			logger.error("调用save:( 保存 ${functionName}数据)接口：服务端异常====》" + e + "=====》入参：" + parms);
-			e.printStackTrace();
+
 		}
 	    return  ret${className};
 	}

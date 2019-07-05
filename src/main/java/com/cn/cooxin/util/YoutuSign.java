@@ -75,7 +75,7 @@ private static byte[] hashHmac(String plain_text, String accessKey) {
 	try {
 		return HMACSHA1Util.getSignature(plain_text, accessKey);
 	} catch (Exception e) {
-		e.printStackTrace();
+
 		return null;
 	}
 }

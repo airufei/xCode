@@ -174,12 +174,12 @@ public class BaseUserController {
 				baseUserService.delete(id);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -225,12 +225,12 @@ public class BaseUserController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -296,12 +296,12 @@ public class BaseUserController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -380,12 +380,12 @@ public class BaseUserController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -422,10 +422,10 @@ public class BaseUserController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 		}
 		return url;
@@ -472,12 +472,12 @@ public class BaseUserController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -543,12 +543,12 @@ public class BaseUserController {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseUserController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -585,7 +585,7 @@ public class BaseUserController {
 			ImageIO.write(image, "JPEG", response.getOutputStream());
 			response.getOutputStream().flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+
 			
 		}
 	}

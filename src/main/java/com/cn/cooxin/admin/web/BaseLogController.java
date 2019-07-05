@@ -131,11 +131,11 @@ public class BaseLogController {
 				entity = baseLogService.getBaseLogById(id);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseLogController:error===>" + e);
 
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseLogController:error===>" + e);
 		}
 		if (entity == null) {
@@ -167,12 +167,12 @@ public class BaseLogController {
 				res = false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseLogController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseLogController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -214,12 +214,12 @@ public class BaseLogController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error("BaseLogController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("BaseLogController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;

@@ -130,11 +130,11 @@ public class ${ClassName}Controller {
 			entity = ${className}Service.get${ClassName}ById(id);
 		  }
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error( "${ClassName}Controller:error===>" + e);
 
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("${ClassName}Controller:error===>" + e);
 		}
 		if (entity == null){
@@ -166,12 +166,12 @@ public class ${ClassName}Controller {
 			     res = false;
 		       }
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error( "${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
@@ -212,12 +212,12 @@ public class ${ClassName}Controller {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			logger.error( "${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
 		} catch (Error e) {
-			e.printStackTrace();
+
 			logger.error("${ClassName}Controller:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;

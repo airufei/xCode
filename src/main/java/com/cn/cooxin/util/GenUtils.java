@@ -353,7 +353,7 @@ public class GenUtils {
 			GenConfig config = getConfig();
 			logger.warn(JaxbMapper.toXml(config));
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 	}
 	
