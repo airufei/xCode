@@ -110,14 +110,12 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 				try {
 					outs.close();
 				} catch (IOException oute) {
-					out
 				}
 			}
 			if (ins != null) {
 				try {
 					ins.close();
 				} catch (IOException ine) {
-					in
 				}
 			}
 		}
