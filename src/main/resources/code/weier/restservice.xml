@@ -77,7 +77,7 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      * @return int
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false,rollbackFor = Exception.class)
     public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
         try {
             log.info("save ${className}Dto={}", JSON.toJSONString(${className}Dto));

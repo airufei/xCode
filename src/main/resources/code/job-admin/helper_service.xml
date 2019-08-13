@@ -60,7 +60,7 @@ public class ${ClassName}HelperService  {
      * @author ${functionAuthor}
      * @date 2018/1/30 14:59
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false,rollbackFor = Exception.class)
     public ${ClassName} save(${ClassName} ${className}) {
         ${ClassName} ret=null;
         if (${className} == null) {
