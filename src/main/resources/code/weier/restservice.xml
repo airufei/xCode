@@ -16,6 +16,7 @@ import ${packageName}.adr.spi.${ClassName}RestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -77,7 +78,7 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
      * @return int
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false,rollbackFor = Exception.class)
+   @Transactional(propagation = Propagation.REQUIRED,readOnly =false,isolation = Isolation.REPEATABLE_READ,timeout = 30,rollbackFor = Exception.class)
     public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
         try {
             log.info("save ${className}Dto={}", JSON.toJSONString(${className}Dto));

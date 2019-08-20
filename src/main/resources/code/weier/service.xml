@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
@@ -90,7 +91,7 @@ public class ${ClassName}Service {
      * @return int
      * @author andi
      */
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false,rollbackFor = Exception.class)
+   @Transactional(propagation = Propagation.REQUIRED,readOnly =false,isolation = Isolation.REPEATABLE_READ,timeout = 30,rollbackFor = Exception.class)
     public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
         if (${className}Dto == null) {
             return 0;
