@@ -45,16 +45,16 @@ public class ${ClassName}Controller {
 	 */
 	@RequestMapping("getList")
 	public DataReturn getList(HttpServletRequest request, String parms){
-		DataReturn dataReturn = new DataReturn();
+		DataReturn retData = new DataReturn();
         logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
         if (StringUtil.isBlank(parms)) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         JSONObject json = JSONObject.parseObject(parms);
         if (json == null) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         int pageNo = json.getIntValue("pageNo");
         int pageSize = json.getIntValue("pageSize");
@@ -70,10 +70,10 @@ public class ${ClassName}Controller {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", list);
         jsonObject.put("totalCount", totalCount);
-        dataReturn.setData(jsonObject);
-        dataReturn.setCode(ResultCode.SUCCESS);
+        retData.setData(jsonObject);
+        retData.setCode(ResultCode.SUCCESS);
         logger.info("getList:(获取${functionName}分页查询接口) 结束  parms={}", parms);
-        return dataReturn;
+        return retData;
 	}
 
      /**
@@ -85,27 +85,27 @@ public class ${ClassName}Controller {
      */
     @RequestMapping("get${ClassName}Detail")
     public DataReturn get${ClassName}Detail(HttpServletRequest request, String parms) {
-        DataReturn dataReturn = new DataReturn();
+        DataReturn retData = new DataReturn();
         logger.info("get${ClassName}:(查询${functionName}详情数据接口) 开始  parms={}", parms);
         if (StringUtil.isBlank(parms)) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         JSONObject json = JSONObject.parseObject(parms);
         if (json == null) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
         if (${className} == null) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
-        dataReturn.setData(ret${className});
-        dataReturn.setCode(ResultCode.SUCCESS);
+        retData.setData(ret${className});
+        retData.setCode(ResultCode.SUCCESS);
         logger.info("get${ClassName}:(查询${functionName}详情数据接口) 结束");
-        return dataReturn;
+        return retData;
     }
 	
 	/**
@@ -117,22 +117,22 @@ public class ${ClassName}Controller {
 	 */
 	@RequestMapping(value = "save")
     public DataReturn save(HttpServletRequest request, String parms) {
-		DataReturn dataReturn = new DataReturn();
+		DataReturn retData = new DataReturn();
         logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
         if (StringUtil.isBlank(parms)) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         JSONObject json = JSONObject.parseObject(parms);
         if (json == null) {
-            dataReturn.setMessage("参数为空");
-            return dataReturn;
+            retData.setMessage("参数为空");
+            return retData;
         }
         ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
         // 无保存内容
         if (${className} == null) {
-            dataReturn.setMessage("无保存内容");
-            return dataReturn;
+            retData.setMessage("无保存内容");
+            return retData;
         }
         ${className}.setCreateTime(new Date());
         ${className}.setUpdateTime(new Date());
@@ -140,11 +140,11 @@ public class ${ClassName}Controller {
         ${ClassName} ret =${className}Service.save(${className});
         if(ret!=null)
         {
-          dataReturn.setCode(ResultCode.SUCCESS);
-           dataReturn.setMessage("保存成功");
+          retData.setCode(ResultCode.SUCCESS);
+           retData.setMessage("保存成功");
         }
         logger.info("save:(保存${functionName}数据接口) 结束");
-        return dataReturn;
+        return retData;
 	}
 
 }]]>

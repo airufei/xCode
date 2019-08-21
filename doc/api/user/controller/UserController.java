@@ -41,17 +41,17 @@ public class UserController {
 	 */
 	@RequestMapping("getList")
 	public DataReturn getList(HttpServletRequest request, String parms){
-		DataReturn dataReturn = new DataReturn();
+		DataReturn retData = new DataReturn();
 	   try {
 	        logger.info("getList:(获取用户信息分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             int pageNo = json.getIntValue("pageNo");
             int pageSize = json.getIntValue("pageSize");
@@ -67,17 +67,17 @@ public class UserController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("list", list);
             jsonObject.put("totalCount", totalCount);
-            dataReturn.setData(jsonObject);
-            dataReturn.setCode(ResultCode.SUCCESS);
+            retData.setData(jsonObject);
+            retData.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            dataReturn.setMessage("服务繁忙，请稍后再试");
+            retData.setMessage("服务繁忙，请稍后再试");
             String msg="getList:(获取用户信息分页查询接口) 异常====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getList", parms, JSON.toJSONString(retData), msg, this.getClass());
 
         }
         logger.info("getList:(获取用户信息分页查询接口) 结束  parms={}", parms);
-        return dataReturn;
+        return retData;
 	}
 
      /**
@@ -89,35 +89,35 @@ public class UserController {
      */
     @RequestMapping("getUserList")
     public DataReturn getUserList(HttpServletRequest request, String parms) {
-        DataReturn dataReturn = new DataReturn();
+        DataReturn retData = new DataReturn();
         try {
             logger.info("getUserList:(获取用户信息不分页查询接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             User user=json.toJavaObject(User.class);
             if (user == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             List<User> list= userService.getUserList(user);
-            dataReturn.setData(list);
-            dataReturn.setCode(ResultCode.SUCCESS);
+            retData.setData(list);
+            retData.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            retData.setMessage("服务器繁忙，请稍后再试");
             String msg="getUserList:(获取用户信息不分页查询接口)====>"+ StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getUserList", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getUserList", parms, JSON.toJSONString(retData), msg, this.getClass());
 
         }
         logger.info("getUserList:(获取用户信息不分页查询接口) 结束  parms={},", parms);
-        return dataReturn;
+        return retData;
     }
 
 
@@ -130,35 +130,35 @@ public class UserController {
      */
     @RequestMapping("getUser")
     public DataReturn getUserByNo(HttpServletRequest request, String parms) {
-        DataReturn dataReturn = new DataReturn();
+        DataReturn retData = new DataReturn();
         try {
             logger.info("getUserByNo:(查询用户信息单条数据接口-带缓存) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             User user=json.toJavaObject(User.class);
             if (user == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             User retuser= userService.getUser(user);
-            dataReturn.setData(retuser);
-            dataReturn.setCode(ResultCode.SUCCESS);
+            retData.setData(retuser);
+            retData.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            retData.setMessage("服务器繁忙，请稍后再试");
             String msg="getUserByNo:(查询用户信息单条数据接口-带缓存)  异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getUserByNo", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getUserByNo", parms, JSON.toJSONString(retData), msg, this.getClass());
 
         }
         logger.info("getUser:getUserByNo:(查询用户信息单条数据接口-带缓存) 结束  parms={},", parms);
-        return dataReturn;
+        return retData;
     }
 
      /**
@@ -170,35 +170,35 @@ public class UserController {
      */
     @RequestMapping("getUser")
     public DataReturn getUser(HttpServletRequest request, String parms) {
-        DataReturn dataReturn = new DataReturn();
+        DataReturn retData = new DataReturn();
         try {
             logger.info("getUser:(查询用户信息单条数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             User user=json.toJavaObject(User.class);
             if (user == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             User retuser= userService.getUser(user);
-            dataReturn.setData(retuser);
-            dataReturn.setCode(ResultCode.SUCCESS);
+            retData.setData(retuser);
+            retData.setCode(ResultCode.SUCCESS);
         } catch (Exception e) {
-            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            retData.setMessage("服务器繁忙，请稍后再试");
              String msg="getUser:(查询用户信息单条数据接口) 异常====>"+StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("getUser", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
+            commonService.sendDingMessage("getUser", parms, JSON.toJSONString(retData), msg, this.getClass());
 
         }
         logger.info("getUser:(查询用户信息单条数据接口) 结束  parms={},", parms);
-        return dataReturn;
+        return retData;
     }
 
 	/**
@@ -210,36 +210,36 @@ public class UserController {
 	 */
 	@RequestMapping("delete")
 	public DataReturn delete(HttpServletRequest request, String parms){
-	  DataReturn dataReturn = new DataReturn();
-        dataReturn.setCode(ResultCode.FAILURE);
+	  DataReturn retData = new DataReturn();
+        retData.setCode(ResultCode.FAILURE);
         try {
             logger.info("delete:(逻辑删除用户信息数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             Long id = json.getLong("id");
             if (id != null && id > 0) {
                 userService.delete(id);
-                dataReturn.setMessage("删除成功");
-                dataReturn.setCode(ResultCode.SUCCESS);
+                retData.setMessage("删除成功");
+                retData.setCode(ResultCode.SUCCESS);
             } else {
-                dataReturn.setMessage("请选择需要删除的数据");
+                retData.setMessage("请选择需要删除的数据");
             }
         } catch (Exception e) {
 
             String msg="delete:(逻辑删除用户信息数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("delete", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
-            dataReturn.setMessage("服务器繁忙，请稍后再试");
+            commonService.sendDingMessage("delete", parms, JSON.toJSONString(retData), msg, this.getClass());
+            retData.setMessage("服务器繁忙，请稍后再试");
         }
         logger.info("delete:(逻辑删除用户信息数据接口) 结束  parms={}", parms);
-        return dataReturn;
+        return retData;
 	}
 	
 	/**
@@ -251,23 +251,23 @@ public class UserController {
 	 */
 	@RequestMapping(value = "save")
     public DataReturn save(HttpServletRequest request, String parms) {
-		DataReturn dataReturn = new DataReturn();
+		DataReturn retData = new DataReturn();
         try {
             logger.info("save:(保存用户信息数据接口) 开始  parms={}", parms);
             if (StringUtil.isBlank(parms)) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             JSONObject json = JSONObject.parseObject(parms);
             if (json == null) {
-                dataReturn.setMessage("参数为空");
-                return dataReturn;
+                retData.setMessage("参数为空");
+                return retData;
             }
             User user=json.toJavaObject(User.class);
             // 无保存内容
             if (user == null) {
-                dataReturn.setMessage("无保存内容");
-                return dataReturn;
+                retData.setMessage("无保存内容");
+                return retData;
             }
             user.setCreateTime(new Date());
             user.setUpdateTime(new Date());
@@ -275,19 +275,19 @@ public class UserController {
             User ret =userService.save(user);
             if(ret!=null)
             {
-              dataReturn.setCode(ResultCode.SUCCESS);
-               dataReturn.setMessage("保存成功");
+              retData.setCode(ResultCode.SUCCESS);
+               retData.setMessage("保存成功");
             }
         } catch (Exception e) {
 
             String msg="save:(保存用户信息数据接口) error===>" + StringUtil.getExceptionMsg(e);
             logger.error(msg);
-            commonService.sendDingMessage("save", parms, JSON.toJSONString(dataReturn), msg, this.getClass());
-            dataReturn.setMessage("服务器繁忙，请稍后再试");
-            return dataReturn;
+            commonService.sendDingMessage("save", parms, JSON.toJSONString(retData), msg, this.getClass());
+            retData.setMessage("服务器繁忙，请稍后再试");
+            return retData;
         }
         logger.info("save:(保存用户信息数据接口) 结束  parms={}", parms);
-        return dataReturn;
+        return retData;
 	}
 
 }
