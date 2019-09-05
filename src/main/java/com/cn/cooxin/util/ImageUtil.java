@@ -15,7 +15,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -26,7 +27,7 @@ import com.alibaba.fastjson.JSONObject;
  * @see
  */
 public class ImageUtil {
-	private static Logger logger = Logger.getLogger(ImageUtil.class);
+	private static Logger logger = LoggerFactory.getLogger(ImageUtil.class);
 
 	public static String savepath = ResourcesReaderUtil.resourceBundleb
 			.getString("piderpic"); // 图片地址

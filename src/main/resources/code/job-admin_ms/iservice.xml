@@ -12,7 +12,7 @@ import ${packageName}.config.HttpBasicAuthConfig;
 import ${packageName}.base.model.*;
 import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.utils.*;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

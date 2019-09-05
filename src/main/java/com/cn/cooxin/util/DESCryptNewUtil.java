@@ -7,13 +7,14 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 
 public class DESCryptNewUtil {
 
-	private static Logger logger = Logger.getLogger(DESCryptNewUtil.class);
+	private static Logger logger = LoggerFactory.getLogger(DESCryptNewUtil.class);
 
 	
 	/**

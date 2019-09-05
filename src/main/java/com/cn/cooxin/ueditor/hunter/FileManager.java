@@ -6,7 +6,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.cn.cooxin.ueditor.PathFormat;
 import com.cn.cooxin.ueditor.define.AppInfo;
 import com.cn.cooxin.ueditor.define.BaseState;
@@ -20,7 +21,7 @@ public class FileManager {
 	private String rootPath = null;
 	private String[] allowFiles = null;
 	private int count = 0;
-	private static Logger logger = Logger.getLogger(FileManager.class);
+	private static Logger logger = LoggerFactory.getLogger(FileManager.class);
 	public FileManager ( Map<String, Object> conf ) {
 		logger.info("conf:"+conf);
 		this.rootPath = (String)conf.get( "rootPath" );

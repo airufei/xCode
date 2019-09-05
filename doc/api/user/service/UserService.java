@@ -5,7 +5,7 @@ import com.cn.xmf.config.HttpBasicAuthConfig;
 import com.cn.xmf.base.model.*;
 import com.cn.xmf.model.user.*;
 import com.cn.xmf.utils.*;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

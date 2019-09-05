@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cn.cooxin.util.StringUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +41,7 @@ public class TableColumnService {
     @Autowired
     private IGenDataBaseDictDao genDataBaseDictDao;
 
-    private static Logger logger = Logger.getLogger(TableColumnService.class);
+    private static Logger logger = LoggerFactory.getLogger(TableColumnService.class);
 
     /**
      * getList:(根据表信息获取表的列，并初始化表列信息-----配置表列)

@@ -12,7 +12,8 @@ package com.cn.cooxin.common;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
 
-	private static Logger logger = Logger.getLogger(MyHandlerExceptionResolver.class);
+	private static Logger logger = LoggerFactory.getLogger(MyHandlerExceptionResolver.class);
 	  
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse arg1, Object arg2, Exception arg3) {
