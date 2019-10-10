@@ -127,29 +127,6 @@ public class ${ClassName}Service  {
 	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	      return ret;
 	   }
-
-
-	   /**
-	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
-	   * @param ${ClassName}No
-	   * @param isCache
-	   * @author ${functionAuthor}
-	   * @return
-	   */
-	   @RequestMapping("get${ClassName}ByNo")
-	   public ${ClassName}  get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
-	   {
-	      ${ClassName} ret=null;
-          logger.info("get${className}ByNo(获取${functionName}单条数据--带缓存) 开始 ${ClassName}No={},isCache={}", ${ClassName}No,isCache);
-           if(${ClassName}No==null)
-           {
-             return ret;
-           }
-	        ret=${className}HelperService.get${ClassName}ByNo(${ClassName}No,isCache);
-	       logger.info("get${className}ByNo(获取${functionName}单条数据--带缓存) 单条数据-服务) 结束 "+JSON.toJSONString(ret));
-	      return ret;
-	   }
-
     /**
 	 * delete(逻辑删除${functionName}数据-服务)
 	 * @param id

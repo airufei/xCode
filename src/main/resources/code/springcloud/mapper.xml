@@ -11,8 +11,6 @@
 
     <#-- 输出字段列 -->
 	<sql id="${className}Columns">
-	   str_to_date(a.CREATE_TIME, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
-	   str_to_date(a.UPDATE_TIME, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
 		<#assign columnField>
 			<#list colList as c>
 		a.${c.name} AS "${c.javaFieldId}",

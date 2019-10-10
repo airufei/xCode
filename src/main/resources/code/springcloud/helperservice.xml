@@ -97,39 +97,6 @@ public class ${ClassName}HelperService  {
 	 {
 	      return ${className}Dao.getSignle${ClassName}(${className});
 	 }
-
-    /**
-	   * get${className}ByNo(获取${functionName}单条数据--带缓存)
-	   * @param isCache
-	   * @param ${ClassName}No
-	   * @author ${functionAuthor}
-	   * @return
-	*/
-	public ${ClassName} get${ClassName}ByNo(String ${ClassName}No, boolean isCache)
-	{
-	    ${ClassName} ret=null;
-	    if (StringUtil.isBlank(${ClassName}No)) {
-            return ret;
-        }
-        String key = CacheConstantUtil.ORDER_BASE_ +"get${ClassName}ByNo"+ ${ClassName}No;
-        String redisCache = null;
-        if (isCache) {
-            redisCache = cacheHelperService.getRedisCache(${ClassName}No);
-        }
-        if (StringUtil.isNotBlank(redisCache)) {
-            ret = JSONObject.parseObject(redisCache, ${ClassName}.class);
-        }
-        if (ret != null) {
-            return ret;
-        }
-        ${ClassName} parms=new ${ClassName}();
-        parms.set${ClassName}No(${ClassName}No);
-        ret=getSignle${ClassName}(parms);
-        if (ret != null && isCache) {
-            cacheHelperService.saveRedis(key, JSON.toJSONString(ret), 60 * 5);
-        }
-        return ret;
-	}
 	 /**
 	 * 修改单条数据
 	 * @param id
