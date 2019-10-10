@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSONObject;
 /**
- * Service(${functionName})
+ * ${ClassName}Service(${functionName})
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @SuppressWarnings("all")
-
 @FeignClient(value = "${r'${base-service.base-service}'}")// 配置远程服务名以及自定义权限验证配置
 @RequestMapping("/server/${subModuleName}/")// 配置远程服务路径
 

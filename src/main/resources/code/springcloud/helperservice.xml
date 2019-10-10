@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import ${packageName}.base.common.CacheHelperService;
 import ${packageName}.base.${javaModuleName}.dao.${ClassName}Dao;
 /**
- * Service(${functionName})
+ *  ${ClassName}HelperService(${functionName})
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
