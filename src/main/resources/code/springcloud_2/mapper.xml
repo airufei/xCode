@@ -11,8 +11,6 @@
 
     <#-- 输出字段列 -->
 	<sql id="${className}Columns">
-	   str_to_date(a.CREATE_TIME, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
-	   str_to_date(a.UPDATE_TIME, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
 		<#assign columnField>
 			<#list colList as c>
 		a.${c.name} AS "${c.javaFieldId}",
@@ -65,7 +63,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM ${table.name} a
 		<include refid="${className}Joins"/>
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -96,6 +93,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 				</#if>
 			</#list>
+			and flag=${"#"}{flag}
 		</where>
 	</select>
 
@@ -105,7 +103,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM
 		(SELECT id from  ${table.name} t
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -136,8 +133,9 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
+			and flag=${"#"}{flag}
 		</where>
-		 limit ${"#"}{startIndex},${"#"}{pageSize}) b inner join
+		 ) b inner join
 		${table.name} a  on b.id=a.id
 	 <#list colList as c>
        <#if c.isSort?? && c.isSort=="1">
@@ -148,6 +146,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</choose>
 	 </#if>
      </#list>
+     limit ${"#"}{startIndex},${"#"}{pageSize}
 	</select>
 
     <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
@@ -155,7 +154,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -186,6 +184,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
+			and flag=${"#"}{flag}
 		</where>
 		) b  inner join ${table.name} a  on b.id=a.id
 	<#list colList as c>
@@ -205,7 +204,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		FROM
 		${table.name} a
 		<where>
-			flag=#{flag}
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
 					<#if c.queryType ?? && c.queryType == 'between'>
@@ -236,6 +234,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
+			and flag=${"#"}{flag}
 		</where>
 		limit 1
 	</select>

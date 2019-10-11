@@ -68,15 +68,16 @@ public class ${ClassName}Controller {
         }
          if (list == null||list.size()<=0) {
             retData.setData(list);
-            retData.setCode(RetCode.NO_DATA);
-            retData.setMessage(RetMessage.NO_DATA);
+            retData.setCode(ResultCodeMessage.NO_DATA);
+            retData.setMessage(ResultCodeMessage.NO_DATA_MESSAGE);
             return retData;
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", list);
         jsonObject.put("totalCount", totalCount);
         retData.setData(jsonObject);
-        retData.setCode(RetCode.SUCCESS);
+        retData.setCode(ResultCodeMessage.SUCCESS);
+        retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
         logger.info("getList:(获取${functionName}分页查询接口) 结束");
         return retData;
 	}
@@ -108,8 +109,8 @@ public class ${ClassName}Controller {
         }
         ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
         retData.setData(ret${className});
-        retData.setCode(RetCode.SUCCESS);
-        retData.setMessage(RetMessage.SUCCESS);
+        retData.setCode(ResultCodeMessage.SUCCESS);
+        retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
         logger.info("get${ClassName}:(查询${functionName}单条数据接口) 结束");
         return retData;
     }
@@ -137,8 +138,8 @@ public class ${ClassName}Controller {
         Long id = json.getLong("id");
         if (id != null && id > 0) {
             ${className}Service.delete(id);
-            retData.setCode(RetCode.SUCCESS);
-            retData.setMessage(RetMessage.SUCCESS);
+            retData.setCode(ResultCodeMessage.SUCCESS);
+            retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
         } else {
             retData.setMessage("请选择需要删除的数据");
         }
@@ -178,8 +179,8 @@ public class ${ClassName}Controller {
         ${ClassName} ret =${className}Service.save(${className});
         if(ret!=null)
         {
-          retData.setCode(RetCode.SUCCESS);
-          retData.setMessage(RetMessage.SUCCESS);
+          retData.setCode(ResultCodeMessage.SUCCESS);
+            retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
         }
         logger.info("save:(保存${functionName}数据接口) 结束");
         return retData;

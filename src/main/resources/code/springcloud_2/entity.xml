@@ -21,7 +21,10 @@ public class ${ClassName} extends BaseEntitys {
 	<#list colList as c>
 		<#-- 如果不是基类属性 -->
 		<#if c.isNotBaseField>
-	private ${c.simpleJavaType} ${c.simpleJavaField};		<#if c.comments??>// ${c.comments}</#if>
+	/**
+	*  <#if c.comments??> ${c.comments}</#if>
+	*/
+	private ${c.simpleJavaType} ${c.simpleJavaField};
 			
 		</#if>
 	</#list>
@@ -77,6 +80,17 @@ public class ${ClassName} extends BaseEntitys {
 		
 		</#if>
 	</#list>
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+		<#list colList as c>
+		<#if c.isNotBaseField>
+		 .append("${c.simpleJavaField}",  ${c.simpleJavaField})
+		</#if>
+	   </#list>
+		.toString();
+	}
 }]]>
 	</content>
 </template>
