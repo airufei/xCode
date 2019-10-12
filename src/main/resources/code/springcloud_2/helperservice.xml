@@ -23,17 +23,18 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.stereotype.Service;
 import ${packageName}.service.${javaModuleName}.dao.${ClassName}Dao;
 /**
- * Service(${functionName})
+ * ${ClassName} Service(${functionName}辅助类)
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @Service
 @SuppressWarnings("all")
 public class ${ClassName}HelperService  {
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}HelperService.class);
 
 	@Autowired
 	private ${ClassName}Dao ${className}Dao;
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+
 	  /**
 	   * 获取分页总记录数
 	   * @param map
@@ -99,7 +100,7 @@ public class ${ClassName}HelperService  {
 	 * @param id
 	 * @return
 	 */
-	  public void updateById(${ClassName} ${className})
+	  private void updateById(${ClassName} ${className})
 	  {
 	     ${className}Dao.updateById(${className});
 	  }

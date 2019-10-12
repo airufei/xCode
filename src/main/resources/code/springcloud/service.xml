@@ -33,11 +33,13 @@ import ${packageName}.base.${javaModuleName}.dao.${ClassName}Dao;
 @SuppressWarnings("all")
 public class ${ClassName}Service  {
 
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+
 	@Autowired
 	private ${ClassName}Dao ${className}Dao;
 	@Autowired
 	private ${ClassName}HelperService  ${className}HelperService;
-     private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+
       /**
 	   * getList(获取${functionName}带分页数据-服务)
        * @author ${functionAuthor}

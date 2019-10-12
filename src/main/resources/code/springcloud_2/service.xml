@@ -33,14 +33,15 @@ import ${packageName}.service.common.SysCommonService;
 @SuppressWarnings("all")
 public class ${ClassName}Service  {
 
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+
 	@Autowired
 	private ${ClassName}Dao ${className}Dao;
 	@Autowired
 	private ${ClassName}HelperService  ${className}HelperService;
 	@Autowired
     private SysCommonService sysCommonService; //如果不需要发钉钉消息可以注释了
-    @Autowired
-     private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+
       /**
 	   * getList(获取${functionName}带分页数据-服务)
        * @author ${functionAuthor}

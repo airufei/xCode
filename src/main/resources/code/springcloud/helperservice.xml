@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import ${packageName}.base.common.CacheHelperService;
 import ${packageName}.base.${javaModuleName}.dao.${ClassName}Dao;
 /**
- *  ${ClassName}HelperService(${functionName})
+ * ${ClassName} Service(${functionName}辅助类)
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
@@ -32,11 +32,13 @@ import ${packageName}.base.${javaModuleName}.dao.${ClassName}Dao;
 @SuppressWarnings("all")
 public class ${ClassName}HelperService  {
 
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}HelperService.class);
+
 	@Autowired
 	private ${ClassName}Dao ${className}Dao;
 	@Autowired
     private CacheHelperService cacheHelperService;
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+
 	  /**
 	   * 获取分页总记录数
 	   * @param map

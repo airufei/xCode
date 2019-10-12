@@ -32,7 +32,8 @@ import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Controller.class);
+
 	@Autowired
 	private ${ClassName}Service ${className}Service;
 
