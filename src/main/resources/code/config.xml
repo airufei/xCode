@@ -11,13 +11,7 @@
 			<template>curd/listpage.xml</template>
 		</category>
 
-		<category dictKey="dubbo" dictValue="微服务-Dubbo">
-			<template>dubbo/iservice.xml</template>
-			<template>dubbo/dao.xml</template>
-			<template>dubbo/entity.xml</template>
-			<template>dubbo/mapper.xml</template>
-			<template>dubbo/service.xml</template>
-		</category>
+
 
 		<category dictKey="springcloud" dictValue="springcloud-1.58-接口版">
 			<template>springcloud/controller.xml</template>
