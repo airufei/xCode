@@ -102,7 +102,7 @@ public class ${ClassName}Service  {
         if (${className} == null) {
             return ret;
         }
-	     ret=${className}HelperService.save(${className});
+	    ret=${className}HelperService.save(${className});
 	    logger.info("save (保存${functionName} 数据-服务) 结束");
 	    return  ret;
 	}
@@ -119,7 +119,6 @@ public class ${ClassName}Service  {
 	   {
 	      ${ClassName} ret=null;
 	      String parms = JSON.toJSONString(${className});
-	      List<${ClassName}> list=null;
           logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", parms);
            if(${className}==null)
            {
