@@ -26,6 +26,7 @@ import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
  * @version ${functionVersion}
  */
 @RestController
+@RequestMapping("/${subModuleName}/")
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
