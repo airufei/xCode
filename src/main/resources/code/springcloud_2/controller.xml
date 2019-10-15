@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSON;
 import ${packageName}.model.${javaModuleName}.*;
-import ${packageName}.base.model.*;
 import ${packageName}.util.*;
 import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
 /**
@@ -44,22 +42,30 @@ public class ${ClassName}Controller {
 	 * @return
 	 */
 	@RequestMapping("getList")
-	public RetData getList(HttpServletRequest request, String parms){
+	public RetData getList(HttpServletRequest request){
 		RetData retData = new RetData();
-        logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        int pageNo = json.getIntValue("pageNo");
-        int pageSize = json.getIntValue("pageSize");
-        JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
-        param.putAll(json);
+		String pageNoStr = request.getParameter("pageNo");
+        String length = request.getParameter("pageSize");
+         <#list colList as c>
+           <#if (c.isQuery?? && c.isQuery == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+            int pageSize = 10;
+            int pageNo = 1;
+            if (StringUtil.isNotBlank(pageNoStr)) {
+                pageNo = StringUtil.stringToInt(pageNoStr);
+            }
+            if (StringUtil.isNotBlank(length)) {
+                pageSize = StringUtil.stringToInt(length);
+            }
+         JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
+         logger.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
+         <#list colList as c>
+          <#if (c.isQuery?? && c.isQuery == "1")>
+             param.put("${c.javaFieldId}",${c.javaFieldId});
+           </#if>
+		 </#list>
         Partion pt = ${className}Service.getList(param);
         List<${ClassName}> list = null;
         int totalCount = 0;
@@ -78,7 +84,7 @@ public class ${ClassName}Controller {
         jsonObject.put("totalCount", totalCount);
         retData.setData(jsonObject);
         retData.setCode(ResultCodeMessage.SUCCESS);
-        retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
+        retData.setMessage(ResultCodeMessage.SUCCESS_MESSAGE);
         logger.info("getList:(获取${functionName}分页查询接口) 结束");
         return retData;
 	}
@@ -91,30 +97,62 @@ public class ${ClassName}Controller {
      * @return
      */
     @RequestMapping("get${ClassName}")
-    public RetData get${ClassName}(HttpServletRequest request, String parms) {
+    public RetData get${ClassName}(HttpServletRequest request) {
         RetData retData = new RetData();
-        logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
-        if (${className} == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
+         ${ClassName} ${className}= new ${ClassName}();
+         <#list colList as c>
+           <#if (c.isQuery?? && c.isQuery == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+		<#list colList as c>
+         <#if (c.isQuery?? && c.isQuery == "1")>
+         ${className}.set${c.simpleJavaField?cap_first}(${c.javaFieldId});
+       </#if>
+	   </#list>
+        logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  ${className}={}", ${className});
         ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
         retData.setData(ret${className});
         retData.setCode(ResultCodeMessage.SUCCESS);
-        retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
+        retData.setMessage(ResultCodeMessage.SUCCESS_MESSAGE);
         logger.info("get${ClassName}:(查询${functionName}单条数据接口) 结束");
         return retData;
     }
+
+   /**
+	 * save:(保存${functionName}数据接口)
+	 * @Author ${functionAuthor}
+     * @param request
+     * @param parms
+     * @return
+	 */
+	@RequestMapping(value = "save")
+    public RetData save(HttpServletRequest request) {
+		RetData retData = new RetData();
+        ${ClassName} ${className}= new ${ClassName}();
+         <#list colList as c>
+           <#if (c.isEdit?? && c.isEdit == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+		<#list colList as c>
+         <#if (c.isEdit?? && c.isEdit == "1")>
+         ${className}.set${c.simpleJavaField?cap_first}(${c.javaFieldId});
+       </#if>
+	   </#list>
+	   logger.info("save:(保存${functionName}数据接口) 开始  ${className}={}", ${className});
+        ${className}.setCreateTime(new Date());
+        ${className}.setUpdateTime(new Date());
+        // 保存数据库
+        ${ClassName} ret =${className}Service.save(${className});
+        if(ret!=null)
+        {
+          retData.setCode(ResultCodeMessage.SUCCESS);
+            retData.setMessage(ResultCodeMessage.SUCCESS_MESSAGE);
+        }
+        logger.info("save:(保存${functionName}数据接口) 结束");
+        return retData;
+	}
 
 	/**
 	 * delete:(逻辑删除${functionName}数据接口)
@@ -124,66 +162,23 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@RequestMapping("delete")
-	public RetData delete(HttpServletRequest request, String parms){
+	public RetData delete(HttpServletRequest request){
 	    RetData retData = new RetData();
-        logger.info("delete:(逻辑删除${functionName}数据接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
+	    String idStr = request.getParameter("id");
+        logger.info("delete:(逻辑删除${functionName}数据接口) 开始  idStr={}", idStr);
+        if (StringUtil.isBlank(idStr)) {
             retData.setMessage("参数为空");
             return retData;
         }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        Long id = json.getLong("id");
+        Long id = StringUtil.stringToLong(idStr);
         if (id != null && id > 0) {
             ${className}Service.delete(id);
             retData.setCode(ResultCodeMessage.SUCCESS);
-            retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
+            retData.setMessage(ResultCodeMessage.SUCCESS_MESSAGE);
         } else {
             retData.setMessage("请选择需要删除的数据");
         }
         logger.info("delete:(逻辑删除${functionName}数据接口) 结束");
-        return retData;
-	}
-	
-	/**
-	 * save:(保存${functionName}数据接口)
-	 * @Author ${functionAuthor}
-     * @param request
-     * @param parms
-     * @return
-	 */
-	@RequestMapping(value = "save")
-    public RetData save(HttpServletRequest request, String parms) {
-		RetData retData = new RetData();
-        logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
-        // 无保存内容
-        if (${className} == null) {
-            retData.setMessage("无保存内容");
-            return retData;
-        }
-        ${className}.setCreateTime(new Date());
-        ${className}.setUpdateTime(new Date());
-        // 保存数据库
-        ${ClassName} ret =${className}Service.save(${className});
-        if(ret!=null)
-        {
-          retData.setCode(ResultCodeMessage.SUCCESS);
-            retData.setCode(ResultCodeMessage.SUCCESS_MESSAGE);
-        }
-        logger.info("save:(保存${functionName}数据接口) 结束");
         return retData;
 	}
 

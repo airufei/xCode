@@ -76,13 +76,13 @@ public class ${ClassName}Service  {
 	   @RequestMapping("get${ClassName}List")
 	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName} ${className})
 	   {
-	      String parms = JSON.toJSONString(${className});
-          logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", parms);
+	       List<${ClassName}> list=null;
+          logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", ${className});
           if(${className}==null)
           {
              return list;
           }
-	      List<${ClassName}>  list=${className}Dao.get${ClassName}List(${className});
+	      list=${className}Dao.get${ClassName}List(${className});
 	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
 	      return list;
 	   }
@@ -95,10 +95,9 @@ public class ${ClassName}Service  {
 	 * @return
 	 */
     @RequestMapping("save")
-	public ${ClassName} save(@RequestBody ${ClassName} ${className})
+	public ${ClassName} save(@RequestBody ${ClassName} ${className}) throws  Exception
 	{
-	    String parms = JSON.toJSONString(${className});
-        logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
+        logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", ${className});
         ${ClassName}  ret=${className}HelperService.save(${className});
 	    logger.info("save (保存${functionName} 数据-服务) 结束");
 	    return  ret;
@@ -114,15 +113,15 @@ public class ${ClassName}Service  {
 	   @RequestMapping("get${ClassName}")
 	   public ${ClassName}  get${ClassName}(@RequestBody ${ClassName} ${className})
 	   {
-	      String parms = JSON.toJSONString(${className});
-          logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", parms);
+	       ${ClassName} ret=null;
+           logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", ${className});
            if(${className}==null)
            {
              return ret;
            }
-	      ${ClassName}  ret=${className}HelperService.getSignle${ClassName}(${className});
-	      logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
-	      return ret;
+	       ret=${className}HelperService.getSignle${ClassName}(${className});
+	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
+	       return ret;
 	   }
 
     /**

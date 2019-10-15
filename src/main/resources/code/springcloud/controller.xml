@@ -45,22 +45,30 @@ public class ${ClassName}Controller {
 	 * @return
 	 */
 	@RequestMapping("getList")
-	public DataReturn getList(HttpServletRequest request, String parms){
+	public DataReturn getList(HttpServletRequest request){
 		DataReturn retData = new DataReturn();
-        logger.info("getList:(获取${functionName}分页查询接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        int pageNo = json.getIntValue("pageNo");
-        int pageSize = json.getIntValue("pageSize");
-        JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
-        param.putAll(json);
+        String pageNoStr = request.getParameter("pageNo");
+        String pageSizeStr = request.getParameter("pageSize");
+         <#list colList as c>
+           <#if (c.isQuery?? && c.isQuery == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+            int pageSize = 10;
+            int pageNo = 1;
+            if (StringUtil.isNotBlank(pageNoStr)) {
+                pageNo = StringUtil.stringToInt(pageNoStr);
+            }
+            if (StringUtil.isNotBlank(pageSizeStr)) {
+                pageSize = StringUtil.stringToInt(pageSizeStr);
+            }
+         JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
+         logger.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
+         <#list colList as c>
+          <#if (c.isQuery?? && c.isQuery == "1")>
+             param.put("${c.javaFieldId}",${c.javaFieldId});
+           </#if>
+		 </#list>
         Partion pt = ${className}Service.getList(param);
         List<${ClassName}> list = null;
         int totalCount = 0;
@@ -73,7 +81,7 @@ public class ${ClassName}Controller {
         jsonObject.put("totalCount", totalCount);
         retData.setData(jsonObject);
         retData.setCode(ResultCode.SUCCESS);
-        logger.info("getList:(获取${functionName}分页查询接口) 结束  parms={}", parms);
+        logger.info("getList:(获取${functionName}分页查询接口) 结束  totalCount={}", totalCount);
         return retData;
 	}
 
@@ -81,31 +89,27 @@ public class ${ClassName}Controller {
      * get${ClassName}Detail:(查询${functionName}详情数据接口)
      * @Author ${functionAuthor}
      * @param request
-     * @param parms
      * @return
      */
     @RequestMapping("get${ClassName}Detail")
-    public DataReturn get${ClassName}Detail(HttpServletRequest request, String parms) {
+    public DataReturn get${ClassName}Detail(HttpServletRequest request) {
         DataReturn retData = new DataReturn();
-        logger.info("get${ClassName}:(查询${functionName}详情数据接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
-        if (${className} == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
+         ${ClassName} ${className}= new ${ClassName}();
+         <#list colList as c>
+           <#if (c.isQuery?? && c.isQuery == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+		<#list colList as c>
+         <#if (c.isQuery?? && c.isQuery == "1")>
+         ${className}.set${c.simpleJavaField?cap_first}(${c.javaFieldId});
+       </#if>
+	   </#list>
+        logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  ${className}={}", ${className});
         ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className});
         retData.setData(ret${className});
         retData.setCode(ResultCode.SUCCESS);
-        logger.info("get${ClassName}:(查询${functionName}详情数据接口) 结束");
+        logger.info("get${ClassName}:(查询${functionName}详情数据接口) 结束 retData={}",retData);
         return retData;
     }
 	
@@ -117,24 +121,20 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@RequestMapping(value = "save")
-    public DataReturn save(HttpServletRequest request, String parms) {
+    public DataReturn save(HttpServletRequest request) {
 		DataReturn retData = new DataReturn();
-        logger.info("save:(保存${functionName}数据接口) 开始  parms={}", parms);
-        if (StringUtil.isBlank(parms)) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        JSONObject json = JSONObject.parseObject(parms);
-        if (json == null) {
-            retData.setMessage("参数为空");
-            return retData;
-        }
-        ${ClassName} ${className}=JSON.toJavaObject(json,${ClassName}.class);
-        // 无保存内容
-        if (${className} == null) {
-            retData.setMessage("无保存内容");
-            return retData;
-        }
+       ${ClassName} ${className}= new ${ClassName}();
+         <#list colList as c>
+           <#if (c.isEdit?? && c.isEdit == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+		<#list colList as c>
+         <#if (c.isEdit?? && c.isEdit == "1")>
+         ${className}.set${c.simpleJavaField?cap_first}(${c.javaFieldId});
+       </#if>
+	   </#list>
+	   logger.info("save:(保存${functionName}数据接口) 开始  ${className}={}", ${className});
         ${className}.setCreateTime(new Date());
         ${className}.setUpdateTime(new Date());
         // 保存数据库
@@ -147,7 +147,6 @@ public class ${ClassName}Controller {
         logger.info("save:(保存${functionName}数据接口) 结束");
         return retData;
 	}
-
 }]]>
     </content>
 </template>
