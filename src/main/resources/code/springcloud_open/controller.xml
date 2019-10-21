@@ -20,7 +20,7 @@ import ${packageName}.model.${javaModuleName}.*;
 import com.cn.xmf.base.model.Partion;
 import com.cn.xmf.base.model.ResultCodeMessage;
 import com.cn.xmf.base.model.RetData;
-import ${packageName}.util.*;
+import ${packageName}.util.StringUtil;
 import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
 /**
  * ${ClassName}Controller(${functionName})

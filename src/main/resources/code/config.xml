@@ -27,7 +27,7 @@
 		<category dictKey="job_admin" dictValue="job-admin_自给数据">
 			<template>job_admin/controller.xml</template>
 			<template>job_admin/service.xml</template>
-			<template>common/helper_service.xml</template>
+			<template>common/helperservice.xml</template>
 			<template>common/dao.xml</template>
 			<template>common/mapper.xml</template>
 			<template>common/entity.xml</template>
@@ -39,7 +39,7 @@
 			<template>job_admin_ms/controller.xml</template>
 			<template>job_admin_ms/iservice.xml</template>
 			<template>common/service.xml</template>
-			<template>common/helper_service.xml</template>
+			<template>common/helperservice.xml</template>
 			<template>common/dao.xml</template>
 			<template>common/mapper.xml</template>
 			<template>common/entity.xml</template>

@@ -22,7 +22,6 @@ import ${packageName}.${subPackageName}.${javaModuleName}.model.*;
 import ${packageName}.${subPackageName}.common.CommonService;
 import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
 import ${packageName}.base.model.Partion;
-import ${packageName}.utils.StringUtil;
 import ${packageName}.job.core.biz.model.ReturnT;
 /**
  * ${ClassName}Controller(${functionName})
@@ -34,7 +33,7 @@ import ${packageName}.job.core.biz.model.ReturnT;
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}Controller.class);
 	@Autowired
 	private ${ClassName}Service ${className}Service;
 	@Autowired
