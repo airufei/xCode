@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>controller</name>
-    <filePath>src/${packageName}/${subPackageName}/${javaModuleName}/controller</filePath>
+    <filePath>src/${packageName}/job/admin/${javaModuleName}/controller</filePath>
     <fileName>${ClassName}Controller.java</fileName>
     <content><![CDATA[
 package ${packageName}.${subPackageName}.${javaModuleName}.controller;

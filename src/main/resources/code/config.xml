@@ -24,27 +24,27 @@
 		</category>
 
 
-		<category dictKey="job-Admin" dictValue="job-admin_自给数据">
-			<template>job-admin/controller.xml</template>
-			<template>common/service.xml</template>
+		<category dictKey="job_admin" dictValue="job-admin_自给数据">
+			<template>job_admin/controller.xml</template>
+			<template>job_admin/service.xml</template>
 			<template>common/helper_service.xml</template>
 			<template>common/dao.xml</template>
 			<template>common/mapper.xml</template>
 			<template>common/entity.xml</template>
-			<template>job-admin/index.xml</template>
-			<template>job-admin/index_js.xml</template>
+			<template>common/index.xml</template>
+			<template>common/index_js.xml</template>
 		</category>
 
-		<category dictKey="job-admin_ms" dictValue="job-admin_微服务数据">
-			<template>job-admin_ms/controller.xml</template>
+		<category dictKey="job_admin_ms" dictValue="job-admin_微服务数据">
+			<template>job_admin_ms/controller.xml</template>
+			<template>job_admin_ms/iservice.xml</template>
 			<template>common/service.xml</template>
 			<template>common/helper_service.xml</template>
 			<template>common/dao.xml</template>
 			<template>common/mapper.xml</template>
-			<template>common/iservice.xml</template>
 			<template>common/entity.xml</template>
-			<template>job-admin_ms/index.xml</template>
-			<template>job-admin_ms/index_js.xml</template>
+			<template>common/index.xml</template>
+			<template>common/index_js.xml</template>
 		</category>
 
 		<category dictKey="zjgf-microservice" dictValue="zjgf_微服务数据">
