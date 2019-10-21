@@ -8,7 +8,6 @@
 package ${packageName}.${subPackageName}.${javaModuleName}.service;
 import java.util.List;
 import java.util.Map;
-import ${packageName}.base.model.*;
 import ${packageName}.model.${javaModuleName}.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSONObject;
+import com.cn.xmf.base.model.Partion;
 /**
  * Service(${functionName})
  * @author ${functionAuthor}

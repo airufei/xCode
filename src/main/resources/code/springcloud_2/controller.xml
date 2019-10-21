@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import ${packageName}.model.${javaModuleName}.*;
+import com.cn.xmf.base.model.Partion;
+import com.cn.xmf.base.model.ResultCodeMessage;
+import com.cn.xmf.base.model.RetData;
 import ${packageName}.util.*;
 import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
 /**
