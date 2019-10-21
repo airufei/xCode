@@ -2,79 +2,59 @@
 <config>
 	<!-- 生成分类 -->
 	<category>
-		<category dictKey="curd" dictValue="普通单体应用-xCode">
-			<template>curd/controller.xml</template>
-			<template>curd/service.xml</template>
-			<template>curd/iservice.xml</template>
-			<template>category-ref:dao</template>
-			<template>curd/editpage.xml</template>
-			<template>curd/listpage.xml</template>
-		</category>
 
-
-
-		<category dictKey="springcloud" dictValue="springcloud-1.58-接口版">
+		<category dictKey="springcloud" dictValue="springcloud-2.0-接口版">
 			<template>springcloud/controller.xml</template>
-			<template>springcloud/dao.xml</template>
-			<template>springcloud/entity.xml</template>
-			<template>springcloud/mapper.xml</template>
-			<template>springcloud/service.xml</template>
-			<template>springcloud/iservice.xml</template>
-			<template>springcloud/helperservice.xml</template>
+			<template>common/dao.xml</template>
+			<template>common/entity.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/service.xml</template>
+			<template>common/iservice.xml</template>
+			<template>common/helperservice.xml</template>
 		</category>
 
-		<category dictKey="springcloud_2" dictValue="springcloud-2.0-接口版">
-			<template>springcloud_2/controller.xml</template>
-			<template>springcloud_2/dao.xml</template>
-			<template>springcloud_2/entity.xml</template>
-			<template>springcloud_2/mapper.xml</template>
-			<template>springcloud_2/service.xml</template>
-			<template>springcloud_2/iservice.xml</template>
-			<template>springcloud_2/helperservice.xml</template>
+		<category dictKey="springcloud_open" dictValue="springcloud-open-接口版">
+			<template>springcloud_open/controller.xml</template>
+			<template>common/dao.xml</template>
+			<template>common/entity.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/service.xml</template>
+			<template>common/iservice.xml</template>
+			<template>common/helperservice.xml</template>
 		</category>
 
-		<category dictKey="Hibernate" dictValue="Hibernate-admin_xml版">
-			<template>lcAdmin/controller.xml</template>
-			<template>lcAdmin/service.xml</template>
-			<template>lcAdmin/iservice.xml</template>
-			<template>lcAdmin/entity.xml</template>
-			<template>lcAdmin/editpage.xml</template>
-			<template>lcAdmin/addpage.xml</template>
-			<template>lcAdmin/listpage.xml</template>
-			<template>lcAdmin/pagejs.xml</template>
-		</category>
 
 		<category dictKey="job-Admin" dictValue="job-admin_自给数据">
 			<template>job-admin/controller.xml</template>
-			<template>job-admin/service.xml</template>
-			<template>job-admin/helper_service.xml</template>
-			<template>job-admin/dao.xml</template>
-			<template>job-admin/mapper.xml</template>
-			<template>job-admin/entity.xml</template>
+			<template>common/service.xml</template>
+			<template>common/helper_service.xml</template>
+			<template>common/dao.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/entity.xml</template>
 			<template>job-admin/index.xml</template>
 			<template>job-admin/index_js.xml</template>
 		</category>
 
 		<category dictKey="job-admin_ms" dictValue="job-admin_微服务数据">
 			<template>job-admin_ms/controller.xml</template>
-			<template>job-admin_ms/service.xml</template>
-			<template>job-admin_ms/helper_service.xml</template>
-			<template>job-admin_ms/dao.xml</template>
-			<template>job-admin_ms/mapper.xml</template>
-			<template>job-admin_ms/iservice.xml</template>
-			<template>job-admin_ms/entity.xml</template>
+			<template>common/service.xml</template>
+			<template>common/helper_service.xml</template>
+			<template>common/dao.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/iservice.xml</template>
+			<template>common/entity.xml</template>
 			<template>job-admin_ms/index.xml</template>
 			<template>job-admin_ms/index_js.xml</template>
 		</category>
 
 		<category dictKey="zjgf-microservice" dictValue="zjgf_微服务数据">
 			<template>zjgf-microservice/controller.xml</template>
-			<template>zjgf-microservice/service.xml</template>
-			<template>zjgf-microservice/iservice.xml</template>
-			<template>zjgf-microservice/helperservice.xml</template>
-			<template>zjgf-microservice/dao.xml</template>
-			<template>zjgf-microservice/mapper.xml</template>
-			<template>zjgf-microservice/entity.xml</template>
+			<template>common/service.xml</template>
+			<template>common/iservice.xml</template>
+			<template>common/helperservice.xml</template>
+			<template>common/dao.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/entity.xml</template>
 		</category>
 		<category dictKey="weier" dictValue="weier">
 			<template>weier/controller.xml</template>
@@ -86,6 +66,25 @@
 			<template>weier/query.xml</template>
 			<template>weier/restservice.xml</template>
 			<template>weier/service.xml</template>
+		</category>
+
+		<category dictKey="curd" dictValue="普通单体应用-single">
+			<template>single/curd/controller.xml</template>
+			<template>single/curd/service.xml</template>
+			<template>single/curd/iservice.xml</template>
+			<template>category-ref:dao</template>
+			<template>single/curd/editpage.xml</template>
+			<template>single/curd/listpage.xml</template>
+		</category>
+		<category dictKey="Hibernate" dictValue="Hibernate-admin_xml版">
+			<template>lcAdmin/controller.xml</template>
+			<template>lcAdmin/service.xml</template>
+			<template>lcAdmin/iservice.xml</template>
+			<template>lcAdmin/entity.xml</template>
+			<template>lcAdmin/editpage.xml</template>
+			<template>lcAdmin/addpage.xml</template>
+			<template>lcAdmin/listpage.xml</template>
+			<template>lcAdmin/pagejs.xml</template>
 		</category>
 
 	</category>
