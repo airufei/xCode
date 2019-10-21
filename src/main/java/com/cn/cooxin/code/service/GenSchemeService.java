@@ -46,10 +46,12 @@ public class GenSchemeService {
 	private static Logger logger = LoggerFactory.getLogger(GenSchemeService.class);
 	
 	public Partion getList(Map mp) {
-	
 		GenUtils.getTemplatePath();
-		List<GenScheme> list=GenSchemeDao.getList(mp);
 		int totalcount=GenSchemeDao.getTotalCount(mp);
+		List<GenScheme> list=null;
+		if(totalcount>0){
+			list=GenSchemeDao.getList(mp);
+		}
 		Partion pt=new Partion(mp,list, totalcount);
 		return pt;
 	}

@@ -15,13 +15,9 @@
 			function_name_simple as functionNameSimple, 
 			function_author as functionAuthor, 
 			table_id as tableId, 
-			table_name as tableName, 
-			createtime, 
-			updatetime, 
+			table_name as tableName,
 		    str_to_date(createtime, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
-	        str_to_date(updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
-			remark, 
-			flag
+	        str_to_date(updatetime, '%Y-%m-%d %H:%i:%s') AS "updatetimestr"
 	</sql>
 
 	<sql id="genSchemeJoins" >
@@ -39,25 +35,22 @@
 	<select id="getList" resultType="com.cn.cooxin.code.entity.GenScheme" parameterType="Map">
 		SELECT
 			<include refid="genSchemeColumns"/>
-		FROM t_code_scheme a inner join
-		(SELECT id from  t_code_scheme d
+		FROM  t_code_scheme a
 		<if test="flag != null and flag != ''">
 			WHERE a.flag =0
 		</if>
-		limit #{startIndex},#{pageSize}) b on b.id=a.id
-		<include refid="genSchemeJoins"/>
-		WHERE a.flag =0
 		<if test="name != null and name != ''">
 			AND a.name LIKE
-				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
-				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
-				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+			<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
 		</if>
 		<choose>
 			<otherwise>
 				ORDER BY a.updatetime desc
 			</otherwise>
 		</choose>
+		limit #{startIndex},#{pageSize}
 	</select>
 
 	<select id="getTotalCount" resultType="Integer" parameterType="Map">
@@ -71,14 +64,6 @@
 				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
 				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
 		</if>
-	</select>
-
-	<select id="findAllList" resultType="com.cn.cooxin.code.entity.GenScheme">
-		SELECT
-			<include refid="genSchemeColumns"/>
-		FROM t_code_scheme a
-		<include refid="genSchemeJoins"/>
-		WHERE a.flag = 0
 	</select>
 
 	<insert id="add">
