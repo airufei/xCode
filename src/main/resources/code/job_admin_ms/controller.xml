@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
 import com.cn.xmf.base.model.Partion;
 import ${packageName}.model.${javaModuleName}.*;
-import ${packageName}.job.admin.${javaModuleName}.service.*;
+import ${packageName}.job.admin.${javaModuleName}.rpc.*;
 /**
  * ${ClassName}Controller(${functionName})
  * @author ${functionAuthor}

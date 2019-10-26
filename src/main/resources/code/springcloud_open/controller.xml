@@ -21,7 +21,7 @@ import com.cn.xmf.base.model.Partion;
 import com.cn.xmf.base.model.ResultCodeMessage;
 import com.cn.xmf.base.model.RetData;
 import ${packageName}.util.StringUtil;
-import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
+import ${packageName}.${subPackageName}.${javaModuleName}.rpc.*;
 /**
  * ${ClassName}Controller(${functionName})
  * Controller 层的异常应该统一捕获进行处理，这样业务代码更加清晰
