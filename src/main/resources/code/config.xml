@@ -23,6 +23,18 @@
 			<template>common/helperservice.xml</template>
 		</category>
 
+		<category dictKey="springcloud-clab" dictValue="springcloud-clab-接口版">
+			<template>springcloud_clab/controller.xml</template>
+			<template>springcloud_clab/dao.xml</template>
+			<template>springcloud_clab/entity.xml</template>
+			<template>springcloud_clab/request_entity.xml</template>
+			<template>springcloud_clab/mapper.xml</template>
+			<template>springcloud_clab/server_service.xml</template>
+			<template>springcloud_clab/rpc_service.xml</template>
+			<template>springcloud_clab/helperservice.xml</template>
+			<template>springcloud_clab/service_fallback.xml</template>
+		</category>
+
 
 		<category dictKey="job_admin" dictValue="job-admin_自给数据">
 			<template>job_admin/controller.xml</template>

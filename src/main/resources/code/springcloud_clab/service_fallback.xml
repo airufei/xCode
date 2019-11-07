@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/rpc/${javaModuleName}/service</filePath>
+	<fileName> ${ClassName}Fallback.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.rpc.${javaModuleName}.service;
+import java.util.List;
+import java.util.Map;
+import ${packageName}.entity.${ClassName};
+import ${packageName}.entity.Partion;
+import org.springframework.http.MediaType;
+import com.alibaba.fastjson.JSONObject;
+/**
+ * ${ClassName}Fallback (${functionName}) 熔断方法
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@SuppressWarnings("all")
+public class  ${ClassName}Fallback implements ${ClassName}Service  {
+
+    /**
+     * list:(查询${functionName} 带分页数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @Override
+   public Partion getList(@RequestBody JSONObject map){
+     return null;
+    }
+
+    /**
+     * get${ClassName}List:(查询${functionName} 不带分页数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @Override
+    List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className})
+    {
+       return null;
+    }
+
+     /**
+     * get${ClassName}:(查询${functionName}单个实体数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+     @Override
+    public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className}){
+       return null;
+    }
+
+    /**
+     * save:(保存${functionName}数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+     @Override
+    public ${ClassName} save(@RequestBody ${ClassName} ${className}){
+       return null;
+    }
+
+
+    /**
+     * delete:(删除${functionName}数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @Override
+    public boolean delete(@RequestParam("id") Long id){
+    return false;
+    }
+	
+}]]>
+	</content>
+</template>
