@@ -63,7 +63,7 @@ public class GenUtils {
 			}else if (StringUtil.startsWithIgnoreCase(column.getJdbcType(), "DATETIME")
 					|| StringUtil.startsWithIgnoreCase(column.getJdbcType(), "DATE")
 					|| StringUtil.startsWithIgnoreCase(column.getJdbcType(), "TIMESTAMP")){
-				column.setJavaType("java.util.Date");
+				column.setJavaType("java.time.LocalDateTime");
 				column.setShowType("dateselect");
 			}else if (StringUtil.startsWithIgnoreCase(column.getJdbcType(), "BIGINT")
 					|| StringUtil.startsWithIgnoreCase(column.getJdbcType(), "NUMBER")){

@@ -21,7 +21,7 @@ import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import ${packageName}.entity.Partion;
 import ${packageName}.common.model.Response;
 import ${packageName}.common.tools.StringUtil;
-import ${packageName}.${javaModuleName}.service.${ClassName}ServerService;
+import ${packageName}.${javaModuleName}.service.${ClassName}Service;
 /**
  * ${ClassName}Controller(${functionName})
  * Controller 层的异常应该统一捕获进行处理，这样业务代码更加清晰
@@ -34,7 +34,7 @@ import ${packageName}.${javaModuleName}.service.${ClassName}ServerService;
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
 	@Autowired
-	private ${ClassName}ServerService ${className}ServerService;
+	private ${ClassName}Service ${className}Service;
 
 	/**
 	 * getList:(获取${functionName}分页查询接口)
@@ -67,7 +67,7 @@ public class ${ClassName}Controller {
              param.put("${c.javaFieldId}",${c.javaFieldId});
            </#if>
 		 </#list>
-        Partion pt = ${className}ServerService.getList(param);
+        Partion pt = ${className}Service.getList(param);
         List<${ClassName}> list = null;
         long totalCount = 0;
         if (pt != null) {
@@ -97,7 +97,7 @@ public class ${ClassName}Controller {
     public Response get${ClassName}(${ClassName}Requst ${className}Requst,HttpServletRequest request) {
         Response response =Response.failure("查询失败");
         log.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  ${className}Requst={}", ${className}Requst);
-        ${ClassName} ret${className}= ${className}ServerService.get${ClassName}(${className}Requst);
+        ${ClassName} ret${className}= ${className}Service.get${ClassName}(${className}Requst);
         if (${className}Requst==null) {
             response=Response.noData();
             return response;
@@ -123,7 +123,7 @@ public class ${ClassName}Controller {
 	     }
 	    //1、参数校验
         //2、保存数据库
-        ${ClassName} ret =${className}ServerService.save(${className});
+        ${ClassName} ret =${className}Service.save(${className});
         if(ret!=null)
         {
           response=Response.success(ret);

@@ -33,7 +33,7 @@ import ${packageName}.common.tools.StringUtil;
 @SuppressWarnings("all")
 public class ${ClassName}HelperService  {
 	@Autowired
-	private ${ClassName}Mapper ${className}mapper;
+	private ${ClassName}Mapper ${className}Mapper;
 
 	  /**
 	   * 获取分页总记录数-返回int类型
@@ -43,7 +43,7 @@ public class ${ClassName}HelperService  {
 	   public int  getTotalCount(JSONObject map)
 	   {
 	      int resCount=0;
-	      Integer totalCount =${className}mapper.getTotalCount(map);
+	      Integer totalCount =${className}Mapper.getTotalCount(map);
 	      if(totalCount!=null)
 	      {
 	        resCount=totalCount;
@@ -69,7 +69,7 @@ public class ${ClassName}HelperService  {
             ret=${className};
         } else {
             ${className}.setId(StringUtil.obectToString(IdType.ID_WORKER_STR));
-            ${className}mapper.add(${className});
+            ${className}Mapper.add(${className});
             ret=${className};
         }
         return ret;
@@ -82,7 +82,7 @@ public class ${ClassName}HelperService  {
 	 */
 	 public ${ClassName} get${ClassName}ById (String id)
 	 {
-	      return ${className}mapper.get${ClassName}ById(id);
+	      return ${className}Mapper.get${ClassName}ById(id);
 	 }
 
     /**
@@ -93,7 +93,7 @@ public class ${ClassName}HelperService  {
 	 */
 	 public ${ClassName} getSignle${ClassName}(${ClassName}Requst ${className}Requst)
 	 {
-	      return ${className}mapper.getSignle${ClassName}(${className}Requst);
+	      return ${className}Mapper.getSignle${ClassName}(${className}Requst);
 	 }
 	 /**
 	 * 修改单条数据
@@ -102,7 +102,7 @@ public class ${ClassName}HelperService  {
 	 */
 	  private void updateById(${ClassName} ${className})
 	  {
-	     ${className}mapper.update${ClassName}ById(${className});
+	     ${className}Mapper.update${ClassName}ById(${className});
 	  }
 	
 }]]>
