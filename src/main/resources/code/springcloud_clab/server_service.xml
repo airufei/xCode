@@ -10,19 +10,18 @@ package ${packageName}.manager.${javaModuleName}.service;
 
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ${packageName}.model.*;
-import ${packageName}.util.*;
+import lombok.extern.slf4j.Slf4j;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import ${packageName}.entity.Partion;
+import ${packageName}.common.tools.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ${packageName}.mapper.${ClassName}Dao;
+import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.entity.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 /**
  * ${ClassName}Service(${functionName})
  * @author ${functionAuthor}
@@ -32,9 +31,8 @@ import ${packageName}.entity.${ClassName};
 @RestController
 @RequestMapping(value = "/server/${subModuleName}/")
 @SuppressWarnings("all")
+@Slf4j
 public class ${ClassName}ServerService  {
-
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}ServerService.class);
 
 	@Autowired
 	private ${ClassName}Mapper ${className}mapper;
@@ -50,7 +48,7 @@ public class ${ClassName}ServerService  {
 	   @RequestMapping("getList")
 	   public Partion  getList(@RequestBody JSONObject json)
 	   {
-          logger.info("getList(获取${functionName}带分页数据-服务) 开始 json={}", json);
+          log.info("getList(获取${functionName}带分页数据-服务) 开始 json={}", json);
           if(json==null||json.size()<1)
           {
              return null;
@@ -62,7 +60,7 @@ public class ${ClassName}ServerService  {
              list= ${className}mapper.getList(json);
           }
           Partion pt = new Partion(json, list, totalcount);
-		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 ");
+		  log.info("getList(获取${functionName}带分页数据-服务) 结束 ");
 		  return pt;
 	   }
 
@@ -73,16 +71,16 @@ public class ${ClassName}ServerService  {
 	   * @return
 	   */
 	   @RequestMapping("get${ClassName}List")
-	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName} ${className})
+	   public List<${ClassName}>  get${ClassName}List(@RequestBody ${ClassName}Requst ${className}Requst)
 	   {
 	       List<${ClassName}> list=null;
-          logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", ${className});
-          if(${className}==null)
+          log.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", ${className}Requst);
+          if(${className}Requst==null)
           {
              return list;
           }
-	      list=${className}mapper.get${ClassName}List(${className});
-	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
+	      list=${className}mapper.get${ClassName}List(${className}Requst);
+	      log.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
 	      return list;
 	   }
 
@@ -96,9 +94,9 @@ public class ${ClassName}ServerService  {
     @RequestMapping("save")
 	public ${ClassName} save(@RequestBody ${ClassName} ${className}) throws  Exception
 	{
-        logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", ${className});
+        log.info("save (保存${functionName} 数据-服务) 开始 parms={}", ${className});
         ${ClassName}  ret=${className}HelperService.save(${className});
-	    logger.info("save (保存${functionName} 数据-服务) 结束");
+	    log.info("save (保存${functionName} 数据-服务) 结束");
 	    return  ret;
 	}
 
@@ -113,13 +111,13 @@ public class ${ClassName}ServerService  {
 	   public ${ClassName}  get${ClassName}(@RequestBody ${ClassName}Requst ${className}Requst)
 	   {
 	       ${ClassName} ret=null;
-           logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", ${className}Requst);
-           if(${className}==null)
+           log.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", ${className}Requst);
+           if(${className}Requst==null)
            {
              return ret;
            }
 	       ret=${className}HelperService.getSignle${ClassName}(${className}Requst);
-	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
+	       log.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	       return ret;
 	   }
 
@@ -130,11 +128,11 @@ public class ${ClassName}ServerService  {
 	 * @return
 	 */
      @RequestMapping("delete")
-	 public boolean delete(Long id)
+	 public boolean delete(String id)
 	 {
-	    logger.info("delete(逻辑删除${functionName}数据-服务) 开始 id={}", id);
+	    log.info("delete(逻辑删除${functionName}数据-服务) 开始 id={}", id);
         boolean isSuccess = false;
-        if (id < 1) {
+        if (StringUtil.isBlank(id)) {
             return isSuccess;
         }
         ${ClassName} dt = ${className}HelperService.get${ClassName}ById(id);
@@ -143,7 +141,7 @@ public class ${ClassName}ServerService  {
         }
 	    ${className}mapper.delete(id);
 	    isSuccess = true;
-        logger.info("delete(逻辑删除${functionName}数据-服务)结束 id={},isSuccess={}", id, isSuccess);
+        log.info("delete(逻辑删除${functionName}数据-服务)结束 id={},isSuccess={}", id, isSuccess);
         return isSuccess;
 	 }
 }]]>

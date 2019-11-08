@@ -9,13 +9,14 @@ package ${packageName}.rpc.${javaModuleName}.service;
 import java.util.List;
 import java.util.Map;
 import ${packageName}.entity.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSONObject;
-import com.cn.xmf.base.model.Partion;
+import ${packageName}.entity.Partion;
 /**
  * Service(${functionName})
  * @author ${functionAuthor}
@@ -39,7 +40,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "get${ClassName}List", consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className});
+    List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName}Requst ${className}Requst);
 
      /**
      * get${ClassName}:(查询${functionName}单个实体数据)
@@ -47,7 +48,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "get${ClassName}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className});
+    ${ClassName} get${ClassName}(@RequestBody ${ClassName}Requst ${className}Requst);
 
     /**
      * save:(保存${functionName}数据)
@@ -64,7 +65,7 @@ public interface ${ClassName}Service  {
      * @return
      */
     @RequestMapping(value = "delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean delete(@RequestParam("id") Long id);
+    boolean delete(@RequestParam("id") String id);
 	
 }]]>
 	</content>

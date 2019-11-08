@@ -2,23 +2,26 @@
 <template>
 	<name>service</name>
 	<filePath>src/${packageName}/rpc/${javaModuleName}/service</filePath>
-	<fileName> ${ClassName}Fallback.java</fileName>
+	<fileName>${ClassName}Fallback.java</fileName>
 	<content><![CDATA[
 
 package ${packageName}.rpc.${javaModuleName}.service;
 import java.util.List;
 import java.util.Map;
 import ${packageName}.entity.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import ${packageName}.entity.Partion;
 import org.springframework.http.MediaType;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 /**
  * ${ClassName}Fallback (${functionName}) 熔断方法
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @SuppressWarnings("all")
-public class  ${ClassName}Fallback implements ${ClassName}Service  {
+public class ${ClassName}Fallback implements ${ClassName}Service  {
 
     /**
      * list:(查询${functionName} 带分页数据)
@@ -36,7 +39,7 @@ public class  ${ClassName}Fallback implements ${ClassName}Service  {
      * @return
      */
     @Override
-    List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className})
+   public List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName}Requst ${className}Requst)
     {
        return null;
     }
@@ -47,7 +50,7 @@ public class  ${ClassName}Fallback implements ${ClassName}Service  {
      * @return
      */
      @Override
-    public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className}){
+    public ${ClassName} get${ClassName}(@RequestBody ${ClassName}Requst ${className}Requst){
        return null;
     }
 
@@ -68,7 +71,7 @@ public class  ${ClassName}Fallback implements ${ClassName}Service  {
      * @return
      */
     @Override
-    public boolean delete(@RequestParam("id") Long id){
+    public boolean delete(@RequestParam("id") String id){
     return false;
     }
 	

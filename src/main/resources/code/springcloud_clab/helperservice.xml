@@ -9,9 +9,8 @@ package ${packageName}.${javaModuleName}.service;
 
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ${packageName}.entity.${ClassName};
+import lombok.extern.slf4j.Slf4j;
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,17 +19,19 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.annotation.IdType;
 import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.entity.${ClassName};
+import ${packageName}.common.tools.StringUtil;
 /**
  * ${ClassName} Service(${functionName}辅助类)
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @Service
+@Slf4j
 @SuppressWarnings("all")
 public class ${ClassName}HelperService  {
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}HelperService.class);
-
 	@Autowired
 	private ${ClassName}Mapper ${className}mapper;
 
@@ -62,11 +63,12 @@ public class ${ClassName}HelperService  {
         if (${className} == null) {
             return ret;
         }
-        if (${className}.getId() != null && ${className}.getId() > 0) {
+        String id= ${className}.getId();
+        if (StringUtil.isNotBlank(id)) {
             updateById(${className});
             ret=${className};
         } else {
-            ${className}.setId(null);
+            ${className}.setId(StringUtil.obectToString(IdType.ID_WORKER_STR));
             ${className}mapper.add(${className});
             ret=${className};
         }
@@ -78,7 +80,7 @@ public class ${ClassName}HelperService  {
 	 * @param id
 	 * @return
 	 */
-	 public ${ClassName} get${ClassName}ById (long id)
+	 public ${ClassName} get${ClassName}ById (String id)
 	 {
 	      return ${className}mapper.get${ClassName}ById(id);
 	 }
@@ -100,7 +102,7 @@ public class ${ClassName}HelperService  {
 	 */
 	  private void updateById(${ClassName} ${className})
 	  {
-	     ${className}mapper.updateById(${className});
+	     ${className}mapper.update${ClassName}ById(${className});
 	  }
 	
 }]]>

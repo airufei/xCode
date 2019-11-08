@@ -9,17 +9,19 @@ package ${packageName}.manager.${javaModuleName}.web.controller;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import ${packageName}.entity.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import ${packageName}.entity.Partion;
 import ${packageName}.common.model.Response;
 import ${packageName}.common.tools.StringUtil;
+import ${packageName}.${javaModuleName}.service.${ClassName}ServerService;
 /**
  * ${ClassName}Controller(${functionName})
  * Controller 层的异常应该统一捕获进行处理，这样业务代码更加清晰
@@ -28,11 +30,9 @@ import ${packageName}.common.tools.StringUtil;
  */
 @RestController
 @RequestMapping("/${subModuleName}")
+@Slf4j
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
-
-    private static Logger logger = LoggerFactory.getLogger(${ClassName}Controller.class);
-
 	@Autowired
 	private ${ClassName}ServerService ${className}ServerService;
 
@@ -62,7 +62,7 @@ public class ${ClassName}Controller {
                 pageSize = StringUtil.stringToInt(length);
             }
          JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
-         logger.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
+         log.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
          <#list colList as c>
           <#if (c.isQuery?? && c.isQuery == "1")>
              param.put("${c.javaFieldId}",${c.javaFieldId});
@@ -82,8 +82,8 @@ public class ${ClassName}Controller {
             response=Response.noData();
             return response;
         }
-        response=Response.success(jsonObject)
-        logger.info("getList:(获取${functionName}分页查询接口) 结束");
+        response=Response.success(jsonObject);
+        log.info("getList:(获取${functionName}分页查询接口) 结束");
         return response;
 	}
 
@@ -97,14 +97,14 @@ public class ${ClassName}Controller {
     @PostMapping("/get${ClassName}")
     public Response get${ClassName}(${ClassName}Requst ${className}Requst,HttpServletRequest request) {
         Response response =Response.failure("查询失败");
-        logger.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  ${className}Requst={}", ${className}Requst);
+        log.info("get${ClassName}:(查询${functionName}单条数据接口) 开始  ${className}Requst={}", ${className}Requst);
         ${ClassName} ret${className}= ${className}ServerService.get${ClassName}(${className}Requst);
-        if (ret${className}==null) {
+        if (${className}Requst==null) {
             response=Response.noData();
             return response;
         }
-        response=Response.success(ret${className})
-        logger.info("get${ClassName}:(查询${functionName}单条数据接口) 结束");
+        response=Response.success(ret${className});
+        log.info("get${ClassName}:(查询${functionName}单条数据接口) 结束");
         return response;
     }
 
@@ -116,19 +116,20 @@ public class ${ClassName}Controller {
      * @return
 	 */
 	@PostMapping("/save")
-    public Response save(${ClassName} ${className}) {
+    public Response save(${ClassName} ${className},HttpServletRequest request) throws Exception  {
 		Response response =Response.failure("保存失败");
-        ${ClassName} ${className}= new ${ClassName}();
-	    logger.info("save:(保存${functionName}数据接口) 开始  ${className}={}", ${className});
-        ${className}.setCreateTime(new Date());
-        ${className}.setUpdateTime(new Date());
-        // 保存数据库
+	    log.info("save:(保存${functionName}数据接口) 开始  ${className}={}", ${className});
+	     if( ${className}==null){
+	        return response;
+	     }
+	    //1、参数校验
+        //2、保存数据库
         ${ClassName} ret =${className}ServerService.save(${className});
         if(ret!=null)
         {
-          response=Response.success(ret)
+          response=Response.success(ret);
         }
-        logger.info("save:(保存${functionName}数据接口) 结束");
+        log.info("save:(保存${functionName}数据接口) 结束");
         return response;
 	}
 

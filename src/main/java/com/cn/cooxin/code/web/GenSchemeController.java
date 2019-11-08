@@ -148,14 +148,10 @@ public class GenSchemeController {
 				res = false;
 				msg = "访问路径不能为空！";
 			}
-
 		} catch (Exception e) {
-
-
 			logger.error("GenTableController:error===>" + e);
 			msg = "服务器繁忙，请稍后再试";
 			res = false;
-
 		}
 		result.put("result", res);
 		result.put("msg", msg);

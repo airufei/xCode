@@ -102,7 +102,7 @@ public class GenSchemeService {
 		
 		// 生成主表模板代码
 		GenScheme.setTableId(GenTable.getId());
-		GenScheme.setTableName(GenTable.getName());
+		GenScheme.setTableName(GenTable.getName());//getIsNotBaseField 这个字段在GenTableColumn类中
 		Map<String, Object> model = GenUtils.getDataModel(GenScheme,GenTable,list,queryFieldCount,editFieldCount);
 		for (GenTemplate tpl : templateList){
 			logger.info("tpl================"+tpl.getName());

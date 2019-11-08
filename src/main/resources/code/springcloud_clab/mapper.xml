@@ -93,7 +93,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 				</#if>
 			</#list>
-			and flag=${"#"}{flag}
 		</where>
 	</select>
 
@@ -133,7 +132,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
-			and flag=${"#"}{flag}
 		</where>
 		 ) b inner join
 		${table.name} a  on b.id=a.id
@@ -149,7 +147,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      limit ${"#"}{startIndex},${"#"}{pageSize}
 	</select>
 
-    <select id="get${ClassName}List" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.entity.${ClassName}">
+    <select id="get${ClassName}List" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.request.${ClassName}Requst">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
@@ -184,7 +182,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
-			and flag=${"#"}{flag}
 		</where>
 		) b  inner join ${table.name} a  on b.id=a.id
 	<#list colList as c>
@@ -198,7 +195,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-       <select id="getSignle${ClassName}" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.entity.${ClassName}Requst">
+       <select id="getSignle${ClassName}" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.request.${ClassName}Requst">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM
@@ -234,23 +231,16 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			</if>
 			</#if>
 			</#list>
-			and flag=${"#"}{flag}
 		</where>
 		limit 1
 	</select>
 
 
 <insert id="add" useGeneratedKeys="true" keyProperty="id">
- <selectKey resultType="long" keyProperty="id" order="AFTER">
-        SELECT
-        LAST_INSERT_ID()
-     </selectKey>
-		INSERT INTO ${table.name}(
+	INSERT INTO ${table.name}(
 	<#list colList as c>
 	  <#if c.isInsert?? && c.isInsert == "1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
-		<if test="${c.javaFieldId} != null">
 		 ${c.name},
-		</if>
 		</#if>
 	 </#list>
 	<#list colList as c>
@@ -261,9 +251,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		) VALUES (
 		<#list colList as c>
 		 <#if c.isInsert?? && c.isInsert == "1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
-		 <if test="${c.javaFieldId} != null ">
 		  ${"#"}{${c.javaFieldId}},
-		   </if>
 		 </#if>
 		</#list>
 		<#list colList as c>
@@ -274,7 +262,38 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		)
 	</insert>
 
-<update id="updateById">
+
+  <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO ${table.name}(
+		<#list colList as c>
+		   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
+		 ${c.name},
+		   </#if>
+		</#list>
+		<#list colList as c>
+		   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
+		  ${c.name}
+		   </#if>
+	    </#list>
+		 ) VALUES
+ ${r'<foreach collection="list" item="item" index="index" separator="," >'}
+		(
+			<#list colList as c>
+	          <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
+		  ${"#"}{item.${c.javaFieldId}},
+		 </#if>
+			</#list>
+			<#list colList as c>
+			   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
+		  ${"#"}{item.${c.javaFieldId}}
+			  </#if>
+			</#list>
+		)
+${r"</foreach>"}
+	</insert>
+
+
+<update id="update${ClassName}ById">
    UPDATE ${table.name} SET
     <#list colList as c>
         <#if c.isEdit?? && c.isEdit == "1" && c.isUpdateRequiredField?? && c.isUpdateRequiredField=="0">
@@ -291,9 +310,9 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 	WHERE id = ${"#"}{id}
 </update>
 
-	<update id="delete">
+ <update id="delete">
 	UPDATE ${table.name} SET
-	flag = -1
+	status = -1
 		WHERE id = ${"#"}{id}
 	</update>
 </mapper>]]>

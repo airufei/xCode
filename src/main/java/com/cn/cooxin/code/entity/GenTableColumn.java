@@ -378,8 +378,12 @@ public class GenTableColumn extends BaseEntitys {
 				&& !StringUtil.equals(getSimpleJavaField(), "updatetime")
 				&& !StringUtil.equals(getSimpleJavaField(), "updateTime")
 				&& !StringUtil.equals(getSimpleJavaField(), "createTime")
+				&& !StringUtil.equals(getSimpleJavaField(), "createdBy")
+				&& !StringUtil.equals(getSimpleJavaField(), "updatedTime")
+				&& !StringUtil.equals(getSimpleJavaField(), "updatedBy")
+				&& !StringUtil.equals(getSimpleJavaField(), "status")
+				&& !StringUtil.equals(getSimpleJavaField(), "createdTime")
 				&& !StringUtil.equals(getSimpleJavaField(), "flag");
-
 	}
 
 

@@ -7,23 +7,25 @@
 package ${packageName}.mapper;
 
 import ${packageName}.entity.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import java.util.List;
 import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * ${functionName}DAO接口
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
 @SuppressWarnings("all")
-public interface ${ClassName}Mapper {
+public interface ${ClassName}Mapper extends BaseMapper<${ClassName}> {
 	
 	/**
 	 * 删除数据（逻辑删除）
 	 * @param question
 	 * @return
 	 */
-	public void delete(long id);
+	public void delete(String id);
     /**
 	 * 单条数据增加
 	 * @param ${className}
@@ -43,14 +45,14 @@ public interface ${ClassName}Mapper {
 	 * @param id
 	 * @return
 	 */
-	 public ${ClassName} get${ClassName}ById (long id);
+	 public ${ClassName} get${ClassName}ById (String id);
 
       /**
 	 * 修改单条数据
 	 * @param id
 	 * @return
 	 */
-	  public void updateById(${ClassName} ${className});
+	  public void update${ClassName}ById(${ClassName} ${className});
 
 	  /**
 	   * 获取分页数据
@@ -65,14 +67,14 @@ public interface ${ClassName}Mapper {
 	   * @param map
 	   * @return
 	   */
-	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className});
+	   public List<${ClassName}>  get${ClassName}List(${ClassName}Requst ${className}Requst);
 
 	   /**
 	   * 获取单条数据
 	   * @param map
 	   * @return
 	   */
-	   public ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
+	   public ${ClassName}  getSignle${ClassName}(${ClassName}Requst ${className}Requst);
 
 	  /**
 	   * 获取分页记录总数
