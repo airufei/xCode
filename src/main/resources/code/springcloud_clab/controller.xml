@@ -40,7 +40,6 @@ public class ${ClassName}Controller {
 	 * getList:(获取${functionName}分页查询接口)
 	 * @Author ${functionAuthor}
 	 * @param request
-	 * @param parms
 	 * @return
 	 */
 	@PostMapping("/getList")
@@ -91,7 +90,7 @@ public class ${ClassName}Controller {
      * get${ClassName}:(查询${functionName}单条数据接口)
      * @Author ${functionAuthor}
      * @param request
-     * @param parms
+     * @param ${className}Requst
      * @return
      */
     @PostMapping("/get${ClassName}")
@@ -112,7 +111,7 @@ public class ${ClassName}Controller {
 	 * save:(保存${functionName}数据接口-id存在则修改，id不存在则插入)
 	 * @Author ${functionAuthor}
      * @param request
-     * @param parms
+     * @param ${className}
      * @return
 	 */
 	@PostMapping("/save")
