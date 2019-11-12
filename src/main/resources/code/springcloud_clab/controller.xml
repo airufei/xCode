@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>controller</name>
-    <filePath>src/${packageName}/manager/${javaModuleName}/web/controller</filePath>
+    <filePath>src/${packageName}/${javaModuleName}/web/controller</filePath>
     <fileName>${ClassName}Controller.java</fileName>
     <content><![CDATA[
 package ${packageName}.manager.${javaModuleName}.web.controller;
@@ -22,6 +22,7 @@ import ${packageName}.entity.Partion;
 import ${packageName}.common.model.Response;
 import ${packageName}.common.tools.StringUtil;
 import ${packageName}.${javaModuleName}.service.${ClassName}Service;
+import ${packageName}.${javaModuleName}.manager.${ClassName}Manager;
 /**
  * ${ClassName}Controller(${functionName})
  * Controller 层的异常应该统一捕获进行处理，这样业务代码更加清晰
@@ -33,8 +34,14 @@ import ${packageName}.${javaModuleName}.service.${ClassName}Service;
 @Slf4j
 @SuppressWarnings("all")
 public class ${ClassName}Controller {
+
+	//数据逻辑
 	@Autowired
 	private ${ClassName}Service ${className}Service;
+
+	//业务逻辑
+	@Autowired
+	private ${ClassName}Manager ${className}Manager;
 
 	/**
 	 * getList:(获取${functionName}分页查询接口)
@@ -45,28 +52,11 @@ public class ${ClassName}Controller {
 	@PostMapping("/getList")
 	public Response getList(HttpServletRequest request){
 		Response response =Response.failure("查询失败");
-		String pageNoStr = request.getParameter("pageNo");
-        String length = request.getParameter("pageSize");
-         <#list colList as c>
-           <#if (c.isQuery?? && c.isQuery == "1")>
-             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
-           </#if>
-		 </#list>
-            int pageSize = 10;
-            int pageNo = 1;
-            if (StringUtil.isNotBlank(pageNoStr)) {
-                pageNo = StringUtil.stringToInt(pageNoStr);
-            }
-            if (StringUtil.isNotBlank(length)) {
-                pageSize = StringUtil.stringToInt(length);
-            }
-         JSONObject param = StringUtil.getPageJSONObject(pageNo, pageSize);
-         log.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
-         <#list colList as c>
-          <#if (c.isQuery?? && c.isQuery == "1")>
-             param.put("${c.javaFieldId}",${c.javaFieldId});
-           </#if>
-		 </#list>
+		JSONObject param =${className}Manager.getListPageParams(request);
+		if(param==null)
+		{
+		   return response;
+		}
         Partion pt = ${className}Service.getList(param);
         List<${ClassName}> list = null;
         long totalCount = 0;
@@ -122,8 +112,12 @@ public class ${ClassName}Controller {
 	        return response;
 	     }
 	    //1、参数校验
+        response=${className}Manager.saveParmsVaild(${className});
+        if (!Response.Status.SUCCEED.getCode().equals(response.getCode())) {
+            return response;
+        }
         //2、保存数据库
-        ${ClassName} ret =${className}Service.save(${className});
+        ${ClassName} ret =${className}Service.save${ClassName}(${className});
         if(ret!=null)
         {
           response=Response.success(ret);

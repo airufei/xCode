@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>dao</name>
-	<filePath>src/${packageName}/base/mapper</filePath>
+	<filePath>src/${packageName}/${javaModuleName}/mapper</filePath>
 	<fileName>${ClassName}Mapper.java</fileName>
 	<content><![CDATA[
-package ${packageName}.mapper;
+package ${packageName}.${javaModuleName}.mapper;
 
 import ${packageName}.entity.${ClassName};
 import ${packageName}.request.${javaModuleName}.${ClassName}Requst;

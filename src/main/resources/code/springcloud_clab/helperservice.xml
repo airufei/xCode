@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>service</name>
-    <filePath>src/${packageName}/manager/${javaModuleName}/service</filePath>
+    <filePath>src/${packageName}/${javaModuleName}/service</filePath>
     <fileName>${ClassName}HelperService.java</fileName>
     <content><![CDATA[
 
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.annotation.IdType;
-import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.${javaModuleName}.mapper.${ClassName}Mapper;
 import ${packageName}.entity.${ClassName};
 import ${packageName}.common.tools.StringUtil;
 /**

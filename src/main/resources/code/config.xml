@@ -29,10 +29,12 @@
 			<template>springcloud_clab/entity.xml</template>
 			<template>springcloud_clab/request_entity.xml</template>
 			<template>springcloud_clab/mapper.xml</template>
+			<template>springcloud_clab/helperservice.xml</template>
+			<template>springcloud_clab/iservice.xml</template>
 			<template>springcloud_clab/service.xml</template>
+			<template>springcloud_clab/manager.xml</template>
 			<template>springcloud_clab/server_controller.xml</template>
 			<template>springcloud_clab/rpc_service.xml</template>
-			<template>springcloud_clab/helperservice.xml</template>
 			<template>springcloud_clab/service_fallback.xml</template>
 		</category>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
 	<name>entity</name>
-	<filePath>src/${packageName}/base/entity</filePath>
+	<filePath>src/${packageName}/model/entity</filePath>
 	<fileName>${ClassName}.java</fileName>
 	<content><![CDATA[
 
