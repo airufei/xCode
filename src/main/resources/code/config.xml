@@ -38,7 +38,6 @@
 			<template>springcloud_clab/service_fallback.xml</template>
 		</category>
 
-
 		<category dictKey="job_admin" dictValue="job-admin_自给数据">
 			<template>job_admin/controller.xml</template>
 			<template>job_admin/service.xml</template>
