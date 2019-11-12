@@ -1,7 +1,7 @@
 
 
 -- ----------------------------
--- Table structure for `t_admin_menu`
+-- 生成方案
 -- ----------------------------
 DROP TABLE IF EXISTS `t_admin_menu`;
 CREATE TABLE `t_admin_menu` (
@@ -20,7 +20,7 @@ CREATE TABLE `t_admin_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典数据表';
 
 -- ----------------------------
--- Records of t_admin_menu
+-- 生成方案
 -- ----------------------------
 
 -- ----------------------------
@@ -151,7 +151,7 @@ CREATE TABLE `t_base_user` (
 INSERT INTO `t_base_user` VALUES ('1', 'admin', 'e99a18c428cb38d5f260853678922e03', '18', '199199688@qq.com', '', null, null, '', '2017-03-13 16:07:38', '2017-11-08 16:09:38', '0', '', '1');
 
 -- ----------------------------
--- Table structure for `t_code_scheme`
+-- 生成方案
 -- ----------------------------
 DROP TABLE IF EXISTS `t_code_scheme`;
 CREATE TABLE `t_code_scheme` (
@@ -202,7 +202,7 @@ CREATE TABLE `t_code_table` (
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='业务表';
 
 -- ----------------------------
--- Records of t_code_table
+-- 业务表字段
 -- ----------------------------
 
 -- ----------------------------
@@ -249,7 +249,7 @@ CREATE TABLE `t_code_table_column` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `t_code_template`
+-- 代码模板表
 -- ----------------------------
 DROP TABLE IF EXISTS `t_code_template`;
 CREATE TABLE `t_code_template` (

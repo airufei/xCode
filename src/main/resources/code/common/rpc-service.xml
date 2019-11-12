@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/${subPackageName}/${javaModuleName}/rpc</filePath>
+	<fileName>${ClassName}Service.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.${subPackageName}.${javaModuleName}.rpc;
+import java.util.List;
+import ${packageName}.base.model.*;
+import ${packageName}.model.${javaModuleName}.*;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.alibaba.fastjson.JSONObject;
+/**
+ * ${ClassName}Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@SuppressWarnings("all")
+@FeignClient(value = "${r'${base-service.base-service}'}")// 配置远程服务名以及自定义权限验证配置
+@RequestMapping("/server/${subModuleName}/")// 配置远程服务路径
+
+public interface ${ClassName}Service  {
+
+    /**
+     * list:(查询${functionName} 带分页数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @RequestMapping(value = "getList", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Partion getList(@RequestBody JSONObject map);
+
+
+    /**
+     * get${ClassName}List:(查询${functionName} 不带分页数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @RequestMapping(value = "get${ClassName}List", consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<${ClassName}> get${ClassName}List(@RequestBody ${ClassName} ${className});
+
+
+     /**
+     * get${ClassName}:(查询${functionName}单个实体数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @RequestMapping(value = "get${ClassName}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ${ClassName} get${ClassName}(@RequestBody ${ClassName} ${className});
+
+    /**
+     * save:(保存${functionName}数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @RequestMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ${ClassName} save(@RequestBody ${ClassName} ${className});
+
+
+    /**
+     * delete:(删除${functionName}数据)
+     * @Author ${functionAuthor}
+     * @return
+     */
+    @RequestMapping(value = "delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    boolean delete(@RequestParam("id") Long id);
+	
+}]]>
+	</content>
+</template>

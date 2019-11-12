@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
 import ${packageName}.model.${javaModuleName}.*;
 import ${packageName}.utils.StringUtil;
-import ${packageName}.${subPackageName}.${javaModuleName}.service.*;
+import ${packageName}.${subPackageName}.${javaModuleName}.rpc.*;
 /**
  * ${ClassName}Controller(${functionName})
  * Controller 层的异常应该统一捕获进行处理，这样业务代码更加清晰

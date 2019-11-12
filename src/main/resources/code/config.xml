@@ -9,8 +9,9 @@
 			<template>common/entity.xml</template>
 			<template>common/mapper.xml</template>
 			<template>common/service.xml</template>
-			<template>common/iservice.xml</template>
-			<template>common/helperservice.xml</template>
+			<template>common/rpc-service.xml</template>
+			<template>common/server-helper-service.xml</template>
+			<template>common/api-helper-service.xml</template>
 		</category>
 
 		<category dictKey="springcloud_open" dictValue="springcloud-open-接口版">
@@ -19,8 +20,9 @@
 			<template>common/entity.xml</template>
 			<template>common/mapper.xml</template>
 			<template>common/service.xml</template>
-			<template>common/iservice.xml</template>
-			<template>common/helperservice.xml</template>
+			<template>common/rpc-service.xml</template>
+			<template>common/server-helper-service.xml</template>
+			<template>common/api-helper-service.xml</template>
 		</category>
 
 		<category dictKey="springcloud-clab" dictValue="springcloud-clab-接口版">
@@ -38,37 +40,42 @@
 			<template>springcloud_clab/service_fallback.xml</template>
 		</category>
 
-		<category dictKey="job_admin" dictValue="job-admin_自给数据">
+		<category dictKey="job_admin" dictValue="job-admin-自给数据">
 			<template>job_admin/controller.xml</template>
 			<template>job_admin/service.xml</template>
-			<template>common/helperservice.xml</template>
 			<template>common/dao.xml</template>
-			<template>common/mapper.xml</template>
 			<template>common/entity.xml</template>
-			<template>common/index.xml</template>
-			<template>common/index_js.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/service.xml</template>
+			<template>common/server-helper-service.xml</template>
+			<template>common/api-helper-service.xml</template>
+			<template>common/job-admin-page-index.xml</template>
+			<template>common/job-admin-page-index-js.xml</template>
 		</category>
 
-		<category dictKey="job_admin_ms" dictValue="job-admin_微服务数据">
+		<category dictKey="job_admin_ms" dictValue="job-admin-微服务数据">
 			<template>job_admin_ms/controller.xml</template>
 			<template>job_admin_ms/iservice.xml</template>
-			<template>common/service.xml</template>
-			<template>common/helperservice.xml</template>
 			<template>common/dao.xml</template>
-			<template>common/mapper.xml</template>
 			<template>common/entity.xml</template>
-			<template>common/index.xml</template>
-			<template>common/index_js.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/service.xml</template>
+			<template>common/rpc-service.xml</template>
+			<template>common/server-helper-service.xml</template>
+			<template>common/api-helper-service.xml</template>
+			<template>common/job-admin-page-index.xml</template>
+			<template>common/job-admin-page-index-js.xml</template>
 		</category>
 
 		<category dictKey="zjgf-microservice" dictValue="zjgf_微服务数据">
 			<template>zjgf-microservice/controller.xml</template>
-			<template>common/service.xml</template>
-			<template>common/iservice.xml</template>
-			<template>common/helperservice.xml</template>
 			<template>common/dao.xml</template>
-			<template>common/mapper.xml</template>
 			<template>common/entity.xml</template>
+			<template>common/mapper.xml</template>
+			<template>common/service.xml</template>
+			<template>common/rpc-service.xml</template>
+			<template>common/server-helper-service.xml</template>
+			<template>common/api-helper-service.xml</template>
 		</category>
 		<category dictKey="weier" dictValue="weier">
 			<template>weier/controller.xml</template>
