@@ -19,7 +19,9 @@
 			<template>common/dao.xml</template>
 			<template>common/entity.xml</template>
 			<template>common/mapper.xml</template>
+			<template>common/i_service.xml</template>
 			<template>common/service.xml</template>
+			<template>common/helper_service</template>
 			<template>common/rpc-service.xml</template>
 			<template>common/server-helper-service.xml</template>
 			<template>common/api-helper-service.xml</template>
@@ -33,8 +35,8 @@
 			<template>springcloud_clab/request_entity.xml</template>
 			<template>springcloud_clab/mapper.xml</template>
 			<template>springcloud_clab/helperservice.xml</template>
-			<template>springcloud_clab/iservice.xml</template>
-			<template>springcloud_clab/service.xml</template>
+			<template>springcloud_clab/i_service.xml</template>
+			<template>springcloud_clab/service_impl.xml</template>
 			<template>springcloud_clab/manager.xml</template>
 			<template>springcloud_clab/server_controller.xml</template>
 			<template>springcloud_clab/rpc_service.xml</template>
