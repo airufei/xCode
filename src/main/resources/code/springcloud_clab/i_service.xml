@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/${javaModuleName}/service</filePath>
+    <fileName>${ClassName}Service.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.${javaModuleName}.service;
+
+
+import java.util.List;
+import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import ${packageName}.entity.Partion;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${packageName}.entity.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
+
+/**
+ * ${ClassName}Service(${functionName}) 数据业务接口
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+public interface ${ClassName}Service  extends IService<${ClassName}>{
+
+      /**
+	   * getList(获取${functionName}带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param json
+	   * @return
+	   */
+	   Partion  getList(JSONObject json);
+
+	   /**
+	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param ${className}Requst
+	   * @return
+	   */
+	   List<${ClassName}>  get${ClassName}List(${ClassName}Requst ${className}Requst);
+
+    /**
+	 * save (保存${functionName} 数据-服务)
+	 * @param ${className}
+     * @author ${functionAuthor}
+	 * @return
+	 */
+     ${ClassName} save${ClassName}(${ClassName} ${className}) throws Exception;
+
+
+	   /**
+	   * get${ClassName}(获取${functionName}单条数据-服务)
+	   * @author ${functionAuthor}
+	   * @param ${className}Requst
+	   * @return
+	   */
+	   ${ClassName}  get${ClassName}(${ClassName}Requst ${className}Requst);
+
+    /**
+	 * delete(逻辑删除${functionName}数据-服务)
+	 * @param id
+	 * @author ${functionAuthor}
+	 * @return
+	 */
+	 boolean delete${ClassName}(String id);
+}]]>
+    </content>
+</template>

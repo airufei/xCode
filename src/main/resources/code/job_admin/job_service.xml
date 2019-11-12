@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/job/admin/${javaModuleName}/service</filePath>
+    <fileName>${ClassName}Service.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.${subPackageName}.${javaModuleName}.service;
+
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ${packageName}.${subPackageName}.${javaModuleName}.model.*;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Service;
+import ${packageName}.${subPackageName}.${javaModuleName}.dao.${ClassName}Dao;
+import ${packageName}.${subPackageName}.common.CommonService;
+import ${packageName}.base.model.Partion;
+/**
+ * Service(${functionName})
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Service
+@SuppressWarnings("all")
+public class ${ClassName}Service  {
+
+	@Autowired
+	private ${ClassName}Dao ${className}Dao;
+	@Autowired
+	private ${ClassName}HelperService  ${className}HelperService;
+    @Autowired
+    private CommonService commonService;
+     private static Logger logger = LoggerFactory.getLogger(${ClassName}Service.class);
+      /**
+	   * getList(获取${functionName}带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param json
+	   * @return
+	   */
+	   public Partion  getList(JSONObject json)
+	   {
+          logger.info("getList(获取${functionName}带分页数据-服务) 开始 json={}", json);
+          if(json==null||json.size()<1)
+          {
+             return null;
+          }
+          Partion pt =null;
+          try
+           {
+              int totalcount =${className}HelperService.getTotalCount(json);
+              List<${ClassName}> list= null;
+              if(totalcount>0)
+              {
+                list= ${className}Dao.getList(json);
+              }
+               pt = new Partion(json, list, totalcount);
+		   } catch (Exception e) {
+            String msg = "getList(获取${functionName} 异常 " + StringUtil.getExceptionMsg(e);
+            logger.error(msg);
+            String parms = null;
+            if (json != null) {
+                parms = json.toString();
+            }
+            commonService.sendDingMessage("base-service[getList]", parms, null, msg, this.getClass());
+          }
+		  logger.info("getList(获取${functionName}带分页数据-服务) 结束 ");
+		  return pt;
+	   }
+
+	   /**
+	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param ${className}
+	   * @return
+	   */
+	   public List<${ClassName}>  get${ClassName}List(${ClassName} ${className})
+	   {
+	      String parms = JSON.toJSONString(${className});
+	      List<${ClassName}> list=null;
+          logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", parms);
+          if(${className}==null)
+          {
+             return list;
+          }
+          try {
+	          list=${className}Dao.get${ClassName}List(${className});
+	       } catch (Exception e) {
+            String msg = "get${ClassName}List 异常 " + StringUtil.getExceptionMsg(e);
+            logger.error(msg);
+            commonService.sendDingMessage("base-service[get${ClassName}List]", parms, null, msg, this.getClass());
+          }
+	      logger.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
+	      return list;
+	   }
+
+
+    /**
+	 * save (保存${functionName} 数据-服务)
+	 * @param ${className}
+     * @author ${functionAuthor}
+	 * @return
+	 */
+	public ${ClassName} save(${ClassName} ${className})
+	{
+	   String parms = JSON.toJSONString(${className});
+        logger.info("save (保存${functionName} 数据-服务) 开始 parms={}", parms);
+         ${ClassName} ret=null;
+        if (${className} == null) {
+            return ret;
+        }
+        try {
+	         ret=${className}HelperService.save(${className});
+	     } catch (Exception e) {
+            String msg = "save (保存${functionName} 数据-服务) " + StringUtil.getExceptionMsg(e);
+            logger.error(msg);
+            ret=null;
+            sysCommonService.sendDingMessage("base-service[save]", parms, null, msg, this.getClass());
+          }
+	    logger.info("save (保存${functionName} 数据-服务) 结束");
+	    return  ret;
+	}
+
+	   /**
+	   * get${ClassName}(获取${functionName}单条数据-服务)
+	   * @author ${functionAuthor}
+	   * @param ${className}
+	   * @return
+	   */
+	   public ${ClassName}  get${ClassName}(${ClassName} ${className})
+	   {
+	      ${ClassName} ret=null;
+	      String parms = JSON.toJSONString(${className});
+	      List<${ClassName}> list=null;
+          logger.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", parms);
+           if(${className}==null)
+           {
+             return ret;
+           }
+           try{
+	            ret=${className}HelperService.getSignle${ClassName}(${className});
+	       } catch (Exception e) {
+            String msg = "get${ClassName}(获取${functionName}单条数据-服务) " + StringUtil.getExceptionMsg(e);
+            logger.error(msg);
+            commonService.sendDingMessage("base-service[get${ClassName}]", parms, null, msg, this.getClass());
+
+          }
+	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
+	      return ret;
+	   }
+    /**
+	 * delete(逻辑删除${functionName}数据-服务)
+	 * @param id
+	 * @author ${functionAuthor}
+	 * @return
+	 */
+	 public boolean delete(Long id)
+	 {
+	    logger.info("delete(逻辑删除${functionName}数据-服务) 开始 id={}", id);
+        boolean isSuccess = false;
+        if (id < 1) {
+            return isSuccess;
+        }
+        ${ClassName} dt = ${className}HelperService.get${ClassName}ById(id);
+        if (dt == null) {
+            return isSuccess;
+        }
+	    ${className}Dao.delete(id);
+	    isSuccess = true;
+        logger.info("delete(逻辑删除${functionName}数据-服务)结束 id={},isSuccess={}", id, isSuccess);
+        return isSuccess;
+	 }
+}]]>
+    </content>
+</template>

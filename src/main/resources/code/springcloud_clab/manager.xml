@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/${javaModuleName}/manager</filePath>
+    <fileName>${ClassName}Manager.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.${javaModuleName}.manager;
+
+import java.util.List;
+import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import ${packageName}.entity.Partion;
+import javax.servlet.http.HttpServletRequest;
+import ${packageName}.common.model.Response;
+import ${packageName}.common.tools.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ${packageName}.${javaModuleName}.service.${ClassName}Service;
+import ${packageName}.entity.${ClassName};
+
+/**
+ * ${ClassName}Manager(${functionName}) 业务逻辑层
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Service
+@SuppressWarnings("all")
+@Slf4j
+public class ${ClassName}Manager  {
+
+	@Autowired
+	private ${ClassName}Service ${className}Service;
+
+	public Response saveParmsVaild(${ClassName} ${className})
+	{
+	   Response response =Response.failure("业务参数验证失败");
+	   //具体业务逻辑自定义
+	   return response;
+	}
+
+	public JSONObject getListPageParams(HttpServletRequest request){
+	    JSONObject param =null;
+	    String pageNoStr = request.getParameter("pageNo");
+        String length = request.getParameter("pageSize");
+         <#list colList as c>
+           <#if (c.isQuery?? && c.isQuery == "1")>
+             String ${c.javaFieldId} = request.getParameter("${c.javaFieldId}");
+           </#if>
+		 </#list>
+            int pageSize = 10;
+            int pageNo = 1;
+            if (StringUtil.isNotBlank(pageNoStr)) {
+                pageNo = StringUtil.stringToInt(pageNoStr);
+            }
+            if (StringUtil.isNotBlank(length)) {
+                pageSize = StringUtil.stringToInt(length);
+            }
+         param = StringUtil.getPageJSONObject(pageNo, pageSize);
+         log.info("getList:(获取${functionName}分页查询接口) 开始  param={}", param);
+         <#list colList as c>
+          <#if (c.isQuery?? && c.isQuery == "1")>
+             param.put("${c.javaFieldId}",${c.javaFieldId});
+           </#if>
+		 </#list>
+		 return param;
+	}
+
+}]]>
+    </content>
+</template>
