@@ -25,6 +25,7 @@
 			<template>common/api-helper-service.xml</template>
 		</category>
 
+
 		<category dictKey="springcloud-clab" dictValue="springcloud-clab-接口版">
 			<template>springcloud_clab/controller.xml</template>
 			<template>springcloud_clab/dao.xml</template>
