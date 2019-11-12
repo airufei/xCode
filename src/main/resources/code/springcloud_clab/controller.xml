@@ -4,7 +4,7 @@
     <filePath>src/${packageName}/${javaModuleName}/web/controller</filePath>
     <fileName>${ClassName}Controller.java</fileName>
     <content><![CDATA[
-package ${packageName}.manager.${javaModuleName}.web.controller;
+package ${packageName}.${javaModuleName}.web.controller;
 
 import java.util.Date;
 import java.util.List;

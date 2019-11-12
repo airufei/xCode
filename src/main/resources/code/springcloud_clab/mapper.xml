@@ -46,7 +46,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		SELECT
 			count(*) as count
 		FROM ${table.name} a
-		<include refid="${className}Joins"/>
+		<include refid="${className}Where"/>
 	</select>
 
 	<select id="getList" resultType="${packageName}.entity.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
@@ -176,7 +176,7 @@ ${r"</foreach>"}
 	</update>
 
 	 <!--列表查询条件-->
-    <sql id="${ClassName}Where">
+    <sql id="${className}Where">
     		<where>
 			<#list colList as c>
 				<#if (c.isQuery?? && c.isQuery == "1")>
@@ -209,7 +209,7 @@ ${r"</foreach>"}
 				</#if>
 			</#list>
 			 <if test="status != null">
-               and  a.STATUS = #{status}
+               and  a.STATUS = ${"#"}{status}
             </if>
 		</where>
     </sql>
