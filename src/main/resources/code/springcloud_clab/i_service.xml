@@ -51,6 +51,12 @@ public interface ${ClassName}Service  extends IService<${ClassName}>{
      ${ClassName} save${ClassName}(${ClassName} ${className}) throws Exception;
 
 
+    /**
+	 * 批量数据增加
+	 * @param ${className}
+	 * @return
+	 */
+	 public void addTrainRecordBatch(List<${ClassName}> list);
 	   /**
 	   * get${ClassName}(获取${functionName}单条数据-服务)
 	   * @author ${functionAuthor}

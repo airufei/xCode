@@ -45,7 +45,10 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		SELECT
 			count(*) as count
 		FROM ${table.name} a
+		<!--基础查询条件-->
 		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
 	</select>
 
 	<select id="getList" resultType="${packageName}.entity.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
@@ -53,7 +56,10 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			<include refid="${className}Columns"/>
 		FROM
 		(SELECT id from  ${table.name} a
-         <include refid="${className}Where"/>
+        <!--基础查询条件-->
+		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
 		 ) b inner join
 		${table.name} a  on b.id=a.id
 	 <#list colList as c>
@@ -72,7 +78,8 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} a
-        <include refid="${className}Where"/>
+        <!--基础查询条件-->
+		<include refid="${className}Where"/>
 		) b  inner join ${table.name} a  on b.id=a.id
 	<#list colList as c>
        <#if c.isSort?? && c.isSort=="1">
@@ -86,12 +93,17 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 	</select>
 
   <select id="getSignle${ClassName}" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
-		SELECT
-			<include refid="${className}Columns"/>
+	SELECT
+		<include refid="${className}Columns"/>
 		FROM
-		${table.name} a
-        <include refid="${className}Where"/>
-		limit 1
+		(SELECT id from  ${table.name} a
+        <!--基础查询条件-->
+		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
+		 ) b inner join
+		${table.name} a  on b.id=a.id
+     limit 1
 	</select>
 
 
@@ -174,7 +186,7 @@ ${r"</foreach>"}
 		WHERE id = ${"#"}{id}
 	</update>
 
-	 <!--列表查询条件-->
+	 <!--列表基础查询条件-->
     <sql id="${className}Where">
     		<where>
 			<#list colList as c>
@@ -212,6 +224,11 @@ ${r"</foreach>"}
             </if>
 		</where>
     </sql>
+     <!--分页列表扩展查询条件-->
+    <sql id="${className}PageWhere">
+     <where>
+     </where>
+     </sql>
 </mapper>]]>
     </content>
 </template>

@@ -22,7 +22,7 @@ import ${packageName}.${javaModuleName}.mapper.${ClassName}Mapper;
 import ${packageName}.entity.${ClassName};
 import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import ${packageName}.${javaModuleName}.service.${ClassName}Service;
-import ${packageName}.${javaModuleName}.service.${ClassName}HelperService;
+import ${packageName}.${javaModuleName}.service.impl.${ClassName}HelperService;
 /**
  * ${ClassName}ServiceImpl(${functionName}) 数据业务接口实现
  * @author ${functionAuthor}
@@ -99,6 +99,15 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
 	    return  ret;
 	}
 
+   /**
+	 * 批量插入数据
+	 * @param ${className}
+	 * @return
+	 */
+	 public void addTrainRecordBatch(List<${ClassName}> list)
+	 {
+	      ${className}Mapper.addTrainRecordBatch(list);
+	 }
 	   /**
 	   * get${ClassName}(获取${functionName}单条数据-服务)
 	   * @author ${functionAuthor}

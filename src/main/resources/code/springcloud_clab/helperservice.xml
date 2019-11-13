@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <name>service</name>
-    <filePath>src/${packageName}/${javaModuleName}/service</filePath>
+    <filePath>src/${packageName}/${javaModuleName}/service/helper</filePath>
     <fileName>${ClassName}HelperService.java</fileName>
     <content><![CDATA[
 
-package ${packageName}.${javaModuleName}.service;
+package ${packageName}.${javaModuleName}.service.helper;
 
 import java.util.List;
 import java.util.Map;
@@ -68,7 +68,6 @@ public class ${ClassName}HelperService  {
             updateById(${className});
             ret=${className};
         } else {
-            ${className}.setId(StringUtil.obectToString(IdType.ID_WORKER_STR));
             ${className}Mapper.add(${className});
             ret=${className};
         }
