@@ -22,7 +22,7 @@ import ${packageName}.${javaModuleName}.mapper.${ClassName}Mapper;
 import ${packageName}.entity.${ClassName};
 import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
 import ${packageName}.${javaModuleName}.service.${ClassName}Service;
-import ${packageName}.${javaModuleName}.service.impl.${ClassName}HelperService;
+import ${packageName}.${javaModuleName}.service.helper.${ClassName}HelperService;
 /**
  * ${ClassName}ServiceImpl(${functionName}) 数据业务接口实现
  * @author ${functionAuthor}
@@ -104,6 +104,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
 	 * @param ${className}
 	 * @return
 	 */
+	 @Override
 	 public void addTrainRecordBatch(List<${ClassName}> list)
 	 {
 	      ${className}Mapper.addTrainRecordBatch(list);

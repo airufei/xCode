@@ -226,8 +226,7 @@ ${r"</foreach>"}
     </sql>
      <!--分页列表扩展查询条件-->
     <sql id="${className}PageWhere">
-     <where>
-     </where>
+
      </sql>
 </mapper>]]>
     </content>
