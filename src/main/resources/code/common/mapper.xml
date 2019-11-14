@@ -61,40 +61,12 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		SELECT
 			count(*) as count
 		FROM ${table.name} a
+		<!--关联表SQL-->
 		<include refid="${className}Joins"/>
-		<where>
-			<#list colList as c>
-				<#if (c.isQuery?? && c.isQuery == "1")>
-					<#if c.queryType ?? && c.queryType == 'between'>
-			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
-					<#else>
-			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
-					</#if>
-					<#if c.queryType ?? && c.queryType == 'between'>
-				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
-					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND a.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
-					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND a.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
-					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND a.${c.name} LIKE
-					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
-					<#else>
-				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
-					</#if>
-			</if>
-				</#if>
-			</#list>
-			AND flag=${"#"}{flag}
-		</where>
+		<!--基础查询条件-->
+		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
 	</select>
 
 	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="com.alibaba.fastjson.JSONObject">
@@ -102,40 +74,21 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			<include refid="${className}Columns"/>
 		FROM
 		(SELECT id from  ${table.name} t
-		<where>
-
-			<#list colList as c>
-				<#if (c.isQuery?? && c.isQuery == "1")>
-					<#if c.queryType ?? && c.queryType == 'between'>
-			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
-					<#else>
-			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
-					</#if>
-					<#if c.queryType ?? && c.queryType == 'between'>
-				AND t.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
-					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND t.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
-					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND t.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
-					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND t.${c.name} LIKE
-					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
-					<#else>
-				AND t.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
-					</#if>
-			</if>
-			</#if>
-			</#list>
-			AND flag=${"#"}{flag}
-		</where>
+		<!--关联表SQL-->
+		<include refid="${className}Joins"/>
+		<!--基础查询条件-->
+		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
+		<#list colList as c>
+       <#if c.isSort?? && c.isSort=="1">
+		 <choose>
+			<otherwise>
+                 ORDER BY ${c.name} desc
+			</otherwise>
+		</choose>
+	 </#if>
+     </#list>
 		 limit ${"#"}{startIndex},${"#"}{pageSize}) b inner join
 		${table.name} a  on b.id=a.id
 	 <#list colList as c>
@@ -153,39 +106,10 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM (SELECT id from  ${table.name} t
-		<where>
-			<#list colList as c>
-				<#if (c.isQuery?? && c.isQuery == "1")>
-					<#if c.queryType ?? && c.queryType == 'between'>
-			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
-					<#else>
-			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
-					</#if>
-					<#if c.queryType ?? && c.queryType == 'between'>
-				AND t.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
-					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND t.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
-					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND t.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
-					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND t.${c.name} LIKE
-					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
-					<#else>
-				AND t.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
-					</#if>
-			</if>
-			</#if>
-			</#list>
-			AND flag=${"#"}{flag}
-		</where>
+		<!--关联表SQL-->
+		<include refid="${className}Joins"/>
+		<!--基础查询条件-->
+		<include refid="${className}Where"/>
 		) b  inner join ${table.name} a  on b.id=a.id
 	<#list colList as c>
        <#if c.isSort?? && c.isSort=="1">
@@ -201,42 +125,13 @@ ${columnField?substring(0, columnField?last_index_of(","))}
        <select id="getSignle${ClassName}" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.model.${javaModuleName}.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
-		FROM
-		${table.name} a
-		<where>
-			<#list colList as c>
-				<#if (c.isQuery?? && c.isQuery == "1")>
-					<#if c.queryType ?? && c.queryType == 'between'>
-			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
-					<#else>
-			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
-					</#if>
-					<#if c.queryType ?? && c.queryType == 'between'>
-				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
-					<#elseif c.queryType ?? && c.queryType == 'like'>
-				AND a.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
-					<#elseif c.queryType ?? && c.queryType == 'left_like'>
-				AND a.${c.name} LIKE
-					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
-					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
-					<#elseif c.queryType ?? && c.queryType == 'right_like'>
-				AND a.${c.name} LIKE
-					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
-					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
-					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
-					<#else>
-				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
-					</#if>
-			</if>
-			</#if>
-			</#list>
-			AND flag=${"#"}{flag}
-		</where>
+		FROM (SELECT id from  ${table.name} t
+		<!--关联表SQL-->
+		<include refid="${className}Joins"/>
+		<!--基础查询条件-->
+		<include refid="${className}Where"/>
 		limit 1
+		) b  inner join ${table.name} a  on b.id=a.id
 	</select>
 
 
@@ -328,6 +223,49 @@ ${r"</foreach>"}
 	flag = -1
 		WHERE id = ${"#"}{id}
 	</update>
+
+	<!--基础查询条件-->
+    <sql id="${className}Where">
+    		<where>
+			<#list colList as c>
+				<#if (c.isQuery?? && c.isQuery == "1")>
+					<#if c.queryType ?? && c.queryType == 'between'>
+			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
+					<#else>
+			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
+					</#if>
+					<#if c.queryType ?? && c.queryType == 'between'>
+				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+					<#elseif c.queryType ?? && c.queryType == 'like'>
+				AND a.${c.name} LIKE
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
+					<#elseif c.queryType ?? && c.queryType == 'left_like'>
+				AND a.${c.name} LIKE
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
+					<#elseif c.queryType ?? && c.queryType == 'right_like'>
+				AND a.${c.name} LIKE
+					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
+					<#else>
+				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+					</#if>
+			</if>
+				</#if>
+			</#list>
+			 AND flag=${"#"}{flag}
+		</where>
+    </sql>
+     <!--分页列表扩展查询条件-->
+    <sql id="${className}PageWhere">
+
+     </sql>
+
+
 </mapper>]]>
     </content>
 </template>

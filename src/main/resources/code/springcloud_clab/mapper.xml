@@ -60,6 +60,16 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		<include refid="${className}Where"/>
 		<!--分页列表扩展查询条件-->
 		<include refid="${className}PageWhere"/>
+		<#list colList as c>
+       <#if c.isSort?? && c.isSort=="1">
+		 <choose>
+			<otherwise>
+                 ORDER BY ${c.name} desc
+			</otherwise>
+		</choose>
+	 </#if>
+     </#list>
+     limit ${"#"}{startIndex},${"#"}{pageSize}
 		 ) b inner join
 		${table.name} a  on b.id=a.id
 	 <#list colList as c>
@@ -71,7 +81,6 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		</choose>
 	 </#if>
      </#list>
-     limit ${"#"}{startIndex},${"#"}{pageSize}
 	</select>
 
     <select id="get${ClassName}List" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
@@ -99,11 +108,9 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 		(SELECT id from  ${table.name} a
         <!--基础查询条件-->
 		<include refid="${className}Where"/>
-		<!--分页列表扩展查询条件-->
-		<include refid="${className}PageWhere"/>
+		 limit 1
 		 ) b inner join
 		${table.name} a  on b.id=a.id
-     limit 1
 	</select>
 
 
@@ -186,7 +193,7 @@ ${r"</foreach>"}
 		WHERE id = ${"#"}{id}
 	</update>
 
-	 <!--列表基础查询条件-->
+	 <!--基础查询条件-->
     <sql id="${className}Where">
     		<where>
 			<#list colList as c>
