@@ -34,6 +34,12 @@ public class ${ClassName}Manager  {
 	@Autowired
 	private ${ClassName}Service ${className}Service;
 
+     /**
+     * 保存方法参数校验
+     *
+     * @param goodsRequst
+     * @return
+     */
 	public Response saveParmsVaild(${ClassName} ${className})
 	{
 	   Response response =Response.failure("业务参数验证失败");
@@ -41,6 +47,11 @@ public class ${ClassName}Manager  {
 	   return response;
 	}
 
+    /**
+     * 查询分页参数封装
+     * @param request
+     * @return
+     */
 	public JSONObject getListPageParams(HttpServletRequest request){
 	    JSONObject param =null;
 	    String pageNoStr = request.getParameter("pageNo");
