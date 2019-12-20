@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import ${packageName}.entity.${ClassName};
 import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
-import ${packageName}.entity.Partion;
+import ${packageName}.common.model.Partion;
 import org.springframework.http.MediaType;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.RequestParam;

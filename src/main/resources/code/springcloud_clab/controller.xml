@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import ${packageName}.entity.${ClassName};
 import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
-import ${packageName}.entity.Partion;
+import ${packageName}.common.model.Partion;
 import ${packageName}.common.model.Response;
 import ${packageName}.common.tools.StringUtil;
 import ${packageName}.${javaModuleName}.service.${ClassName}Service;
