@@ -19,7 +19,6 @@
 			<template>common/dao.xml</template>
 			<template>common/entity.xml</template>
 			<template>common/mapper.xml</template>
-			<template>common/i_service.xml</template>
 			<template>common/service.xml</template>
 			<template>common/helper_service</template>
 			<template>common/rpc-service.xml</template>
