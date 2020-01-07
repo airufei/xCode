@@ -124,7 +124,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
            {
              return ret;
            }
-	       ret=${className}HelperService.getSignle${ClassName}(${className}Requst);
+	       ret=${className}HelperService.getSingle${ClassName}(${className}Requst);
 	       log.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	       return ret;
 	   }

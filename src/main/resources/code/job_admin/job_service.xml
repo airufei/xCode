@@ -143,7 +143,7 @@ public class ${ClassName}Service  {
              return ret;
            }
            try{
-	            ret=${className}HelperService.getSignle${ClassName}(${className});
+	            ret=${className}HelperService.getSingle${ClassName}(${className});
 	       } catch (Exception e) {
             String msg = "get${ClassName}(获取${functionName}单条数据-服务) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);

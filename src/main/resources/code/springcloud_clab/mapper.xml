@@ -101,7 +101,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-  <select id="getSignle${ClassName}" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
+  <select id="getSingle${ClassName}" resultType="${packageName}.entity.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
 	SELECT
 		<include refid="${className}Columns"/>
 		FROM

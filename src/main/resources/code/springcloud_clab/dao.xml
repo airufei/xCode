@@ -74,7 +74,7 @@ public interface ${ClassName}Mapper extends BaseMapper<${ClassName}> {
 	   * @param map
 	   * @return
 	   */
-	   public ${ClassName}  getSignle${ClassName}(${ClassName}Requst ${className}Requst);
+	   public ${ClassName}  getSingle${ClassName}(${ClassName}Requst ${className}Requst);
 
 	  /**
 	   * 获取分页记录总数

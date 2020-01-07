@@ -71,7 +71,7 @@ public interface ${ClassName}Dao {
 	   * @param ${className}
 	   * @return
 	   */
-	    ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
+	    ${ClassName}  getSingle${ClassName}(${ClassName} ${className});
 
 	  /**
 	   * 获取分页记录总数

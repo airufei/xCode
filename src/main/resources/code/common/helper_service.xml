@@ -90,9 +90,9 @@ public class ${ClassName}HelperService  {
 	 * @author ${functionAuthor}
 	 * @return
 	 */
-	 public ${ClassName} getSignle${ClassName}(${ClassName} ${className})
+	 public ${ClassName} getSingle${ClassName}(${ClassName} ${className})
 	 {
-	      return ${className}Dao.getSignle${ClassName}(${className});
+	      return ${className}Dao.getSingle${ClassName}(${className});
 	 }
 	 /**
 	 * 修改单条数据

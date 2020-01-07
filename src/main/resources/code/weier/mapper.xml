@@ -147,7 +147,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
      </#list>
 	</select>
 
-       <select id="getSignle${ClassName}" resultType="${packageName}.adr.po.${ClassName}" parameterType="${packageName}.adr.po.${ClassName}">
+       <select id="getSingle${ClassName}" resultType="${packageName}.adr.po.${ClassName}" parameterType="${packageName}.adr.po.${ClassName}">
 		SELECT
 			<include refid="${className}Columns"/>
 		FROM

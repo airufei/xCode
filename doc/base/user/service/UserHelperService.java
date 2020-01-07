@@ -81,9 +81,9 @@ public class UserHelperService  {
 	 * @author airufei
 	 * @return
 	 */
-	 public User getSignleUser(User user)
+	 public User getSingleUser(User user)
 	 {
-	      return userDao.getSignleUser(user);
+	      return userDao.getSingleUser(user);
 	 }
 
     /**
@@ -112,7 +112,7 @@ public class UserHelperService  {
         }
         User parms=new User();
         parms.setUserNo(UserNo);
-        ret=getSignleUser(parms);
+        ret=getSingleUser(parms);
         if (ret != null && isCache) {
             cacheHelperService.saveRedis(key, JSON.toJSONString(ret), 60 * 5);
         }

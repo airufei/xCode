@@ -123,7 +123,7 @@ public class ${ClassName}Service  {
            {
              return ret;
            }
-	       ret=${className}HelperService.getSignle${ClassName}(${className});
+	       ret=${className}HelperService.getSingle${ClassName}(${className});
 	       logger.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
 	      return ret;
 	   }

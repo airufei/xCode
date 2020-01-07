@@ -145,7 +145,7 @@ public class UserService  {
              return ret;
            }
            try{
-	            ret=userHelperService.getSignleUser(user);
+	            ret=userHelperService.getSingleUser(user);
 	       } catch (Exception e) {
             String msg = "getUser(获取用户信息单条数据-服务) " + StringUtil.getExceptionMsg(e);
             logger.error(msg);

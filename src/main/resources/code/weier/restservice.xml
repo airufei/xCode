@@ -13,6 +13,7 @@ import ${packageName}.adr.dto.${ClassName}Dto;
 import ${packageName}.adr.query.${ClassName}Query;
 import ${packageName}.adr.service.${ClassName}Service;
 import ${packageName}.adr.spi.${ClassName}RestService;
+import com.wekj.common.bean.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,95 +37,95 @@ public class ${ClassName}RestServiceImpl implements ${ClassName}RestService {
     private ${ClassName}Service ${className}Service;
 
     /**
-     * get${ClassName}List(获取带分页数据)
+     * 获取带分页数据
      *
      * @param ${className}Query
      * @return ${ClassName}Query
      */
     @Override
-    public ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
+    public BaseResult<${ClassName}Query> get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
 
         try {
             log.info("get${ClassName}ListByPage ${className}Query={}", JSON.toJSONString(${className}Query));
-            return ${className}Service.get${ClassName}ListByPage(${className}Query);
+            return new BaseResult<>(${className}Service.get${ClassName}ListByPage(${className}Query));
         } catch (Exception e) {
             log.error("Fail to get${ClassName}ListByPage, ${className}Query={}", JSON.toJSONString(${className}Query), e);
-            return null;
+            return new BaseResult<>(BaseResult.FAILED, "查询失败");
         }
     }
 
     /**
-     * get${ClassName}List(获取不带分页数据)
+     * 获取不带分页数据
      *
      * @param ${className}Dto
      * @return List<${ClassName}Dto>
      */
     @Override
-    public List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
+    public BaseResult<List<${ClassName}Dto>> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
         try {
             log.info("get${ClassName}List ${className}Dto={}", JSON.toJSONString(${className}Dto));
-            return ${className}Service.get${ClassName}List(${className}Dto);
+            return new BaseResult<${className}Service.get${ClassName}List(${className}Dto)>;
         } catch (Exception e) {
             log.error("Fail to get${ClassName}List, ${className}Dto={}", JSON.toJSONString(${className}Dto), e);
-            return Lists.newArrayList();
+            return new BaseResult<>(BaseResult.FAILED, "查询失败");
         }
     }
 
 
     /**
-     * save (保存数据)
+     * 保存数据
      *
      * @param ${className}Dto
      * @return int
      */
     @Override
    @Transactional(propagation = Propagation.REQUIRED,readOnly =false,isolation = Isolation.REPEATABLE_READ,timeout = 30,rollbackFor = Exception.class)
-    public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
+    public BaseResult save(@RequestBody ${ClassName}Dto ${className}Dto) {
         try {
             log.info("save ${className}Dto={}", JSON.toJSONString(${className}Dto));
-            return ${className}Service.save(${className}Dto);
+            return new BaseResult<>(${className}Service.save(${className}Dto));
         } catch (Exception e) {
             log.error("Fail to save, ${className}Dto={}", JSON.toJSONString(${className}Dto), e);
-            return 0;
+            return new BaseResult<>(BaseResult.FAILED, "保存失败");
         }
     }
 
     /**
-     * get${ClassName}(获取单条数据)
+     * 查询单个实体数据
      *
      * @param ${className}Dto
      * @return ${ClassName}Dto
      */
     @Override
-    public ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
+    public BaseResult<${ClassName}Dto> get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
         try {
             log.info("get${ClassName} ${className}Dto={}", JSON.toJSONString(${className}Dto));
-            return ${className}Service.get${ClassName}(${className}Dto);
+            return BaseResult<>(${className}Service.get${ClassName}(${className}Dto));
         } catch (Exception e) {
             log.error("Fail to get${ClassName}, ${className}Dto={}", JSON.toJSONString(${className}Dto), e);
-            return null;
+            return new BaseResult<>(BaseResult.FAILED, "查询失败");
         }
     }
 
     /**
-     * get${className}ByNo(获取单条数据)
+     * 根据编号查询单个实体
      *
      * @param ${className}Id
      * @return ${ClassName}Dto
      */
     @Override
-    public ${ClassName}Dto get${ClassName}ById(String ${className}Id) {
+    public BaseResult<${ClassName}Dto> get${ClassName}ById(String ${className}Id) {
         try {
             log.info("get${ClassName}ById ${className}Id={}", ${className}Id);
-            return ${className}Service.get${ClassName}ById(${className}Id);
+            return new BaseResult<>(${className}Service.get${ClassName}ById(${className}Id));
         } catch (Exception e) {
             log.error("Fail to get${ClassName}ById, ${className}Id={}", ${className}Id, e);
-            return null;
+            return new BaseResult<>(BaseResult.FAILED, "查询失败");
         }
     }
 
     /**
-     * delete(逻辑删除数据)
+     * 逻辑删除数据
      *
      * @param id
      * @return boolean

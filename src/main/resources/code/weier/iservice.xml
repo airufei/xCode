@@ -27,52 +27,52 @@ public interface ${ClassName}RestService  {
 
 
     /**
-     * list:(查询${functionName}带分页数据)
+     * 获取带分页数据
      *
      * @param ${className}Query
      * @return ${ClassName}Query
      */
     @RequestMapping(value = "/${className}/get${ClassName}ListByPage", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query);
+    BaseResult<${ClassName}Query> get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query);
 
     /**
-     * get${ClassName}List:(查询${functionName}不带分页数据)
+     * 不带分页数据
      *
      * @param ${className}Dto
      * @return List<${ClassName}Dto>
      */
     @RequestMapping(value = "/${className}/get${ClassName}List", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto);
+    BaseResult<List<${ClassName}Dto>> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto);
 
     /**
-     * get${ClassName}:(查询单个实体数据)
-     *
-     * @param ${className}Dto
-     * @return ${ClassName}Dto
-     */
-    @RequestMapping(value = "/${className}/get${ClassName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto);
-
-    /**
-     * get${ClassName}ById:(根据编号查询单个实体)
-     *
-     * @param ${className}Id
-     * @return ${ClassName}Dto
-     */
-    @RequestMapping(value = "/${className}/get${ClassName}ById", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ${ClassName}Dto get${ClassName}ById(@RequestParam("${className}Id") String ${className}Id);
-
-    /**
-     * save:(保存数据)
+     * 保存数据
      *
      * @param ${className}Dto
      * @return int
      */
     @RequestMapping(value = "/${className}/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    int save(@RequestBody ${ClassName}Dto ${className}Dto);
+    BaseResult save(@RequestBody ${ClassName}Dto ${className}Dto);
 
     /**
-     * delete:(删除数据)
+     * 查询单个实体数据
+     *
+     * @param ${className}Dto
+     * @return ${ClassName}Dto
+     */
+    @RequestMapping(value = "/${className}/get${ClassName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    BaseResult<${ClassName}Dto> get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto);
+
+    /**
+     * 根据编号查询单个实体
+     *
+     * @param ${className}Id
+     * @return ${ClassName}Dto
+     */
+    @RequestMapping(value = "/${className}/get${ClassName}ById", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    BaseResult<${ClassName}Dto> get${ClassName}ById(@RequestParam("${className}Id") String ${className}Id);
+
+    /**
+     * 删除数据
      *
      * @param id
      * @return boolean

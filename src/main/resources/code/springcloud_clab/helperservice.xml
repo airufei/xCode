@@ -90,9 +90,9 @@ public class ${ClassName}HelperService  {
 	 * @author ${functionAuthor}
 	 * @return
 	 */
-	 public ${ClassName} getSignle${ClassName}(${ClassName}Requst ${className}Requst)
+	 public ${ClassName} getSingle${ClassName}(${ClassName}Requst ${className}Requst)
 	 {
-	      return ${className}Mapper.getSignle${ClassName}(${className}Requst);
+	      return ${className}Mapper.getSingle${ClassName}(${className}Requst);
 	 }
 	 /**
 	 * 修改单条数据

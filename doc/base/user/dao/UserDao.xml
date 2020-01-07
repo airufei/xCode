@@ -94,7 +94,7 @@
 		<include refid="userJoins"/>
 	</select>
 
-       <select id="getSignleUser" resultType="com.cn.xmf.model.user.User" parameterType="com.cn.xmf.model.user.User">
+       <select id="getSingleUser" resultType="com.cn.xmf.model.user.User" parameterType="com.cn.xmf.model.user.User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM

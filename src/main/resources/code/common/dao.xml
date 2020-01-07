@@ -72,7 +72,7 @@ public interface ${ClassName}Dao {
 	   * @param map
 	   * @return
 	   */
-	   public ${ClassName}  getSignle${ClassName}(${ClassName} ${className});
+	   public ${ClassName}  getSingle${ClassName}(${ClassName} ${className});
 
 	  /**
 	   * 获取分页记录总数

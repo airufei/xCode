@@ -47,7 +47,7 @@ public class ${ClassName}Service {
      * @return ${ClassName}Query
      * @author andi
      */
-    public ${ClassName}Query get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query) {
+    public ${ClassName}Query get${ClassName}ListByPage(${ClassName}Query ${className}Query) {
         if (${className}Query == null) {
             return null;
         }
@@ -74,7 +74,7 @@ public class ${ClassName}Service {
      * @return List<${ClassName}Dto>
      * @author andi
      */
-    public List<${ClassName}Dto> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto) {
+    public List<${ClassName}Dto> get${ClassName}List(${ClassName}Dto ${className}Dto) {
         if (${className}Dto == null) {
             return null;
         }
@@ -92,7 +92,7 @@ public class ${ClassName}Service {
      * @author andi
      */
    @Transactional(propagation = Propagation.REQUIRED,readOnly =false,isolation = Isolation.REPEATABLE_READ,timeout = 30,rollbackFor = Exception.class)
-    public int save(@RequestBody ${ClassName}Dto ${className}Dto) {
+    public int save(${ClassName}Dto ${className}Dto) {
         if (${className}Dto == null) {
             return 0;
         }
@@ -120,12 +120,12 @@ public class ${ClassName}Service {
      * @return ${ClassName}Dto
      * @author andi
      */
-    public ${ClassName}Dto get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto) {
+    public ${ClassName}Dto get${ClassName}(${ClassName}Dto ${className}Dto) {
         if (${className}Dto == null) {
             return null;
         }
         ${ClassName} ${className} = dto2Do(${className}Dto);
-        return do2Dto(${className}Dao.getSignle${ClassName}(${className}));
+        return do2Dto(${className}Dao.getSingle${ClassName}(${className}));
     }
 
 
@@ -142,7 +142,7 @@ public class ${ClassName}Service {
         }
         ${ClassName} param = new ${ClassName}();
         param.set${ClassName}Id(${className}Id);
-        return do2Dto(${className}Dao.getSignle${ClassName}(param));
+        return do2Dto(${className}Dao.getSingle${ClassName}(param));
     }
 
     /**
