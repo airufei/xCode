@@ -41,7 +41,7 @@ public class ${ClassName}Service {
     private static final String PREFIX = "${ClassName}";
 
     /**
-     * get${ClassName}List(获取带分页数据)
+     * get${ClassName}ListByPage(获取带分页数据)
      *
      * @param ${className}Query
      * @return ${ClassName}Query
@@ -91,7 +91,6 @@ public class ${ClassName}Service {
      * @return int
      * @author andi
      */
-   @Transactional(propagation = Propagation.REQUIRED,readOnly =false,isolation = Isolation.REPEATABLE_READ,timeout = 30,rollbackFor = Exception.class)
     public int save(${ClassName}Dto ${className}Dto) {
         if (${className}Dto == null) {
             return 0;
@@ -130,7 +129,7 @@ public class ${ClassName}Service {
 
 
     /**
-     * get${className}ByNo(获取单条数据)
+     * get${ClassName}ByNo(获取单条数据)
      *
      * @param ${className}Id
      * @return ${ClassName}Dto
