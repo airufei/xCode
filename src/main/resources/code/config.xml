@@ -90,6 +90,17 @@
 			<template>weier/restservice.xml</template>
 			<template>weier/service.xml</template>
 		</category>
+		<category dictKey="siyu" dictValue="siyu">
+			<template>siyu/controller.xml</template>
+			<template>siyu/dao.xml</template>
+			<template>siyu/dto.xml</template>
+			<template>siyu/entity.xml</template>
+			<template>siyu/iservice.xml</template>
+			<template>siyu/mapper.xml</template>
+			<template>siyu/query.xml</template>
+			<template>siyu/restservice.xml</template>
+			<template>siyu/service.xml</template>
+		</category>
 
 		<category dictKey="curd" dictValue="普通单体应用-single">
 			<template>single/curd/controller.xml</template>
