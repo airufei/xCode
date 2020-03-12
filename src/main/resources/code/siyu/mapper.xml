@@ -73,7 +73,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			        </if>
 				</#if>
 			</#list>
-            AND status = 0
+            AND deleted = 0
         </where>
     </sql>
 
@@ -101,7 +101,7 @@ ${columnField?substring(0, columnField?last_index_of(","))}
 			        </if>
 				</#if>
 			</#list>
-            AND status = 0
+            AND deleted = 0
         </where>
     </sql>
 
@@ -242,7 +242,7 @@ ${r"</foreach>"}
 
 	<update id="delete">
 	UPDATE ${table.name} SET
-	status = 1
+	deleted = 1
 		WHERE id = ${"#"}{id}
 	</update>
 </mapper>]]>
