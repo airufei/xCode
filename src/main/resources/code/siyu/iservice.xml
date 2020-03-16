@@ -13,7 +13,8 @@ import ${packageName}.domain.query.${ClassName}Query;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface ${ClassName}RestService  {
      * @param ${className}Query
      * @return ${ClassName}Query
      */
-    @RequestMapping(value = "/${className}/get${ClassName}ListByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/${className}/get${ClassName}ListByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
     BaseResult<${ClassName}Query> get${ClassName}ListByPage(@RequestBody ${ClassName}Query ${className}Query);
 
     /**
@@ -42,7 +43,7 @@ public interface ${ClassName}RestService  {
      * @param ${className}Dto
      * @return List<${ClassName}Dto>
      */
-    @RequestMapping(value = "/${className}/get${ClassName}List", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/${className}/get${ClassName}List", consumes = MediaType.APPLICATION_JSON_VALUE)
     BaseResult<List<${ClassName}Dto>> get${ClassName}List(@RequestBody ${ClassName}Dto ${className}Dto);
 
     /**
@@ -51,7 +52,7 @@ public interface ${ClassName}RestService  {
      * @param ${className}Dto
      * @return int
      */
-    @RequestMapping(value = "/${className}/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/${className}/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     BaseResult<Integer> save(@RequestBody ${ClassName}Dto ${className}Dto);
 
     /**
@@ -60,7 +61,7 @@ public interface ${ClassName}RestService  {
      * @param ${className}Dto
      * @return ${ClassName}Dto
      */
-    @RequestMapping(value = "/${className}/get${ClassName}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/${className}/get${ClassName}", consumes = MediaType.APPLICATION_JSON_VALUE)
     BaseResult<${ClassName}Dto> get${ClassName}(@RequestBody ${ClassName}Dto ${className}Dto);
 
     /**
@@ -69,7 +70,7 @@ public interface ${ClassName}RestService  {
      * @param ${className}Id
      * @return ${ClassName}Dto
      */
-    @RequestMapping(value = "/${className}/get${ClassName}ById", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/${className}/get${ClassName}ById", consumes = MediaType.APPLICATION_JSON_VALUE)
     BaseResult<${ClassName}Dto> get${ClassName}ById(@RequestParam("${className}Id") String ${className}Id);
 
     /**
@@ -78,7 +79,7 @@ public interface ${ClassName}RestService  {
      * @param id
      * @return boolean
      */
-    @RequestMapping(value = "/${className}/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/${className}/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean delete(@RequestParam("id") Long id);
 	
 }]]>

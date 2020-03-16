@@ -72,7 +72,7 @@ public class ${ClassName}Service {
      */
     public List<${ClassName}Dto> get${ClassName}List(${ClassName}Dto ${className}Dto) {
         if (${className}Dto == null) {
-            return null;
+            return Lists.newArrayList();
         }
         return ${className}Mapper.get${ClassName}List(dto2Do(${className}Dto)).stream()
                 .map(${ClassName}Service::do2Dto)
@@ -125,7 +125,7 @@ public class ${ClassName}Service {
 
 
     /**
-     * get${ClassName}ByNo(获取单条数据)
+     * get${ClassName}ById(获取单条数据)
      *
      * @param ${className}Id
      * @return ${ClassName}Dto
