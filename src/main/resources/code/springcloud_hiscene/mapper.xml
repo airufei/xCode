@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>mapper</name>
+    <filePath>src/${packageName}/base/${javaModuleName}/dao</filePath>
+    <fileName>${ClassName}Dao.xml</fileName>
+    <content><![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${packageName}.service.${javaModuleName}.dao.${ClassName}Dao">
+
+    <#-- 输出字段列 -->
+	<sql id="${className}Columns">
+		<#assign columnField>
+			<#list colList as c>
+		a.${c.name} AS "${c.javaFieldId}",
+			</#list>
+			<#list colList as c>
+				<#if c.showType?? && c.showType == "userselect">
+					<#list c.javaFieldAttrs as a>
+		u${c_index + 1}.${a[1]} AS "${c.simpleJavaField}.${a[0]}",
+					</#list>
+				<#elseif c.showType?? && c.showType == "officeselect">
+					<#list c.javaFieldAttrs as a>
+		o${c_index + 1}.${a[1]} AS "${c.simpleJavaField}.${a[0]}",
+					</#list>
+				<#elseif c.showType?? && c.showType == "areaselect">
+					<#list c.javaFieldAttrs as a>
+		a${c_index + 1}.${a[1]} AS "${c.simpleJavaField}.${a[0]}",
+					</#list>
+				</#if>
+			</#list>
+		</#assign>
+${columnField?substring(0, columnField?last_index_of(","))}
+	</sql>
+
+
+	<select id="get${ClassName}ById" resultType="${packageName}.model.${javaModuleName}.${ClassName}">
+		SELECT
+			<include refid="${className}Columns"/>
+		FROM ${table.name} a
+		WHERE a.id = ${"#"}{id}
+	</select>
+
+     <!--查询分页总数量-->
+	<select id="getTotalCount" resultType="Integer" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
+		SELECT
+			count(*) as count
+		FROM ${table.name} a
+		<!--基础查询条件-->
+		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
+	</select>
+
+    <!--查询分页的集合数据-->
+	<select id="getList" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
+		SELECT
+			<include refid="${className}Columns"/>
+		FROM
+		(SELECT id from  ${table.name} a
+        <!--基础查询条件-->
+		<include refid="${className}Where"/>
+		<!--分页列表扩展查询条件-->
+		<include refid="${className}PageWhere"/>
+		<#list colList as c>
+       <#if c.isSort?? && c.isSort=="1">
+		 <choose>
+			<otherwise>
+                 ORDER BY ${c.name} desc
+			</otherwise>
+		</choose>
+	 </#if>
+     </#list>
+     limit ${"#"}{startIndex},${"#"}{pageSize}
+		 ) b inner join
+		${table.name} a  on b.id=a.id
+	 <#list colList as c>
+       <#if c.isSort?? && c.isSort=="1">
+		 <choose>
+			<otherwise>
+                 ORDER BY ${c.name} desc
+			</otherwise>
+		</choose>
+	 </#if>
+     </#list>
+	</select>
+
+   <!--查询不分页的集合数据-->
+    <select id="get${ClassName}List" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
+		SELECT
+			<include refid="${className}Columns"/>
+		FROM (SELECT id from  ${table.name} a
+        <!--基础查询条件-->
+		<include refid="${className}Where"/>
+		) b  inner join ${table.name} a  on b.id=a.id
+	<#list colList as c>
+     </#list>
+	</select>
+
+   <!--查询单条数据-->
+  <select id="getSingle${ClassName}" resultType="${packageName}.model.${javaModuleName}.${ClassName}" parameterType="${packageName}.request.${javaModuleName}.${ClassName}Requst">
+	SELECT
+		<include refid="${className}Columns"/>
+		FROM
+		(SELECT id from  ${table.name} a
+        <!--基础查询条件-->
+		<include refid="${className}Where"/>
+		 limit 1
+		 ) b inner join
+		${table.name} a  on b.id=a.id
+	</select>
+
+ <!--批量插入方法-->
+  <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO ${table.name}(
+		<#list colList as c>
+		   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
+		 ${c.name},
+		   </#if>
+		</#list>
+		<#list colList as c>
+		   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
+		  ${c.name}
+		   </#if>
+	    </#list>
+		 ) VALUES
+ ${r'<foreach collection="list" item="item" index="index" separator="," >'}
+		(
+			<#list colList as c>
+	          <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="0">
+		  ${"#"}{item.${c.javaFieldId}},
+		 </#if>
+			</#list>
+			<#list colList as c>
+			   <#if c.isInsert?? && c.isInsert=="1" && c.isInsertRequiredField?? && c.isInsertRequiredField=="1">
+		  ${"#"}{item.${c.javaFieldId}}
+			  </#if>
+			</#list>
+		)
+${r"</foreach>"}
+	</insert>
+
+	 <!--基础查询条件-->
+    <sql id="${className}Where">
+    		<where>
+			<#list colList as c>
+				<#if (c.isQuery?? && c.isQuery == "1")>
+					<#if c.queryType ?? && c.queryType == 'between'>
+			<if test="begin${c.simpleJavaField?cap_first} != null and end${c.simpleJavaField?cap_first} != null <#if c.simpleJavaField != c.javaFieldId>and begin${c.javaFieldId?cap_first} != null and end${c.javaFieldId?cap_first} != null </#if>and begin${c.javaFieldId?cap_first} != '' and end${c.javaFieldId?cap_first} != ''">
+					<#else>
+			<if test="${c.simpleJavaField} != null<#if c.simpleJavaField != c.javaFieldId> and ${c.javaFieldId} != null</#if> and ${c.javaFieldId} != ''">
+					</#if>
+					<#if c.queryType ?? && c.queryType == 'between'>
+				AND a.${c.name} BETWEEN ${"#"}{begin${c.simpleJavaField?cap_first}} AND ${"#"}{end${c.simpleJavaField?cap_first}}
+					<#elseif c.queryType ?? && c.queryType == 'like'>
+				AND a.${c.name} LIKE
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}},'%')</if>
+					<#elseif c.queryType ?? && c.queryType == 'left_like'>
+				AND a.${c.name} LIKE
+					<if test="dbName == 'oracle'">'%'||${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mssql'">'%'+${"#"}{${c.javaFieldId}}</if>
+					<if test="dbName == 'mysql'">concat('%',${"#"}{${c.javaFieldId}})</if>
+					<#elseif c.queryType ?? && c.queryType == 'right_like'>
+				AND a.${c.name} LIKE
+					<if test="dbName == 'oracle'">${"#"}{${c.javaFieldId}}||'%'</if>
+					<if test="dbName == 'mssql'">${"#"}{${c.javaFieldId}}+'%'</if>
+					<if test="dbName == 'mysql'">concat(${"#"}{${c.javaFieldId}},'%')</if>
+					<#else>
+				AND a.${c.name} ${c.queryType} ${"#"}{${c.javaFieldId}}
+					</#if>
+			</if>
+				</#if>
+			</#list>
+			 <if test="flag != null">
+               and  a.flag = ${"#"}{flag}
+            </if>
+		</where>
+    </sql>
+     <!--分页列表扩展查询条件-->
+    <sql id="${className}PageWhere">
+
+     </sql>
+</mapper>]]>
+    </content>
+</template>

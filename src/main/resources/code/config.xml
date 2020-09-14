@@ -3,6 +3,20 @@
 	<!-- 生成分类 -->
 	<category>
 
+		<category dictKey="springcloud-hiscene" dictValue="springcloud-hiscene-接口版">
+			<template>springcloud_hiscene/controller.xml</template>
+			<template>springcloud_hiscene/dao.xml</template>
+			<template>springcloud_hiscene/entity.xml</template>
+			<template>springcloud_hiscene/request_entity.xml</template>
+			<template>springcloud_hiscene/mapper.xml</template>
+			<template>springcloud_hiscene/helperservice.xml</template>
+			<template>springcloud_hiscene/i_service.xml</template>
+			<template>springcloud_hiscene/service_impl.xml</template>
+			<template>springcloud_hiscene/server_controller.xml</template>
+			<template>springcloud_hiscene/rpc_service.xml</template>
+			<template>springcloud_hiscene/fallback_factory.xml</template>
+		</category>
+
 		<category dictKey="springcloud" dictValue="springcloud-2.0-接口版">
 			<template>springcloud/controller.xml</template>
 			<template>common/dao.xml</template>

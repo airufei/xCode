@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/base/${javaModuleName}/service/impl</filePath>
+    <fileName>${ClassName}ServiceImpl.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.${javaModuleName}.service.impl;
+
+
+import java.util.List;
+import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import ${packageName}.base.model.Partion;
+import ${packageName}.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${packageName}.service.${javaModuleName}.dao.${ClassName}Dao;
+import ${packageName}.model.${javaModuleName}.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
+import ${packageName}.service.${javaModuleName}.service.${ClassName}Service;
+/**
+ * ${ClassName}ServiceImpl(${functionName}) 数据业务接口实现
+ * @author ${functionAuthor}
+ * service 层的异常应该统一捕获进行处理，这样业务代码更加清晰
+ * @version ${functionVersion}
+ */
+@Service
+@SuppressWarnings("all")
+@Slf4j
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Dao, ${ClassName}> implements ${ClassName}Service  {
+
+	@Autowired
+	private ${ClassName}Dao ${className}dao;
+
+      /**
+	   * getList(获取${functionName}带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param ${className}Requst
+	   * @return
+	   */
+	  @Override
+	   public Partion  getList(${ClassName}Requst ${className}Requst)
+	   {
+          log.info("getList(获取${functionName}带分页数据-服务) 开始 Requst={}", ${className}Requst);
+          if(chinaAreaInfoRequst==null)
+          {
+             return null;
+          }
+          int totalcount =getTotalCount(${className}Requst);
+          List<${ClassName}> list= null;
+          if(totalcount>0)
+          {
+             list= ${className}dao.getList(${className}Requst);
+          }
+          Partion pt = new Partion(${className}Requst, list, totalcount);
+		  log.info("getList(获取${functionName}带分页数据-服务) 结束 ");
+		  return pt;
+	   }
+
+	   /**
+	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param ${className}Requst
+	   * @return
+	   */
+	    @Override
+	   public List<${ClassName}>  get${ClassName}List(${ClassName}Requst ${className}Requst)
+	   {
+	       List<${ClassName}> list=null;
+          log.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 开始 parms={}", ${className}Requst);
+          if(${className}Requst==null)
+          {
+             return list;
+          }
+	      list=${className}dao.get${ClassName}List(${className}Requst);
+	      log.info("get${ClassName}List(获取${functionName} 不带分页数据-服务) 结束");
+	      return list;
+	   }
+
+      /**
+	   * get${ClassName}(获取${functionName}单条数据-服务)
+	   * @author ${functionAuthor}
+	   * @param ${className}Requst
+	   * @return
+	   */
+	    @Override
+	   public ${ClassName}  get${ClassName}(${ClassName}Requst ${className}Requst)
+	   {
+	       ${ClassName} ret=null;
+           log.info("get${ClassName}(获取${functionName}单条数据-服务) 开始 parms={}", ${className}Requst);
+           if(${className}Requst==null)
+           {
+             return ret;
+           }
+	       ret=${className}dao.getSingle${ClassName}(${className}Requst);
+	       log.info("get${ClassName}(获取${functionName}单条数据-服务) 结束 ");
+	       return ret;
+	   }
+
+   /**
+	 * 批量插入数据
+	 * @param ${className}
+	 * @return
+	 */
+	 @Override
+	 public void addTrainRecordBatch(List<${ClassName}> list)
+	 {
+	      ${className}dao.addTrainRecordBatch(list);
+	 }
+
+	 /**
+	 * 获取分页总记录数
+	 *
+	 * @param ${className}Requst
+	 * @return
+	 */
+	private int getTotalCount(${ClassName}Requst ${className}Requst) {
+		return ${className}dao.getTotalCount(${className}Requst);
+	}
+}]]>
+    </content>
+</template>

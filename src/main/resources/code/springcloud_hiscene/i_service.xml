@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>service</name>
+    <filePath>src/${packageName}/base/${javaModuleName}/service</filePath>
+    <fileName>${ClassName}Service.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.${javaModuleName}.service;
+
+
+import java.util.List;
+import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import ${packageName}.base.model.Partion;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${packageName}.model.${javaModuleName}.${ClassName};
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
+
+/**
+ * ${ClassName}Service(${functionName}) 数据业务接口
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+public interface ${ClassName}Service  extends IService<${ClassName}>{
+
+      /**
+	   * getList(获取${functionName}带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param ${className}Requst
+	   * @return
+	   */
+	   Partion  getList(${ClassName}Requst ${className}Requst);
+
+	   /**
+	   * get${ClassName}List(获取${functionName} 不带分页数据-服务)
+       * @author ${functionAuthor}
+       * @param ${className}Requst
+	   * @return
+	   */
+	   List<${ClassName}>  get${ClassName}List(${ClassName}Requst ${className}Requst);
+
+
+      /**
+	   * get${ClassName}(获取${functionName}单条数据-服务)
+	   * @author ${functionAuthor}
+	   * @param ${className}Requst
+	   * @return
+	   */
+	   ${ClassName}  get${ClassName}(${ClassName}Requst ${className}Requst);
+
+    /**
+	 * 批量数据增加
+	 * @param list
+	 * @return
+	 */
+	 public void addTrainRecordBatch(List<${ClassName}> list);
+
+}]]>
+    </content>
+</template>

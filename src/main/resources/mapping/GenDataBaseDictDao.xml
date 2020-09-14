@@ -6,7 +6,7 @@
 		<if test="dbName == 'mysql'">
 			SELECT t.table_name AS name,t.TABLE_COMMENT AS comments ,t.TABLE_SCHEMA
 			FROM information_schema.`TABLES` t
-			WHERE t.TABLE_SCHEMA ='test_xcode'
+			WHERE t.TABLE_SCHEMA ='xcode'
 			<if test="name != null and name != ''">
 				AND t.TABLE_NAME = (#{name})
 			</if>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<filePath>src/${packageName}/${subPackageName}/${javaModuleName}/rpc/fallback</filePath>
+	<fileName>${ClassName}FallbackFactory.java</fileName>
+	<content><![CDATA[
+
+package ${packageName}.${subPackageName}.${javaModuleName}.rpc.fallback;
+
+import ${packageName}.${subPackageName}.common.SysCommonService;
+import ${packageName}.${subPackageName}.${javaModuleName}.rpc.${ClassName}RpcService;
+import ${packageName}.base.model.Partion;
+import ${packageName}.model.${javaModuleName}.${ClassName};
+import ${packageName}.util.ConstantUtil;
+import ${packageName}.util.StringUtil;
+import feign.hystrix.FallbackFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ${packageName}.request.${javaModuleName}.${ClassName}Requst;
+/**
+ * ${ClassName}Fallback (${functionName}) 熔断方法
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@SuppressWarnings("all")
+@Component
+public class ${ClassName}FallbackFactory implements FallbackFactory<${ClassName}RpcService>{
+
+    private static Logger logger = LoggerFactory.getLogger(${ClassName}FallbackFactory.class);
+
+    @Autowired
+    private SysCommonService sysCommonService; //如果不需要发钉钉消息可以注释了
+
+    @Override
+    public ${ClassName}RpcService create(Throwable throwable) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n\n系统：").append(ConstantUtil.SYS_NAME_MAINTAIN_SERVICE);
+        stringBuilder.append("\n\n错误类型：").append("系统熔断");
+        stringBuilder.append("\n\n错误信息：").append(StringUtil.getExceptionMsg(throwable));
+        logger.error(stringBuilder.toString());
+        return new ${ClassName}RpcService() {
+            @Override
+           public Partion getList(${ClassName}Requst ${className}Requst) {
+                return null;
+            }
+
+            @Override
+           public List<${ClassName}> get${ClassName}List(${ClassName}Requst ${className}Requst) {
+                return null;
+            }
+
+            @Override
+           public ${ClassName} get${ClassName}(${ClassName}Requst ${className}Requst) {
+                return null;
+            }
+
+            @Override
+            public ${ClassName} save(${ClassName} ${className}) {
+                return null;
+            }
+
+           public boolean delete(Long id) {
+                return false;
+            }
+        };
+    }
+	
+}]]>
+	</content>
+</template>
