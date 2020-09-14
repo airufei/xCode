@@ -25,7 +25,7 @@ import ${packageName}.api.${javaModuleName}.rpc.fallback.${ClassName}FallbackFac
  * @version ${functionVersion}
  */
 @SuppressWarnings("all")
-@FeignClient(path ="/server/${subModuleName}",value =  ConstantUtil.SYS_NAME_MAINTAIN_SERVICE,contextId =ConstantUtil.SYS_NAME_MAINTAIN_SERVICE+"-${className}",fallbackFactory = ${ClassName}FallbackFactory.class)
+@FeignClient(path ="/server/${subModuleName}/",value =  ConstantUtil.SYS_NAME_MAINTAIN_SERVICE,contextId =ConstantUtil.SYS_NAME_MAINTAIN_SERVICE+"-${className}",fallbackFactory = ${ClassName}FallbackFactory.class)
 public interface ${ClassName}RpcService  {
 
     /**
