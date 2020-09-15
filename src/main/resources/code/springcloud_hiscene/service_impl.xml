@@ -46,7 +46,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Dao, ${Clas
 	   public Partion  getList(${ClassName}Requst ${className}Requst)
 	   {
           log.info("getList(获取${functionName}带分页数据-服务) 开始 Requst={}", ${className}Requst);
-          if(chinaAreaInfoRequst==null)
+          if(${className}Requst==null)
           {
              return null;
           }

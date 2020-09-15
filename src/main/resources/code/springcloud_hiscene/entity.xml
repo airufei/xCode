@@ -18,7 +18,7 @@ import lombok.NonNull;
  */
 @Data
 @TableName("${table.name}")
-public class ${ClassName} extends BaseEntity {
+public class ${ClassName} extends BaseEntitys {
 	
 	private static final long serialVersionUID = 1L;
 	<#-- 生成字段属性 -->
