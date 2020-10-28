@@ -6,6 +6,9 @@
 3）项目基本功能：根据数据库表生成基本功能代码，包含Mybatis文件，dao、servic、entity、controller以及查询页面、增加编辑页面。
 
 4)生成过程中可以选择编辑页面所需要的字段，列表页面所需要的字段以及查询条件所需要的字段。
+
+5）[新版代码生成工具（spring-boot-xcode）请点击](https://github.com/airufei/spring-boot-xcode)
+
 # 数据库
 1）数据库文件在项目根目录下的doc文件夹下xcode.sql文件
 
